@@ -1,4 +1,4 @@
-# 🤖 Desafio de Projeto: A BIA do Futuro com IA Generativa
+# 🤖 A BIA do Futuro com IA Generativa
 
 ## Contexto
 
@@ -160,7 +160,3 @@ Todas as ferramentas abaixo possuem versões gratuitas:
 3. **Pense no usuário:** a melhor tecnologia é invisível para quem usa
 4. **Segurança não é opcional:** em finanças, confiança é tudo
 5. **Use IA para criar:** as próprias LLMs podem ajudar a gerar diagramas, código e documentação
-
----
-
-**Bootcamp Bradesco & DIO** | Transformando ideias em soluções com IA Generativa 🚀
