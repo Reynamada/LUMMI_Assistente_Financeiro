@@ -1,4 +1,4 @@
-# 🤖 Desafio de Projeto: A BIA do Futuro com IA Generativa
+# 🤖 A BIA do Futuro com IA Generativa
 
 ## Contexto
 
