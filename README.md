@@ -28,7 +28,7 @@ Escolha **um cenário específico** onde sua BIA do Futuro agregaria valor. Exem
 - Descrição clara do problema que você quer resolver
 - Justificativa: por que esse caso é relevante para o cliente e para o banco?
 
-📄 **Template:** [`docs/caso-de-uso.md`](./docs/caso-de-uso.md)
+📄 **Template:** [`docs/01-caso-de-uso.md`](./docs/01-caso-de-uso.md)
 
 ---
 
@@ -43,7 +43,7 @@ Liste as **funcionalidades principais** que compõem sua ideia. Pense em:
 **Entregáveis:**
 - Lista objetiva das features com breve descrição de cada uma
 
-📄 **Template:** [`docs/features.md`](./docs/features.md)
+📄 **Template:** [`docs/02-features.md`](./docs/02-features.md)
 
 ---
 
@@ -60,7 +60,7 @@ Crie uma **visão arquitetural** que responda:
 - Diagrama ou fluxograma da arquitetura
 - Breve explicação das camadas e componentes
 
-📄 **Template:** [`docs/arquitetura.md`](./docs/arquitetura.md)
+📄 **Template:** [`docs/03-arquitetura.md`](./docs/03-arquitetura.md)
 
 ---
 
@@ -74,7 +74,7 @@ Documente os prompts que fariam sua BIA funcionar:
 - Exemplos de interações (mensagem do usuário + resposta esperada)
 - Testes de edge cases (situações limite)
 
-📄 **Template:** [`prompts/prompts-exemplo.md`](./prompts/prompts-exemplo.md)
+📄 **Template:** [`docs/04-prompts.md`](./docs/04-prompts.md)
 
 #### 4.2 Código MVP (Opcional)
 Se quiser ir além, crie um protótipo funcional:
@@ -110,7 +110,7 @@ Descreva como você testaria sua solução antes de colocá-la em produção:
 - Descrição dos cenários de teste
 - Lista de métricas que você acompanharia
 
-📄 **Template:** [`docs/validacao.md`](./docs/validacao.md)
+📄 **Template:** [`docs/05-validacao.md`](./docs/05-validacao.md)
 
 ---
 
@@ -133,18 +133,21 @@ Todas as ferramentas abaixo possuem versões (ou camadas) gratuitas:
 
 ```
 📁 dio-lab-bia-do-futuro/
+│
 ├── 📄 README.md
-├── 📁 docs/
-│   ├── caso-de-uso.md
-│   ├── features.md
-│   ├── arquitetura.md
-│   └── validacao.md
-├── 📁 prompts/
-│   └── prompts-exemplo.md
-├── 📁 src/
-│   └── (código do MVP, se houver)
-└── 📁 assets/
-    └── (imagens, diagramas, protótipos)
+│
+├── 📁 docs/                         # Documentação dos entregáveis
+│   ├── 01-caso-de-uso.md            # Descrição e justificativa do caso de uso
+│   ├── 02-features.md               # Lista de funcionalidades da solução
+│   ├── 03-arquitetura.md            # Diagrama e explicação da arquitetura
+│   ├── 04-prompts.md                # Exemplos de prompts e interações
+│   └── 05-validacao.md              # Plano de testes e métricas
+│
+├── 📁 src/                          # Código do MVP (opcional)
+│   └── ...
+│
+└── 📁 assets/                       # Imagens, diagramas e protótipos visuais
+    └── ...
 ```
 
 ---
