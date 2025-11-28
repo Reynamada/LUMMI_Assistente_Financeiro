@@ -37,6 +37,7 @@ Utilize os **dados mockados** disponíveis na pasta [`data/`](./data/) para alim
 - `produtos_financeiros.json` - Produtos e serviços disponíveis
 
 > TODO: Histórico de atendimento ao cliente.
+> TODO: Trazer formatos diferentes (CSV).
 
 Você pode (e deve!) adaptar ou expandir esses dados conforme seu caso de uso.
 
