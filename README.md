@@ -78,6 +78,8 @@ Descreva como você avalia a qualidade do seu agente:
 - Taxa de respostas seguras (sem alucinações)
 - Coerência com o perfil do cliente
 
+> TODO: Incluir métricas de observabilidade e volumetria mais tecnicas como opcionais.
+
 📄 **Template:** [`docs/04-metricas.md`](./docs/04-metricas.md)
 
 ---
