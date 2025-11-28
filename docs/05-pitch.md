@@ -1,5 +1,8 @@
 # Pitch (3 minutos)
 
+> [!TIP]
+> Você pode usar alguns slides pra apoiar no seu Pitch e mostrar sua solução na prática.
+ 
 ## Roteiro Sugerido
 
 ### 1. O Problema (30 seg)
@@ -17,8 +20,8 @@
 
 [Descreva o que será mostrado]
 
-### 4. Diferencial (30 seg)
-> Por que essa solução é inovadora?
+### 4. Diferencial e Impacto (30 seg)
+> Por que essa solução é inovadora e qual é o impacto dela na sociedade?
 
 [Sua descrição aqui]
 
