@@ -1,11 +1,31 @@
-# Código MVP
+# Código da Aplicação
 
-> Esta pasta é destinada ao código do seu protótipo funcional (opcional).
+Esta pasta contém o código do seu agente financeiro.
 
-Se você optar por criar um MVP, coloque aqui seus arquivos de código.
+## Estrutura Sugerida
 
-## Sugestões de Ferramentas
+```
+src/
+├── app.py              # Aplicação principal (Streamlit/Gradio)
+├── agente.py           # Lógica do agente
+├── config.py           # Configurações (API keys, etc.)
+└── requirements.txt    # Dependências
+```
 
-- **Streamlit** para interfaces web rápidas
-- **Google Colab** para prototipagem sem configurar ambiente local
-- **LangChain** ou **LangFlow** para orquestração de LLMs
+## Exemplo de requirements.txt
+
+```
+streamlit
+openai
+python-dotenv
+```
+
+## Como Rodar
+
+```bash
+# Instalar dependências
+pip install -r requirements.txt
+
+# Rodar a aplicação
+streamlit run app.py
+```

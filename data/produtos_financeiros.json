@@ -1,0 +1,97 @@
+{
+  "produtos": [
+    {
+      "id": "PROD-001",
+      "nome": "Tesouro Selic",
+      "categoria": "renda_fixa",
+      "risco": "baixo",
+      "rentabilidade": "100% Selic",
+      "liquidez": "D+1",
+      "investimento_minimo": 30.00,
+      "perfil_recomendado": ["conservador", "moderado", "arrojado"],
+      "descricao": "Título público federal com rendimento atrelado à taxa Selic. Ideal para reserva de emergência."
+    },
+    {
+      "id": "PROD-002",
+      "nome": "CDB Liquidez Diária",
+      "categoria": "renda_fixa",
+      "risco": "baixo",
+      "rentabilidade": "102% CDI",
+      "liquidez": "D+0",
+      "investimento_minimo": 100.00,
+      "perfil_recomendado": ["conservador", "moderado"],
+      "descricao": "Certificado de depósito bancário com liquidez diária. Protegido pelo FGC até R$ 250 mil."
+    },
+    {
+      "id": "PROD-003",
+      "nome": "CDB Prefixado 2 anos",
+      "categoria": "renda_fixa",
+      "risco": "baixo",
+      "rentabilidade": "12.5% a.a.",
+      "liquidez": "no vencimento",
+      "investimento_minimo": 1000.00,
+      "perfil_recomendado": ["conservador", "moderado"],
+      "descricao": "CDB com taxa prefixada. Ideal para quem pode esperar o vencimento."
+    },
+    {
+      "id": "PROD-004",
+      "nome": "LCI/LCA",
+      "categoria": "renda_fixa",
+      "risco": "baixo",
+      "rentabilidade": "95% CDI",
+      "liquidez": "90 dias",
+      "investimento_minimo": 5000.00,
+      "perfil_recomendado": ["conservador", "moderado"],
+      "descricao": "Letras de crédito isentas de IR para pessoa física. Carência de 90 dias."
+    },
+    {
+      "id": "PROD-005",
+      "nome": "Fundo Multimercado Moderado",
+      "categoria": "fundos",
+      "risco": "medio",
+      "rentabilidade": "CDI + 2%",
+      "liquidez": "D+30",
+      "investimento_minimo": 500.00,
+      "perfil_recomendado": ["moderado", "arrojado"],
+      "descricao": "Fundo que investe em diferentes classes de ativos buscando superar o CDI."
+    },
+    {
+      "id": "PROD-006",
+      "nome": "Fundo de Ações",
+      "categoria": "fundos",
+      "risco": "alto",
+      "rentabilidade": "variável",
+      "liquidez": "D+30",
+      "investimento_minimo": 100.00,
+      "perfil_recomendado": ["arrojado"],
+      "descricao": "Fundo que investe majoritariamente em ações. Para investidores de longo prazo."
+    },
+    {
+      "id": "PROD-007",
+      "nome": "Previdência PGBL",
+      "categoria": "previdencia",
+      "risco": "medio",
+      "rentabilidade": "variável",
+      "liquidez": "60 dias",
+      "investimento_minimo": 100.00,
+      "perfil_recomendado": ["conservador", "moderado", "arrojado"],
+      "descricao": "Plano de previdência com benefício fiscal. Ideal para quem faz declaração completa do IR."
+    },
+    {
+      "id": "PROD-008",
+      "nome": "Previdência VGBL",
+      "categoria": "previdencia",
+      "risco": "medio",
+      "rentabilidade": "variável",
+      "liquidez": "60 dias",
+      "investimento_minimo": 100.00,
+      "perfil_recomendado": ["conservador", "moderado", "arrojado"],
+      "descricao": "Plano de previdência sem dedução no IR. Ideal para declaração simplificada."
+    }
+  ],
+  "categorias": {
+    "renda_fixa": "Investimentos com rentabilidade previsível e menor risco",
+    "fundos": "Investimentos coletivos geridos por profissionais",
+    "previdencia": "Produtos para planejamento de aposentadoria"
+  }
+}

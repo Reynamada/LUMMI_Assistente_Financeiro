@@ -1,0 +1,121 @@
+{
+  "cliente_id": "CLI-001",
+  "periodo": "2024-10",
+  "saldo_atual": 4850.75,
+  "transacoes": [
+    {
+      "data": "2024-10-01",
+      "descricao": "Salário",
+      "categoria": "receita",
+      "valor": 8500.00,
+      "tipo": "entrada"
+    },
+    {
+      "data": "2024-10-02",
+      "descricao": "Aluguel",
+      "categoria": "moradia",
+      "valor": 2200.00,
+      "tipo": "saida"
+    },
+    {
+      "data": "2024-10-03",
+      "descricao": "Supermercado Extra",
+      "categoria": "alimentacao",
+      "valor": 487.32,
+      "tipo": "saida"
+    },
+    {
+      "data": "2024-10-05",
+      "descricao": "Netflix",
+      "categoria": "streaming",
+      "valor": 55.90,
+      "tipo": "saida"
+    },
+    {
+      "data": "2024-10-05",
+      "descricao": "Spotify",
+      "categoria": "streaming",
+      "valor": 21.90,
+      "tipo": "saida"
+    },
+    {
+      "data": "2024-10-07",
+      "descricao": "Farmácia",
+      "categoria": "saude",
+      "valor": 124.50,
+      "tipo": "saida"
+    },
+    {
+      "data": "2024-10-10",
+      "descricao": "Restaurante",
+      "categoria": "alimentacao",
+      "valor": 89.00,
+      "tipo": "saida"
+    },
+    {
+      "data": "2024-10-12",
+      "descricao": "Uber",
+      "categoria": "transporte",
+      "valor": 34.70,
+      "tipo": "saida"
+    },
+    {
+      "data": "2024-10-15",
+      "descricao": "Conta de Luz",
+      "categoria": "moradia",
+      "valor": 187.45,
+      "tipo": "saida"
+    },
+    {
+      "data": "2024-10-15",
+      "descricao": "Internet",
+      "categoria": "moradia",
+      "valor": 119.90,
+      "tipo": "saida"
+    },
+    {
+      "data": "2024-10-18",
+      "descricao": "Supermercado Pão de Açúcar",
+      "categoria": "alimentacao",
+      "valor": 312.18,
+      "tipo": "saida"
+    },
+    {
+      "data": "2024-10-20",
+      "descricao": "Academia",
+      "categoria": "saude",
+      "valor": 99.00,
+      "tipo": "saida"
+    },
+    {
+      "data": "2024-10-22",
+      "descricao": "Livraria",
+      "categoria": "educacao",
+      "valor": 78.90,
+      "tipo": "saida"
+    },
+    {
+      "data": "2024-10-25",
+      "descricao": "Combustível",
+      "categoria": "transporte",
+      "valor": 250.00,
+      "tipo": "saida"
+    },
+    {
+      "data": "2024-10-28",
+      "descricao": "Transferência recebida",
+      "categoria": "receita",
+      "valor": 500.00,
+      "tipo": "entrada"
+    }
+  ],
+  "resumo_por_categoria": {
+    "receita": 9000.00,
+    "moradia": 2507.35,
+    "alimentacao": 888.50,
+    "streaming": 77.80,
+    "saude": 223.50,
+    "transporte": 284.70,
+    "educacao": 78.90
+  }
+}

@@ -1,161 +1,144 @@
-# 🤖 A BIA do Futuro com IA Generativa
+# 🤖 Desafio de Projeto: Agente Financeiro Inteligente com IA Generativa
 
 ## Contexto
 
-A **BIA** (Bradesco Inteligência Artificial) já é uma assistente virtual consolidada, auxiliando milhões de clientes em consultas e operações do dia a dia. Agora, queremos pensar no próximo passo: como a IA Generativa pode transformar a BIA em uma **agente financeira ainda mais inteligente, proativa e personalizada**? Neste desafio, você vai idealizar e prototipar uma evolução da BIA que:
+Os assistentes virtuais no setor financeiro estão evoluindo de simples chatbots reativos para **agentes inteligentes e proativos**. Neste desafio, você vai idealizar e prototipar um agente financeiro que utiliza IA Generativa para:
 
-- **Antecipa necessidades** ao invés de apenas responder perguntas
-- **Personaliza** sugestões com base no contexto de cada cliente
-- **Coparticipa** ativamente da vida financeira do usuário
-- **Conecta-se** a múltiplos canais de forma fluida
-- **Garante segurança** e confiabilidade em cada interação
+- **Antecipar necessidades** ao invés de apenas responder perguntas
+- **Personalizar** sugestões com base no contexto de cada cliente
+- **Cocriar soluções** financeiras de forma consultiva
+- **Garantir segurança** e confiabilidade nas respostas (anti-alucinação)
+
+> 💡 Na pasta [`examples/`](./examples/) você encontra referências de implementação para cada etapa deste desafio.
 
 ---
 
 ## O Que Você Deve Entregar
 
-### 1. Caso de Uso Prioritário
+### 1. Documentação do Agente
 
-Escolha **um cenário específico** onde sua BIA do Futuro agregaria valor. Exemplos:
+Defina **o que** seu agente faz e **como** ele funciona:
 
-- Consultoria financeira proativa
-- Planejamento de metas e orçamento pessoal
-- Recomendação personalizada de produtos/investimentos
-- Educação financeira adaptativa
-- Prevenção e alertas de fraudes
+- **Caso de Uso:** Qual problema financeiro ele resolve? (ex: consultoria de investimentos, planejamento de metas, alertas de gastos)
+- **Persona e Tom de Voz:** Como o agente se comporta e se comunica?
+- **Arquitetura:** Fluxo de dados e integração com a base de conhecimento
+- **Segurança:** Como evitar alucinações e garantir respostas confiáveis?
 
-**Entregáveis:**
-- Descrição clara do problema que você quer resolver
-- Justificativa: por que esse caso é relevante para o cliente e para o banco?
-
-📄 **Template:** [`docs/01-caso-de-uso.md`](./docs/01-caso-de-uso.md)
+📄 **Template:** [`docs/01-documentacao-agente.md`](./docs/01-documentacao-agente.md)
 
 ---
 
-### 2. Features da Solução
+### 2. Base de Conhecimento
 
-Liste as **funcionalidades principais** que compõem sua ideia. Pense em:
+Utilize os **dados mockados** disponíveis na pasta [`data/`](./data/) para alimentar seu agente:
 
-- Qual a capacidade central da sua BIA? (ex: motor de recomendação, análise preditiva)
-- Quais integrações seriam necessárias? (canais, APIs, sistemas)
-- Como garantir segurança e compliance nas respostas?
+- `transacoes.json` - Histórico de transações do cliente
+- `perfil_investidor.json` - Perfil e preferências do cliente
+- `produtos_financeiros.json` - Produtos e serviços disponíveis
 
-**Entregáveis:**
-- Lista objetiva das features com breve descrição de cada uma
+Você pode (e deve!) adaptar ou expandir esses dados conforme seu caso de uso.
 
-📄 **Template:** [`docs/02-features.md`](./docs/02-features.md)
-
----
-
-### 3. Desenho da Solução
-
-Crie uma **visão arquitetural** que responda:
-
-- **Fluxo de dados:** como a informação transita do usuário até a resposta da BIA?
-- **Papel da IA Generativa:** em que momento ela atua e como?
-- **Segurança:** como evitar alucinações e garantir respostas confiáveis?
-- **Omnichannel:** como a solução se adapta a diferentes canais (app, WhatsApp, voz)?
-
-**Entregáveis:**
-- Diagrama ou fluxograma da arquitetura
-- Breve explicação das camadas e componentes
-
-📄 **Template:** [`docs/03-arquitetura.md`](./docs/03-arquitetura.md)
+📄 **Template:** [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md)
 
 ---
 
-### 4. Prototipagem
+### 3. Prompts do Agente
 
-Aqui é a parte prática! Você pode escolher o nível de profundidade conforme sua experiência:
+Documente os prompts que definem o comportamento do seu agente:
 
-#### 4.1 Prompt Engineering
-Documente os prompts que fariam sua BIA funcionar:
-- System prompt (instruções de comportamento para a IA)
-- Exemplos de interações (mensagem do usuário + resposta esperada)
-- Testes de edge cases (situações limite)
+- **System Prompt:** Instruções gerais de comportamento e restrições
+- **Exemplos de Interação:** Cenários de uso com entrada e saída esperada
+- **Tratamento de Edge Cases:** Como o agente lida com situações limite
 
-📄 **Template:** [`docs/04-prompts.md`](./docs/04-prompts.md)
-
-#### 4.2 Código MVP (Opcional)
-Se quiser ir além, crie um protótipo funcional:
-- Um chatbot simples que demonstre a interação
-- Integração básica com APIs de LLMs
-- Use a linguagem e ferramentas que preferir
-
-📁 **Pasta:** [`src/`](./src/) (coloque aqui seus arquivos de código)
-
-#### 4.3 Interface Visual (Opcional)
-Crie mockups ou protótipos navegáveis da experiência do usuário.
-
-📁 **Pasta:** [`assets/`](./assets/) (coloque aqui imagens, prints e protótipos)
+📄 **Template:** [`docs/03-prompts.md`](./docs/03-prompts.md)
 
 ---
 
-### 5. Validação
+### 4. Aplicação Funcional
 
-Descreva como você testaria sua solução antes de colocá-la em produção:
+Desenvolva um **protótipo funcional** do seu agente:
 
-**Cenários de Teste:**
-- Quais situações seriam simuladas?
-- Como garantir que a IA responde corretamente em casos críticos?
-- Como testar escalabilidade?
+- Chatbot interativo (sugestão: Streamlit, Gradio ou similar)
+- Integração com LLM (via API ou modelo local)
+- Conexão com a base de conhecimento
 
-**Métricas de Sucesso:**
-- Precisão e relevância das respostas
-- Tempo de resposta
-- Satisfação do usuário
-- Taxa de resolução sem escalonamento humano
+📁 **Pasta:** [`src/`](./src/)
 
-**Entregáveis:**
-- Descrição dos cenários de teste
-- Lista de métricas que você acompanharia
+---
 
-📄 **Template:** [`docs/05-validacao.md`](./docs/05-validacao.md)
+### 5. Avaliação e Métricas
+
+Descreva como você avalia a qualidade do seu agente:
+
+**Métricas Sugeridas:**
+- Precisão/assertividade das respostas
+- Taxa de respostas seguras (sem alucinações)
+- Coerência com o perfil do cliente
+
+📄 **Template:** [`docs/04-metricas.md`](./docs/04-metricas.md)
+
+---
+
+### 6. Pitch
+
+Grave um **pitch de 3 minutos** (estilo elevador) apresentando:
+
+- Qual problema seu agente resolve?
+- Como ele funciona na prática?
+- Por que essa solução é inovadora?
+
+📄 **Template:** [`docs/05-pitch.md`](./docs/05-pitch.md)
 
 ---
 
 ## Ferramentas Sugeridas
 
-Todas as ferramentas abaixo possuem versões (ou camadas) gratuitas:
+Todas as ferramentas abaixo possuem versões gratuitas:
 
 | Categoria | Ferramentas |
 |-----------|-------------|
-| **LLMs para testes** | [ChatGPT](https://chat.openai.com/), [Copilot](https://copilot.microsoft.com/), [Gemini](https://gemini.google.com/), [Claude](https://claude.ai/), [Ollama](https://ollama.ai/) (modelos open-source locais) |
-| **Diagramas** | [Mermaid](https://mermaid.js.org/) (renderiza no GitHub), [Draw.io](https://app.diagrams.net/), [Excalidraw](https://excalidraw.com/) |
-| **Prototipagem visual** | [Figma](https://www.figma.com/), [Canva](https://www.canva.com/), [v0.dev](https://v0.dev/) |
-| **Desenvolvimento rápido** | [Streamlit](https://streamlit.io/), [Google Colab](https://colab.research.google.com/) |
-| **Orquestração de LLMs** | [LangChain](https://www.langchain.com/), [LangFlow](https://www.langflow.org/), [N8N](https://n8n.io/), [CrewAI](https://www.crewai.com/) |
-| **Organização** | [Notion](https://www.notion.so/), [Trello](https://trello.com/) |
+| **LLMs** | [ChatGPT](https://chat.openai.com/), [Copilot](https://copilot.microsoft.com/), [Gemini](https://gemini.google.com/), [Claude](https://claude.ai/), [Ollama](https://ollama.ai/) |
+| **Desenvolvimento** | [Streamlit](https://streamlit.io/), [Gradio](https://www.gradio.app/), [Google Colab](https://colab.research.google.com/) |
+| **Orquestração** | [LangChain](https://www.langchain.com/), [LangFlow](https://www.langflow.org/), [CrewAI](https://www.crewai.com/) |
+| **Diagramas** | [Mermaid](https://mermaid.js.org/), [Draw.io](https://app.diagrams.net/), [Excalidraw](https://excalidraw.com/) |
 
 ---
 
 ## Estrutura do Repositório
 
 ```
-📁 dio-lab-bia-do-futuro/
+📁 lab-agente-financeiro/
 │
 ├── 📄 README.md
 │
-├── 📁 docs/                         # Documentação dos entregáveis
-│   ├── 01-caso-de-uso.md            # Descrição e justificativa do caso de uso
-│   ├── 02-features.md               # Lista de funcionalidades da solução
-│   ├── 03-arquitetura.md            # Diagrama e explicação da arquitetura
-│   ├── 04-prompts.md                # Exemplos de prompts e interações
-│   └── 05-validacao.md              # Plano de testes e métricas
+├── 📁 data/                          # Dados mockados para o agente
+│   ├── transacoes.json               # Histórico de transações
+│   ├── perfil_investidor.json        # Perfil do cliente
+│   └── produtos_financeiros.json     # Produtos disponíveis
 │
-├── 📁 src/                          # Código do MVP (opcional)
+├── 📁 docs/                          # Documentação do projeto
+│   ├── 01-documentacao-agente.md     # Caso de uso e arquitetura
+│   ├── 02-base-conhecimento.md       # Estratégia de dados
+│   ├── 03-prompts.md                 # Engenharia de prompts
+│   ├── 04-metricas.md                # Avaliação e métricas
+│   └── 05-pitch.md                   # Roteiro do pitch
+│
+├── 📁 src/                           # Código da aplicação
+│   └── app.py                        # (exemplo de estrutura)
+│
+├── 📁 assets/                        # Imagens e diagramas
 │   └── ...
 │
-└── 📁 assets/                       # Imagens, diagramas e protótipos visuais
-    └── ...
+└── 📁 examples/                      # Referências e exemplos
+    └── README.md
 ```
 
 ---
 
 ## Dicas Finais
 
-1. **Menos é mais:** foque em resolver bem um problema específico
-2. **Documente seu raciocínio:** explique o porquê das suas escolhas
-3. **Pense no usuário:** a melhor tecnologia é invisível para quem usa
-4. **Segurança não é opcional:** em finanças, confiança é tudo
-5. **Use IA para criar:** as próprias LLMs podem ajudar a gerar diagramas, código e documentação
+1. **Comece pelo prompt:** Um bom system prompt é a base de um agente eficaz
+2. **Use os dados mockados:** Eles garantem consistência e evitam problemas com dados sensíveis
+3. **Foque na segurança:** No setor financeiro, evitar alucinações é crítico
+4. **Teste cenários reais:** Simule perguntas que um cliente faria de verdade
+5. **Seja direto no pitch:** 3 minutos passam rápido, vá ao ponto

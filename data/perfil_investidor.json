@@ -1,0 +1,60 @@
+{
+  "cliente_id": "CLI-001",
+  "dados_pessoais": {
+    "nome": "João Silva",
+    "idade": 32,
+    "profissao": "Analista de Sistemas",
+    "renda_mensal": 8500.00,
+    "dependentes": 0
+  },
+  "perfil_investidor": {
+    "tipo": "moderado",
+    "tolerancia_risco": "media",
+    "horizonte_investimento": "medio_prazo",
+    "experiencia": "intermediario",
+    "objetivo_principal": "construir_reserva"
+  },
+  "situacao_financeira": {
+    "patrimonio_total": 45000.00,
+    "reserva_emergencia": 15000.00,
+    "dividas": 0,
+    "comprometimento_renda": 0.35
+  },
+  "investimentos_atuais": [
+    {
+      "tipo": "tesouro_selic",
+      "valor": 15000.00,
+      "percentual_carteira": 33.3
+    },
+    {
+      "tipo": "cdb",
+      "valor": 20000.00,
+      "percentual_carteira": 44.5
+    },
+    {
+      "tipo": "fundo_multimercado",
+      "valor": 10000.00,
+      "percentual_carteira": 22.2
+    }
+  ],
+  "preferencias": {
+    "liquidez_importante": true,
+    "aceita_volatilidade": true,
+    "interesse_renda_variavel": true,
+    "aporte_mensal_desejado": 1000.00
+  },
+  "metas": [
+    {
+      "descricao": "Reserva de emergência completa",
+      "valor_alvo": 25500.00,
+      "prazo": "2025-06",
+      "progresso": 0.59
+    },
+    {
+      "descricao": "Entrada apartamento",
+      "valor_alvo": 80000.00,
+      "prazo": "2027-12",
+      "progresso": 0.25
+    }
+  ]
+}

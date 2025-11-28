@@ -1,10 +1,8 @@
 # Assets
 
-> Esta pasta é destinada a imagens, diagramas e outros recursos visuais do seu projeto.
+Esta pasta é destinada a recursos visuais do seu projeto:
 
-Exemplos do que colocar aqui:
-
-- Screenshots do protótipo
-- Diagramas exportados como imagem
+- Diagramas de arquitetura
+- Screenshots da aplicação
 - Mockups de interface
-- Prints de testes realizados
+- Imagens para o README
