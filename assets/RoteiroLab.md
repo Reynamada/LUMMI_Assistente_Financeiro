@@ -239,6 +239,9 @@ Não teste só o caminho feliz. Simule perguntas que um cliente de verdade faria
 Dica número cinco: seja direto no pitch.
 Três minutos é muito pouco tempo. Não enrole na introdução. Vá direto ao problema, mostre a solução, demonstre funcionando.
 [PAUSA]
+Dica número seis: pense em quem vai usar.
+Tecnologia boa é tecnologia que serve a todos. Quando você criar seu agente, pense em acessibilidade, em linguagem inclusiva, em como diferentes pessoas vão interagir com ele. Empatia no design faz toda a diferença.
+[PAUSA]
 E a dica mais importante de todas: dê a SUA cara ao desafio.
 Os exemplos que mostrei nos vídeos são referências, não respostas prontas. Não importa se você está começando agora ou já tem anos de experiência — o mais valioso é você se permitir explorar, errar, aprender e criar.
 Sua solução não precisa ser igual a de ninguém. Ela precisa ser sua.
@@ -249,4 +252,5 @@ Na pasta "examples" do repositório você encontra tudo que fizemos juntos. Use 
 Agora é com vocês. Mãos à obra e bora criar esse agente!
 Qualquer dúvida, nos vemos no fórum.
 Valeu e bons estudos!
+
 ```
