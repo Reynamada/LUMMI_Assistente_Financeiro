@@ -1,71 +1,81 @@
-# Avaliação e Métricas
+# Documentação do Agente
 
-## Como Avaliar seu Agente
+## Caso de Uso
 
-A avaliação pode ser feita de duas formas complementares:
+### Problema
+> Qual problema financeiro seu agente resolve?
 
-1. **Testes estruturados:** Você define perguntas e respostas esperadas;
-2. **Feedback real:** Pessoas testam o agente e dão notas.
+[Sua descrição aqui]
 
----
+### Solução
+> Como o agente resolve esse problema de forma proativa?
 
-## Métricas de Qualidade
+[Sua descrição aqui]
 
-| Métrica | O que avalia | Exemplo de teste |
-|---------|--------------|------------------|
-| **Assertividade** | O agente respondeu o que foi perguntado? | Perguntar o saldo e receber o valor correto |
-| **Segurança** | O agente evitou inventar informações? | Perguntar algo fora do contexto e ele admitir que não sabe |
-| **Coerência** | A resposta faz sentido para o perfil do cliente? | Sugerir investimento conservador para cliente conservador |
+### Público-Alvo
+> Quem vai usar esse agente?
 
-> [!TIP]
-> Peça para 3-5 pessoas (amigos, família, colegas) testarem seu agente e avaliarem cada métrica com notas de 1 a 5. Isso torna suas métricas mais confiáveis! Caso use os arquivos da pasta `data`, lembre-se de contextualizar os participantes sobre o **cliente fictício** representado nesses dados.
+[Sua descrição aqui]
 
 ---
 
-## Exemplos de Cenários de Teste
+## Persona e Tom de Voz
 
-Crie testes simples para validar seu agente:
+### Nome do Agente
+[Nome escolhido]
 
-### Teste 1: Consulta de gastos
-- **Pergunta:** "Quanto gastei com alimentação?"
-- **Resposta esperada:** Valor baseado no `transacoes.csv`
-- **Resultado:** [ ] Correto  [ ] Incorreto
+### Personalidade
+> Como o agente se comporta? (ex: consultivo, direto, educativo)
 
-### Teste 2: Recomendação de produto
-- **Pergunta:** "Qual investimento você recomenda para mim?"
-- **Resposta esperada:** Produto compatível com o perfil do cliente
-- **Resultado:** [ ] Correto  [ ] Incorreto
+[Sua descrição aqui]
 
-### Teste 3: Pergunta fora do escopo
-- **Pergunta:** "Qual a previsão do tempo?"
-- **Resposta esperada:** Agente informa que só trata de finanças
-- **Resultado:** [ ] Correto  [ ] Incorreto
+### Tom de Comunicação
+> Formal, informal, técnico, acessível?
 
-### Teste 4: Informação inexistente
-- **Pergunta:** "Quanto rende o produto XYZ?"
-- **Resposta esperada:** Agente admite não ter essa informação
-- **Resultado:** [ ] Correto  [ ] Incorreto
+[Sua descrição aqui]
+
+### Exemplos de Linguagem
+- Saudação: [ex: "Olá! Como posso ajudar com suas finanças hoje?"]
+- Confirmação: [ex: "Entendi! Deixa eu verificar isso para você."]
+- Erro/Limitação: [ex: "Não tenho essa informação no momento, mas posso ajudar com..."]
 
 ---
 
-## Resultados
+## Arquitetura
 
-Após os testes, registre suas conclusões:
+### Diagrama
 
-**O que funcionou bem:**
-- [Liste aqui]
+```mermaid
+flowchart TD
+    A[Cliente] -->|Mensagem| B[Interface]
+    B --> C[LLM]
+    C --> D[Base de Conhecimento]
+    D --> C
+    C --> E[Validação]
+    E --> F[Resposta]
+```
 
-**O que pode melhorar:**
-- [Liste aqui]
+### Componentes
+
+| Componente | Descrição |
+|------------|-----------|
+| Interface | [ex: Chatbot em Streamlit] |
+| LLM | [ex: GPT-4 via API] |
+| Base de Conhecimento | [ex: JSON/CSV com dados do cliente] |
+| Validação | [ex: Checagem de alucinações] |
 
 ---
 
-## Métricas Avançadas (Opcional)
+## Segurança e Anti-Alucinação
 
-Para quem quer explorar mais, algumas métricas técnicas de observabilidade também podem fazer parte da sua solução, como:
+### Estratégias Adotadas
 
-- Latência e tempo de resposta;
-- Consumo de tokens e custos;
-- Logs e taxa de erros.
+- [ ] [ex: Agente só responde com base nos dados fornecidos]
+- [ ] [ex: Respostas incluem fonte da informação]
+- [ ] [ex: Quando não sabe, admite e redireciona]
+- [ ] [ex: Não faz recomendações de investimento sem perfil do cliente]
 
-Ferramentas especializadas em LLMs, como [LangWatch](https://langwatch.ai/) e [LangFuse](https://langfuse.com/), são exemplos que podem ajudar nesse monitoramento. Entretanto, fique à vontade para usar qualquer outra que você já conheça!
+### Limitações Declaradas
+> O que o agente NÃO faz?
+
+[Liste aqui as limitações explícitas do agente]
