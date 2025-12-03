@@ -9,7 +9,8 @@ Os assistentes virtuais no setor financeiro estão evoluindo de simples chatbots
 - **Cocriar soluções** financeiras de forma consultiva
 - **Garantir segurança** e confiabilidade nas respostas (anti-alucinação)
 
-> 💡 Na pasta [`examples/`](./examples/) você encontra referências de implementação para cada etapa deste desafio.
+> [!TIP]
+> Na pasta [`examples/`](./examples/) você encontra referências de implementação para cada etapa deste desafio.
 
 ---
 
@@ -39,10 +40,7 @@ Utilize os **dados mockados** disponíveis na pasta [`data/`](./data/) para alim
 | `perfil_investidor.json` | JSON | Perfil e preferências do cliente |
 | `produtos_financeiros.json` | JSON | Produtos e serviços disponíveis |
 
-> [!TIP]
-> **Quer um dataset mais robusto?** Você pode utilizar datasets públicos do [Hugging Face](https://huggingface.co/datasets) relacionados a finanças, desde que sejam adequados ao contexto do desafio.
-
-Você pode (e deve) adaptar ou expandir esses dados conforme seu caso de uso.
+Você pode adaptar ou expandir esses dados conforme seu caso de uso.
 
 📄 **Template:** [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md)
 
