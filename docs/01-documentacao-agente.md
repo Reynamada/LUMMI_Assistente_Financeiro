@@ -1,81 +1,71 @@
-# Documentação do Agente
+# Avaliação e Métricas
 
-## Caso de Uso
+## Como Avaliar seu Agente
 
-### Problema
-> Qual problema financeiro seu agente resolve?
+A avaliação pode ser feita de duas formas complementares:
 
-[Sua descrição aqui]
-
-### Solução
-> Como o agente resolve esse problema de forma proativa?
-
-[Sua descrição aqui]
-
-### Público-Alvo
-> Quem vai usar esse agente?
-
-[Sua descrição aqui]
+1. **Testes estruturados:** Você define perguntas e respostas esperadas;
+2. **Feedback real:** Pessoas testam o agente e dão notas.
 
 ---
 
-## Persona e Tom de Voz
+## Métricas de Qualidade
 
-### Nome do Agente
-[Nome escolhido]
+| Métrica | O que avalia | Exemplo de teste |
+|---------|--------------|------------------|
+| **Assertividade** | O agente respondeu o que foi perguntado? | Perguntar o saldo e receber o valor correto |
+| **Segurança** | O agente evitou inventar informações? | Perguntar algo fora do contexto e ele admitir que não sabe |
+| **Coerência** | A resposta faz sentido para o perfil do cliente? | Sugerir investimento conservador para cliente conservador |
 
-### Personalidade
-> Como o agente se comporta? (ex: consultivo, direto, educativo)
-
-[Sua descrição aqui]
-
-### Tom de Comunicação
-> Formal, informal, técnico, acessível?
-
-[Sua descrição aqui]
-
-### Exemplos de Linguagem
-- Saudação: [ex: "Olá! Como posso ajudar com suas finanças hoje?"]
-- Confirmação: [ex: "Entendi! Deixa eu verificar isso para você."]
-- Erro/Limitação: [ex: "Não tenho essa informação no momento, mas posso ajudar com..."]
+> [!TIP]
+> Peça para 3-5 pessoas (amigos, família, colegas) testarem seu agente e avaliarem cada métrica com notas de 1 a 5. Isso torna suas métricas mais confiáveis! Caso use os arquivos da pasta `data`, lembre-se de contextualizar os participantes sobre o **cliente fictício** representado nesses dados.
 
 ---
 
-## Arquitetura
+## Exemplos de Cenários de Teste
 
-### Diagrama
+Crie testes simples para validar seu agente:
 
-```mermaid
-flowchart TD
-    A[Cliente] -->|Mensagem| B[Interface]
-    B --> C[Agente IA]
-    C --> D[Base de Conhecimento]
-    D --> C
-    C --> E[Validação]
-    E --> F[Resposta]
-```
+### Teste 1: Consulta de gastos
+- **Pergunta:** "Quanto gastei com alimentação?"
+- **Resposta esperada:** Valor baseado no `transacoes.csv`
+- **Resultado:** [ ] Correto  [ ] Incorreto
 
-### Componentes
+### Teste 2: Recomendação de produto
+- **Pergunta:** "Qual investimento você recomenda para mim?"
+- **Resposta esperada:** Produto compatível com o perfil do cliente
+- **Resultado:** [ ] Correto  [ ] Incorreto
 
-| Componente | Descrição |
-|------------|-----------|
-| Interface | [ex: Chatbot em Streamlit] |
-| Agente IA | [ex: GPT-4 via API] |
-| Base de Conhecimento | [ex: JSONs com dados do cliente] |
-| Validação | [ex: Checagem de alucinações] |
+### Teste 3: Pergunta fora do escopo
+- **Pergunta:** "Qual a previsão do tempo?"
+- **Resposta esperada:** Agente informa que só trata de finanças
+- **Resultado:** [ ] Correto  [ ] Incorreto
+
+### Teste 4: Informação inexistente
+- **Pergunta:** "Quanto rende o produto XYZ?"
+- **Resposta esperada:** Agente admite não ter essa informação
+- **Resultado:** [ ] Correto  [ ] Incorreto
 
 ---
 
-## Segurança e Anti-Alucinação
+## Resultados
 
-### Estratégias Adotadas
+Após os testes, registre suas conclusões:
 
-- [ ] [ex: Agente só responde com base nos dados fornecidos]
-- [ ] [ex: Respostas incluem fonte da informação]
-- [ ] [ex: Quando não sabe, admite e redireciona]
-- [ ] [ex: Não faz recomendações de investimento sem perfil do cliente]
+**O que funcionou bem:**
+- [Liste aqui]
 
-### Limitações Declaradas
-> O que o agente NÃO faz?
+**O que pode melhorar:**
+- [Liste aqui]
 
-[Liste aqui as limitações explícitas do agente]
+---
+
+## Métricas Avançadas (Opcional)
+
+Para quem quer explorar mais, algumas métricas técnicas de observabilidade também podem fazer parte da sua solução, como:
+
+- Latência e tempo de resposta;
+- Consumo de tokens e custos;
+- Logs e taxa de erros.
+
+Ferramentas especializadas em LLMs, como [LangWatch](https://langwatch.ai/) e [LangFuse](https://langfuse.com/), são exemplos que podem ajudar nesse monitoramento. Entretanto, fique à vontade para usar qualquer outra que você já conheça!

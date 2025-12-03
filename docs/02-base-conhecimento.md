@@ -4,11 +4,15 @@
 
 Descreva quais dados da pasta `data/` você utilizou e como:
 
-| Arquivo | Utilização no Agente |
-|---------|---------------------|
-| `transacoes.json` | [ex: Analisar padrão de gastos do cliente] |
-| `perfil_investidor.json` | [ex: Personalizar recomendações] |
-| `produtos_financeiros.json` | [ex: Sugerir produtos adequados ao perfil] |
+| Arquivo | Formato | Utilização no Agente |
+|---------|---------|---------------------|
+| `historico_atendimento.csv` | CSV | [ex: Contextualizar interações anteriores] |
+| `perfil_investidor.json` | JSON | [ex: Personalizar recomendações] |
+| `produtos_financeiros.json` | JSON | [ex: Sugerir produtos adequados ao perfil] |
+| `transacoes.csv` | CSV | [ex: Analisar padrão de gastos do cliente] |
+
+> [!TIP]
+> Caso prefira, você pode utilizar datasets públicos do [Hugging Face](https://huggingface.co/datasets) para enriquecer sua base de conhecimento.
 
 ---
 
@@ -25,7 +29,7 @@ Descreva quais dados da pasta `data/` você utilizou e como:
 ### Como os dados são carregados?
 > Descreva como seu agente acessa a base de conhecimento.
 
-[ex: Os JSONs são carregados no início da sessão e incluídos no contexto do prompt]
+[ex: Os JSON/CSV são carregados no início da sessão e incluídos no contexto do prompt]
 
 ### Como os dados são usados no prompt?
 > Os dados vão no system prompt? São consultados dinamicamente?

@@ -32,14 +32,17 @@ Defina **o que** seu agente faz e **como** ele funciona:
 
 Utilize os **dados mockados** disponíveis na pasta [`data/`](./data/) para alimentar seu agente:
 
-- `transacoes.json` - Histórico de transações do cliente
-- `perfil_investidor.json` - Perfil e preferências do cliente
-- `produtos_financeiros.json` - Produtos e serviços disponíveis
+| Arquivo | Formato | Descrição |
+|---------|---------|-----------|
+| `transacoes.csv` | CSV | Histórico de transações do cliente |
+| `historico_atendimento.csv` | CSV | Histórico de atendimentos anteriores |
+| `perfil_investidor.json` | JSON | Perfil e preferências do cliente |
+| `produtos_financeiros.json` | JSON | Produtos e serviços disponíveis |
 
-> TODO: Histórico de atendimento ao cliente.
-> TODO: Trazer formatos diferentes (CSV).
+> [!TIP]
+> **Quer um dataset mais robusto?** Você pode utilizar datasets públicos do [Hugging Face](https://huggingface.co/datasets) relacionados a finanças, desde que sejam adequados ao contexto do desafio.
 
-Você pode (e deve!) adaptar ou expandir esses dados conforme seu caso de uso.
+Você pode (e deve) adaptar ou expandir esses dados conforme seu caso de uso.
 
 📄 **Template:** [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md)
 
@@ -117,9 +120,10 @@ Todas as ferramentas abaixo possuem versões gratuitas:
 ├── 📄 README.md
 │
 ├── 📁 data/                          # Dados mockados para o agente
-│   ├── transacoes.json               # Histórico de transações
-│   ├── perfil_investidor.json        # Perfil do cliente
-│   └── produtos_financeiros.json     # Produtos disponíveis
+│   ├── historico_atendimento.csv     # Histórico de atendimentos (CSV)
+│   ├── perfil_investidor.json        # Perfil do cliente (JSON)
+│   ├── produtos_financeiros.json     # Produtos disponíveis (JSON)
+│   └── transacoes.csv                # Histórico de transações (CSV)
 │
 ├── 📁 docs/                          # Documentação do projeto
 │   ├── 01-documentacao-agente.md     # Caso de uso e arquitetura
