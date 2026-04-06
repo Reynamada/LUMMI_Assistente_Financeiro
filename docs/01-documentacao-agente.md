@@ -84,34 +84,53 @@ Educação Contextual: Nada de lições de economia entediantes; ele explica con
 ```mermaid
 flowchart TD
     A[Cliente] -->|Mensagem| B[Interface]
-    B --> C[LLM]
-    C --> D[Base de Conhecimento]
+    B --> C[LLM / Motor Conversacional]
+    C --> D[Base de Conhecimento Financeira]
     D --> C
-    C --> E[Validação]
-    E --> F[Resposta]
+    C --> E[Motor de Cálculo de Orçamento]
+    E --> C
+    C --> F[Validação e Anti-Alucinação]
+    F --> G[Resposta Segura e Personalizada]
+
 ```
 
 ### Componentes
 
 | Componente | Descrição |
 |------------|-----------|
-| Interface | [ex: Chatbot em Streamlit] |
-| LLM | [ex: GPT-4 via API] |
-| Base de Conhecimento | [ex: JSON/CSV com dados do cliente] |
-| Validação | [ex: Checagem de alucinações] |
-
+| Interface | [Streamlit (chatbot web simples), Gradio (UI rápida em Python), ou até Colab Notebook para protótipo.] |
+| LLM | [HuggingFace Transformers com modelos open-source (ex.: GPT-J, Falcon, Mistral, LLaMA 2 versão gratuita).] |
+| Base de Conhecimento | [Arquivos JSON/CSV com categorias de gastos, conceitos financeiros básicos, exemplos práticos.] |
+| Validação | [Checagem para evitar respostas incorretas ou “alucinações”:Regras simples em Python: validar se números fazem sentido, se conceitos estão na base de conhecimento..] |
+| Motor de cálculo | [Funções Python para organizar orçamento, calcular poupança e simular cenários.] |
+| Armazenamento | [Arquivos locais (SQLite, JSON) ou TinyDB (leve e gratuito)para guardar histórico do usuário para personalizar recomendações..] |
+| Personalização | [Ajustar recomendações ao perfil do usuário.] |
+| Educação financeira | [Textos pré-definidos em JSON + respostas do LLM treinado com prompts educativos.] |
 ---
 
 ## Segurança e Anti-Alucinação
 
 ### Estratégias Adotadas
 
-- [ ] [ex: Agente só responde com base nos dados fornecidos]
-- [ ] [ex: Respostas incluem fonte da informação]
-- [ ] [ex: Quando não sabe, admite e redireciona]
-- [ ] [ex: Não faz recomendações de investimento sem perfil do cliente]
+- [ Respostas baseadas apenas nos dados fornecidos pelo usuário] [ingressos, gastos, metas]
+- [Explicações com cálculos claros e verificáveis  ] [mostra como chegou ao resultado]
+- [Admissão de incerteza: ] [Quando não sabe, o agente diz “não tenho essa informação” e redireciona.]
+- [ Educação financeira com base em fontes confiáveis] [Conceitos básicos pré-definidos em JSON/CSV]
+- [ Sem recomendações de investimento:] [apenas explica conceitos e simula cenários de orçamento.]
+- [ Validação de consistência:] [checa se números e percentuais fazem sentido antes de responder.]
+- [Personalização segura:] [sugestões adaptadas ao perfil do cliente, sem extrapolar além dos dados fornecidos.]
 
 ### Limitações Declaradas
 > O que o agente NÃO faz?
 
-[Liste aqui as limitações explícitas do agente]
+[❌Não recomenda produtos financeiros específicos (ações, fundos, criptomoedas).
+
+❌ Não substitui consultoria financeira profissional.
+
+❌ Não acessa dados bancários ou informações pessoais sensíveis.
+
+❌ Não garante resultados futuros (apenas simula cenários com base nos dados atuais).
+
+❌ Não toma decisões pelo usuário — apenas sugere opções e coconstruções.
+
+❌ Não responde fora do escopo de educação financeira e gestão de orçamento pessoal.]
