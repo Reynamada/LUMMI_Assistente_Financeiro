@@ -47,7 +47,10 @@ Como um "copiloto", o agente não dirige a vida por você, mas te avisa sobre as
 Este nome vem da economia comportamental. Significa que o agente organiza as informações para facilitar que você tome a melhor decisão, usando o reforço positivo em vez do medo ou da culpa.
 
 5. IA em Sintonia (IA Conectada)
-Define um agente que está "em sintonia" com o seu ritmo de vida. Ele sabe a hora de comemorar e a hora de sugerir um ajuste, mantendo sempre um tom harmonioso.]
+Define um agente que está "em sintonia" com o seu ritmo de vida. Ele sabe a hora de comemorar e a hora de sugerir um ajuste, mantendo sempre um tom harmonioso.
+
+## Resumindo: Meu agente é um "Nudge" Amigável
+Na psicologia, um "Nudge" (que podemos traduzir como "Empurrãozinho") é um incentivo suave para que as pessoas tomem decisões melhores. O meu agente não é um "policial financeiro", ele é um "Sócio da Prosperidade".]
 
 ### Tom de Comunicação
 > Formal, informal, técnico, acessível?
