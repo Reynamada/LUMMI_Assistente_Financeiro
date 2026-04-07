@@ -10,5 +10,6 @@ data,descricao,categoria,valor,tipo
 2026-04-07,Conta de Luz,moradia,660.00,saida
 2026-04-07,Academia,saude,295.00,saida
 2026-04-07,Escola,Educaçao filhos,1100.00,saida
+2026-04-07,Banco,Compras Parceladas,3000.00,saida mensal
 
 
