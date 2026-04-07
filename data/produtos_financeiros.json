@@ -1,4 +1,12 @@
-[
+[ {
+  "nome": "FII - Fundo Imobiliário",
+  "categoria": "fundos",
+  "risco": "médio",
+  "rentabilidade": "Distribuição mensal de dividendos (varia conforme o fundo)",
+  "aporte_minimo": 100.00,
+  "indicado_para": "Quem deseja investir em imóveis sem precisar comprar diretamente",
+  "descricao": "Fundos que reúnem investidores para aplicar em empreendimentos imobiliários (shoppings, escritórios, galpões logísticos). O investidor recebe rendimentos mensais proporcionais ao lucro dos imóveis, com isenção de IR sobre dividendos para pessoa física."
+  },
   {
     "nome": "Tesouro Selic",
     "categoria": "renda_fixa",
