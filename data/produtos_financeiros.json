@@ -3,40 +3,90 @@
     "nome": "Tesouro Selic",
     "categoria": "renda_fixa",
     "risco": "baixo",
-    "rentabilidade": "100% da Selic",
+    "rentabilidade": "Taxa Selic (14,75% a.a. em 2026)",
     "aporte_minimo": 30.00,
-    "indicado_para": "Reserva de emergência e iniciantes"
+    "indicado_para": "Reserva de emergência e iniciantes",
+    "descricao": "Título público federal atrelado à Selic, com liquidez diária e segurança garantida pelo Tesouro Nacional."
   },
   {
     "nome": "CDB Liquidez Diária",
     "categoria": "renda_fixa",
     "risco": "baixo",
-    "rentabilidade": "102% do CDI",
+    "rentabilidade": "100% a 110% do CDI",
     "aporte_minimo": 100.00,
-    "indicado_para": "Quem busca segurança com rendimento diário"
+    "indicado_para": "Quem busca rendimento simples e resgate rápido",
+    "descricao": "Certificado de Depósito Bancário emitido por bancos, com liquidez diária e cobertura do FGC até R$250 mil."
   },
   {
-    "nome": "LCI/LCA",
+    "nome": "LCI (Letra de Crédito Imobiliário)",
     "categoria": "renda_fixa",
     "risco": "baixo",
-    "rentabilidade": "95% do CDI",
+    "rentabilidade": "90% a 95% do CDI",
     "aporte_minimo": 1000.00,
-    "indicado_para": "Quem pode esperar 90 dias (isento de IR)"
+    "indicado_para": "Quem busca isenção de IR e segurança",
+    "descricao": "Título emitido por bancos para financiar o setor imobiliário, com isenção de imposto de renda para pessoa física."
   },
   {
-    "nome": "Fundo Multimercado",
-    "categoria": "fundo",
-    "risco": "medio",
-    "rentabilidade": "CDI + 2%",
+    "nome": "LCA (Letra de Crédito do Agronegócio)",
+    "categoria": "renda_fixa",
+    "risco": "baixo",
+    "rentabilidade": "90% a 96% do CDI",
+    "aporte_minimo": 1000.00,
+    "indicado_para": "Quem deseja diversificação e isenção de IR",
+    "descricao": "Título emitido para financiar o agronegócio, também isento de imposto de renda para pessoa física."
+  },
+  {
+    "nome": "Fundo DI",
+    "categoria": "fundos",
+    "risco": "baixo",
+    "rentabilidade": "Próximo ao CDI",
     "aporte_minimo": 500.00,
-    "indicado_para": "Perfil moderado que busca diversificação"
+    "indicado_para": "Quem quer simplicidade e gestão profissional",
+    "descricao": "Fundo de investimento que aplica em títulos públicos e privados de baixo risco, acompanhando o CDI."
   },
   {
-    "nome": "Fundo de Ações",
-    "categoria": "fundo",
-    "risco": "alto",
-    "rentabilidade": "Variável",
-    "aporte_minimo": 100.00,
-    "indicado_para": "Perfil arrojado com foco no longo prazo"
+    "nome": "Tesouro IPCA+",
+    "categoria": "renda_fixa",
+    "risco": "baixo",
+    "rentabilidade": "IPCA + prêmio fixo",
+    "aporte_minimo": 30.00,
+    "indicado_para": "Quem quer proteger o dinheiro da inflação",
+    "descricao": "Título público que garante rendimento acima da inflação, preservando o poder de compra no longo prazo."
+  },
+  {
+    "nome": "Poupança",
+    "categoria": "renda_fixa",
+    "risco": "baixo",
+    "rentabilidade": "70% da Selic",
+    "aporte_minimo": 0.00,
+    "indicado_para": "Quem busca simplicidade e liquidez imediata",
+    "descricao": "Aplicação tradicional e acessível, com liquidez imediata, mas rendimento inferior a outros produtos."
+  },
+  {
+    "nome": "Debêntures Incentivadas",
+    "categoria": "renda_fixa",
+    "risco": "médio",
+    "rentabilidade": "IPCA + prêmio variável",
+    "aporte_minimo": 1000.00,
+    "indicado_para": "Quem busca retorno maior e isenção de IR",
+    "descricao": "Títulos emitidos por empresas para financiar projetos de infraestrutura, com isenção de IR para pessoa física."
+  },
+  {
+    "nome": "Fundo Multimercado Conservador",
+    "categoria": "fundos",
+    "risco": "médio",
+    "rentabilidade": "CDI + 2% ao ano",
+    "aporte_minimo": 1000.00,
+    "indicado_para": "Quem aceita risco moderado para maior retorno",
+    "descricao": "Fundo que mistura renda fixa e outras estratégias, buscando retorno superior ao CDI com risco controlado."
+  },
+  {
+    "nome": "Fundo de Previdência Conservador",
+    "categoria": "previdência",
+    "risco": "baixo",
+    "rentabilidade": "CDI + 1% ao ano",
+    "aporte_minimo": 500.00,
+    "indicado_para": "Quem deseja acumular patrimônio para aposentadoria",
+    "descricao": "Fundo voltado para aposentadoria, com foco em renda fixa e benefícios fiscais de longo prazo."
   }
 ]
