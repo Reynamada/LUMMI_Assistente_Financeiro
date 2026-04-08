@@ -20,7 +20,7 @@
 > Você modificou ou expandiu os dados mockados? Descreva aqui.
 
 [Seguindo a mesma estrutura e atributos, adicione outros produtos: FII - Fundo Imobiliário, Fundo DI (Depósito Interfinanceiro), Tesouro IPCA+(Índice de Preços ao Consumidor Amplo), Poupança, Debêntures Incentivadas, Fundo de Previdência Conservador, Conta Remunerada, Caixinha Digital.
-Coloquei por separado os produtos: LCI e LCA, já que tem significado diferentes. Adicione a cada um dos produtos um atributo: Descrição.
+Coloquei por separado os produtos: LCI e LCA, já que eles tem significado diferentes. Adicione a cada um dos produtos um atributo: Descrição.
 
 Atualizei o perfil de investidor com dados autênticos, preenchendo cada atributo devidamente para refletir um cenário real.
 No archivo de transações, modifiquei alguns valores e descrição de despesas e adicione escola e banco, com seus respectivos atributos preenchidos.
