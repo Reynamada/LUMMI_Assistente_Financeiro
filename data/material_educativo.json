@@ -1,0 +1,49 @@
+[
+{
+  "titulo": "Informações Financeiras Essenciais para Brasileiros",
+  "introducao": "Para que os usuários no Brasil tenham sucesso na organização de suas finanças, não basta apenas 'economizar'; é preciso entender o sistema financeiro local.",
+  "secoes": [
+    {
+      "id": 1,
+      "categoria": "Sistema de Crédito e Dívidas",
+      "pontos_chave": [
+        {
+          "item": "Juros Compostos",
+          "descricao": "Impacto do Cartão de Crédito e Cheque Especial (Efeito bola de neve)."
+        },
+        {
+          "item": "Score de Crédito",
+          "descricao": "Influência do Serasa/Boa Vista na obtenção de taxas menores."
+        },
+        {
+          "item": "Cadastro Positivo",
+          "descricao": "Manutenção de dados para facilitar financiamentos."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "categoria": "Dicionário de Investimentos",
+      "termos": [
+        { "sigla": "Selic e CDI", "definicao": "Termômetros da Renda Fixa." },
+        { "sigla": "IPCA", "definicao": "Inflação oficial; medida de preservação do poder de compra." },
+        { "sigla": "Reserva de Emergência", "definicao": "Primeiro passo; foco em Liquidez Diária." }
+      ]
+    },
+    {
+      "id": 3,
+      "categoria": "Direitos e Benefícios",
+      "detalhes": ["FGTS (Regras de saque)", "Previdência Privada (PGBL vs VGBL)"]
+    },
+    {
+      "id": 4,
+      "categoria": "Métodos e Comparativos",
+      "metodos": ["Regra 50-30-20", "Controle de Efeito Pix"],
+      "comparativo_investimento": {
+        "CDB": "Empréstimo para bancos, garantia FGC, rendimento CDI.",
+        "Tesouro_Direto": "Empréstimo para o Governo, risco soberano, acessível desde R$ 30."
+      }
+    }
+  ]
+}
+]
