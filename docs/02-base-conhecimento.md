@@ -36,14 +36,14 @@ Adicione o arquivo material_educativo.json, que contem conhecimento confiavel so
 
 
 '''
-##Arquivos JSON/CSV são carregados no início da sessão.
+## Arquivos JSON/CSV são carregados no início da sessão.
 import json
 import csv
 import pandas as pd
 
-# -----------------------------
-# 1. Carregar produtos financeiros (JSON)
-# -----------------------------
+## -----------------------------
+### 1. Carregar produtos financeiros (JSON)
+## -----------------------------
 with open("produtos_financeiros.json", "r", encoding="utf-8") as f:
     produtos = json.load(f)
 
@@ -51,9 +51,9 @@ print("✅ Produtos carregados:")
 for p in produtos[:3]:  # mostra apenas os 3 primeiros
     print(f"- {p['nome']} ({p['categoria']}) → Rentabilidade: {p['rentabilidade'],Descrição: {p['descricao']}")
 
-# -----------------------------
-# 2. Carregar transações financeiras (CSV)
-# -----------------------------
+## -----------------------------
+### 2. Carregar transações financeiras (CSV)
+## -----------------------------
 with open("transacoes.csv", "r", encoding="utf-8") as f:
     reader = csv.DictReader(f)
     transacoes = list(reader)
