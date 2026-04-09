@@ -34,9 +34,10 @@ Adicione o arquivo material_educativo.json, que contem conhecimento confiavel so
 ### Como os dados são carregados?
 > Descreva como seu agente acessa a base de conhecimento.
 
+### Arquivos JSON/CSV são carregados no início da sessão.
 
-'''
-## Arquivos JSON/CSV são carregados no início da sessão.
+```python
+
 import json
 import csv
 import pandas as pd
@@ -63,7 +64,7 @@ for t in transacoes[:3]:  # mostra apenas as 3 primeiras
     print(f"- {t['data']} | {t['tipo']} | R$ {t['valor']}")
 
 
-'''
+``` 
 
 ### Como os dados são usados no prompt?
 > Os dados vão no system prompt? São consultados dinamicamente?
