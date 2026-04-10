@@ -38,7 +38,6 @@ Adicione o arquivo material_educativo.json, que contem conhecimento confiavel so
 
 ```python
 import json
-import csv
 import pandas as pd
 
 # -----------------------------
@@ -52,7 +51,7 @@ try:
         produtos = json.load(f)
 
     print("✅ Produtos carregados:")
-    for p in produtos[:3]:
+    for p in produtos[:3]:  # mostra apenas os 3 primeiros
         print(f"--- Produto: {p['nome']} ---")
         print(f"  Categoria: {p['categoria']}")
         print(f"  Risco: {p['risco']}")
@@ -65,22 +64,18 @@ except FileNotFoundError:
     print("❌ Arquivo JSON não encontrado.")
 
 # -----------------------------
-# 2. Carregar  receitas_despesas.csv (CSV)
+# 2. Carregar receitas_despesas (CSV) com pandas
 # -----------------------------
 try:
-    with open("data/receitas_despesas.csv", "r", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        transacoes = list(reader)
+    df = pd.read_csv("data/receitas_despesas.csv")
 
-    print("✅ Transações carregadas (CSV Nativo):")
-    for t in transacoes[:3]:
-        print(f"- {t['Data']} | {t['descricao']} | {t['categoria']} | R$ {t['valor']} ({t['tipo']})")
+    print("✅ Transações carregadas (via pandas):")
+    print(df.head())  # mostra as primeiras linhas
 
+   
 except FileNotFoundError:
     print("❌ Arquivo CSV não encontrado.")
 
-  
-``` 
 
 ### Como os dados são usados no prompt?
 > Os dados vão no system prompt? São consultados dinamicamente?
