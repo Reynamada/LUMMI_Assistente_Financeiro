@@ -37,33 +37,42 @@ Adicione o arquivo material_educativo.json, que contem conhecimento confiavel so
 ### Arquivos JSON/CSV são carregados no início da sessão.
 
 ```python
-
 import json
 import csv
 import pandas as pd
 
-## -----------------------------
-### 1. Carregar produtos financeiros (JSON)
-## -----------------------------
-with open("produtos_financeiros.json", "r", encoding="utf-8") as f:
-    produtos = json.load(f)
+# -----------------------------
+# 1. Carregar produtos financeiros (JSON)
+# -----------------------------
 
-print("✅ Produtos carregados:")
-for p in produtos[:3]:  # mostra apenas os 3 primeiros
-    print(f"- {p['nome']} ({p['categoria']}) → Rentabilidade: {p['rentabilidade'],Descrição: {p['descricao']}")
+    with open("produtos_financeiros.json", "r", encoding="utf-8") as f:
+        produtos = json.load(f)
 
-## -----------------------------
-### 2. Carregar transações financeiras (CSV)
-## -----------------------------
-with open("transacoes.csv", "r", encoding="utf-8") as f:
-    reader = csv.DictReader(f)
-    transacoes = list(reader)
+    print("✅ Produtos carregados:")
+    for p in produtos[:3]:
+        print(f"--- Produto: {p['nome']} ---")
+        print(f"  Categoria: {p['categoria']}")
+        print(f"  Risco: {p['risco']}")
+        print(f"  Rentabilidade: {p['rentabilidade']}")
+        print(f"  Aporte Mínimo: {p['aporte_minimo']}")
+        print(f"  Indicado para: {p['indicado_para']}")
+        print(f"  Descrição: {p['descricao']}\n")
+    except FileNotFoundError:
+    print("❌ Arquivo produtos.json não encontrado.")
 
-print("\n✅ Transações carregadas:")
-for t in transacoes[:3]:  # mostra apenas as 3 primeiras
-    print(f"- {t['data']} | {t['tipo']} | R$ {t['valor']}")
+# -----------------------------
+# 2. Carregar transações financeiras (CSV)
+# -----------------------------
+# Atributos: Data, descrição, categoria, valor, tipo
 
+    with open("transacoes.csv", "r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        transacoes = list(reader)
 
+    print("✅ Transações carregadas (CSV Nativo):")
+    for t in transacoes[:3]:
+        print(f"- {t['Data']} | {t['descrição']} | {t['categoria']} | R$ {t['valor']} ({t['tipo']})")
+  
 ``` 
 
 ### Como os dados são usados no prompt?
