@@ -75,7 +75,7 @@ try:
    
 except FileNotFoundError:
     print("❌ Arquivo CSV não encontrado.")
----
+```
 
 ### Como os dados são usados no prompt?
 > Os dados vão no system prompt? São consultados dinamicamente?
