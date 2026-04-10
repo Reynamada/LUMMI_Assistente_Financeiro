@@ -8,7 +8,7 @@
 | `historico_atendimento.csv` | CSV | Contextualizar interações anteriores, ou seja, dar continuidade ao atendimento de forma mais eficiente.  |
 | `perfil_investidor.json` | JSON | Personalizar as explicaçoes sobre as duvidas e necessidades de aprendizado do client. |
 | `produtos_financeiros.json` | JSON | Conhecer os produtos disponiveis para que eles possan ser ensinados ao cliente |
-| `transacoes.csv` | CSV | Analisar padrão de gastos do cliente e usar essas informaçoes de forma didatica |
+| `receitas_despesas.csv` | CSV | Analisar padrão de gastos e receitas do cliente e usar essas informaçoes de forma didatica |
 | `material_educativo.json` | JSON | Material para uso educativo, para ensinar ao cliente conceitos basicos sobre finanças |
 
 > [!TIP]
