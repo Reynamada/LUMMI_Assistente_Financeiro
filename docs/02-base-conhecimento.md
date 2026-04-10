@@ -23,7 +23,7 @@
 Coloquei por separado os produtos: LCI e LCA, já que eles tem significado diferentes. Adicione a cada um dos produtos um atributo: Descrição.
 
 Atualizei o perfil de investidor com dados autênticos, preenchendo cada atributo devidamente para refletir um cenário real.
-No archivo de transações, modifiquei alguns valores e descrição de despesas e adicione escola e banco, com seus respectivos atributos preenchidos.
+No archivo de transações, modifiquei o nome do arquivo para receitas_despesas.csv para ser mais especifico e alguns valores e descrição de despesas e adicione escola e banco, com seus respectivos atributos preenchidos.
 Adicione o arquivo material_educativo.json, que contem conhecimento confiavel sobre finanças, estructurado de forma educativa para o cliente. 
 ]
 
@@ -42,10 +42,13 @@ import csv
 import pandas as pd
 
 # -----------------------------
-# 1. Carregar produtos financeiros (JSON)
+# 1. Carregar perfil e produtos financeiros (JSON)
 # -----------------------------
+try:
+    with open('data/perfil_investidor.json', 'r', encoding='utf-8') as f:
+        perfil = json.load(f)
 
-    with open("produtos_financeiros.json", "r", encoding="utf-8") as f:
+    with open('data/produtos_financeiros.json', 'r', encoding='utf-8') as f:
         produtos = json.load(f)
 
     print("✅ Produtos carregados:")
@@ -57,21 +60,25 @@ import pandas as pd
         print(f"  Aporte Mínimo: {p['aporte_minimo']}")
         print(f"  Indicado para: {p['indicado_para']}")
         print(f"  Descrição: {p['descricao']}\n")
-    except FileNotFoundError:
-    print("❌ Arquivo produtos.json não encontrado.")
+
+except FileNotFoundError:
+    print("❌ Arquivo JSON não encontrado.")
 
 # -----------------------------
-# 2. Carregar transações financeiras (CSV)
+# 2. Carregar  receitas_despesas.csv (CSV)
 # -----------------------------
-# Atributos: Data, descrição, categoria, valor, tipo
-
-    with open("transacoes.csv", "r", encoding="utf-8") as f:
+try:
+    with open("data/receitas_despesas.csv", "r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         transacoes = list(reader)
 
     print("✅ Transações carregadas (CSV Nativo):")
     for t in transacoes[:3]:
-        print(f"- {t['Data']} | {t['descrição']} | {t['categoria']} | R$ {t['valor']} ({t['tipo']})")
+        print(f"- {t['Data']} | {t['descricao']} | {t['categoria']} | R$ {t['valor']} ({t['tipo']})")
+
+except FileNotFoundError:
+    print("❌ Arquivo CSV não encontrado.")
+
   
 ``` 
 
