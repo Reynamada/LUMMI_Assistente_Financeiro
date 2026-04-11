@@ -32,9 +32,17 @@ Adicione o arquivo material_educativo.json, que contem conhecimento confiavel so
 ## Estratégia de Integração
 
 ### Como os dados são carregados?
-> Descreva como seu agente acessa a base de conhecimento.
 
-### Arquivos JSON/CSV são carregados no início da sessão.
+Tem duas possibilidades:
+## 1.Injeção direta no prompt
+Copiar e colar os dados (Ctrl + C / Ctrl + V) diretamente no contexto da conversa.
+Útil para testes rápidos ou quando os dados são pequenos.
+
+## 2. Carregamento via código
+Utilizar scripts em Python para ler arquivos estruturados (JSON, CSV).
+Essa abordagem é mais robusta, pois permite manipulação, análise e atualização dinâmica dos dados.
+
+## Arquivos JSON/CSV são carregados no início da sessão.
 
 ```python
 import json
