@@ -296,16 +296,56 @@ data,canal,tema,resumo,resolvido
 
 ## Exemplo de Contexto Montado
 
-> Mostre um exemplo de como os dados são formatados para o agente.
+> Exemplo de como os dados são formatados para o agente.
+> Contexto sintetizado da base de conhecimento, otimizado. Ele mantém apenas as
+informações mais relevantes, reduzindo tokens sem perder conteúdo essencial:
 
 ```
-Dados do Cliente:
-- Nome: João Silva
-- Perfil: Moderado
-- Saldo disponível: R$ 5.000
+Perfil do Cliente
+•	Nome: José Lino, 48 anos, Engenheiro de informática
+•	Renda mensal: R$ 8.000,00
+•	Perfil investidor: Moderado, não aceita risco
+•	Objetivo principal: Construir reserva de emergência
+•	Patrimônio total: R$ 15.000,00
+•	Reserva atual: R$ 2.400,00
+•	Metas:
+o	Reserva de emergência: R$ 15.000,00 até 12/2026
+o	Entrada apartamento: R$ 70.000,00 até 12/2027
 
-Últimas transações:
-- 01/11: Supermercado - R$ 450
-- 03/11: Streaming - R$ 55
-...
+Material Educativo
+•	Crédito e Dívidas: Juros compostos (efeito bola de neve), score de crédito, cadastro positivo.
+•	Investimentos:
+o	Selic/CDI → base da renda fixa
+o	IPCA → inflação oficial
+o	Reserva de Emergência → liquidez diária
+•	Produtos comparativos:
+o	CDB → baixo risco, FGC, rende CDI
+o	Tesouro Direto → risco mínimo, acessível a partir de R$30
+
+Produtos Financeiros (principais)
+•	Tesouro Selic → baixo risco, liquidez diária, ideal para reserva de emergência
+•	Tesouro IPCA+ → protege contra inflação, longo prazo
+•	CDB Liquidez Diária → baixo risco, 102% CDI, resgate rápido
+•	LCI/LCA → baixo risco, isentos de IR, aporte mínimo R$1.000
+•	Fundo DI → baixo risco, acompanha CDI
+•	Poupança → liquidez imediata, rendimento inferior
+•	Debêntures Incentivadas → médio risco, 12–15% a.a., isentas de IR
+•	Fundos multimercado/ações → risco médio/alto, maior potencial de retorno
+
+Receitas e Despesas (último registro)
+•	Receita: Salário R$ 8.000,00
+•	Despesas:
+o	Moradia: R$ 2.160,00 (aluguel + luz)
+o	Alimentação: R$ 2.250,00 (supermercado + restaurante)
+o	Saúde: R$ 795,00 (farmácia + academia)
+o	Educação filhos: R$ 1.100,00
+o	Lazer: R$ 81,80 (streaming)
+o	Transporte: R$ 200,00
+o	Compras parceladas: R$ 3.000,00
+•	Saldo líquido aproximado: negativo (-R$ 2.587,00)
+
+Histórico de Atendimento
+•	Perguntas sobre CDB, Tesouro Selic e metas financeiras já foram respondidas.
+•	Cliente atualizou cadastro em 2025.
+
 ```
