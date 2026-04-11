@@ -50,31 +50,15 @@ try:
     with open('data/produtos_financeiros.json', 'r', encoding='utf-8') as f:
         produtos = json.load(f)
 
-    print("✅ Produtos carregados:")
-    for p in produtos[:3]:  # mostra apenas os 3 primeiros
-        print(f"--- Produto: {p['nome']} ---")
-        print(f"  Categoria: {p['categoria']}")
-        print(f"  Risco: {p['risco']}")
-        print(f"  Rentabilidade: {p['rentabilidade']}")
-        print(f"  Aporte Mínimo: {p['aporte_minimo']}")
-        print(f"  Indicado para: {p['indicado_para']}")
-        print(f"  Descrição: {p['descricao']}\n")
-
-except FileNotFoundError:
-    print("❌ Arquivo JSON não encontrado.")
-
 # -----------------------------
-# 2. Carregar receitas_despesas (CSV) com pandas
+# 2. Carregar histórico_atendimento e receitas_despesas (CSV) com pandas
 # -----------------------------
 try:
-    df = pd.read_csv("data/receitas_despesas.csv")
+    historico= pd.read_csv(‘data/histórico_atendimento.csv’)
+    transacoes = pd.read_csv("data/receitas_despesas.csv")
 
-    print("✅ Transações carregadas (via pandas):")
-    print(df.head())  # mostra as primeiras linhas
+    print("✅ Transações carregadas:")
 
-   
-except FileNotFoundError:
-    print("❌ Arquivo CSV não encontrado.")
 ```
 
 ### Como os dados são usados no prompt?
