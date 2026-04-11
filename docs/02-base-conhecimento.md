@@ -37,11 +37,11 @@ Tem duas possibilidades:
 Copiar e colar os dados (Ctrl + C / Ctrl + V) diretamente no contexto da conversa.
 Útil para testes rápidos ou quando os dados são pequenos.
 
-## 2. Carregamento via código
+## 2. Carregamento via código (como no exemplo abaixo)
 Utilizar scripts em Python para ler arquivos estruturados (JSON, CSV).
 Essa abordagem é mais robusta, pois permite manipulação, análise e atualização dinâmica dos dados.
 
-## Arquivos JSON/CSV são carregados no início da sessão.
+# Arquivos JSON/CSV são carregados no início da sessão.
 
 ```python
 import json
@@ -70,8 +70,13 @@ try:
 
 ### Como os dados são usados no prompt?
 > Os dados vão no system prompt? São consultados dinamicamente?
+>
+> Os dados não são injetados diretamente no system prompt.
+  Eles são carregados via código e consultados dinamicamente conforme a pergunta.
+  Isso garante eficiência, evita sobrecarga e permite respostas personalizadas e contextualizadas.
 
-[Sua descrição aqui]
+Uma forma de como os dados serian usados no prompt:
+
 
 
 
