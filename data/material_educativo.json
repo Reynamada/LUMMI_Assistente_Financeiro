@@ -1,7 +1,7 @@
 {
-  "versao": "1.1",
+  "versao": "1.2",
   "projeto": "Agente Lummi - Educação Financeira",
-  "data_atualizacao": "2026-04-08",
+  "data_atualizacao": "2026-04-12",
   "conteudo": {
     "sistema_credito": {
       "titulo": "Sistema de Crédito e Dívidas",
@@ -15,24 +15,88 @@
     "investimentos": {
       "titulo": "Dicionário de Investimentos",
       "termos": [
-        {"sigla": "Selic/CDI", "descricao": "Termômetros da economia; regem a Renda Fixa."},
-        {"sigla": "IPCA", "descricao": "Inflação oficial; essencial para manter o poder de compra."},
-        {"sigla": "Reserva de Emergência", "descricao": "Primeiro passo; foco em Liquidez Diária."}
+        {"sigla": "Selic/CDI", "descricao": "Taxas que servem como referência para a renda fixa. A Selic é definida pelo Banco Central e o CDI acompanha de perto."},
+        {"sigla": "IPCA", "descricao": "Índice oficial de inflação medido pelo IBGE. Usado para corrigir contratos e investimentos."},
+        {"sigla": "Reserva de Emergência", "descricao": "Primeiro passo para quem começa a investir. Deve estar em aplicações seguras e com liquidez diária."},
+        {"sigla": "FGC", "descricao": "Fundo Garantidor de Créditos. Protege depósitos e investimentos em bancos até R$ 250 mil por CPF e instituição."},
+        {"sigla": "LCI/LCA", "descricao": "Letras de Crédito Imobiliário e do Agronegócio. Isentas de IR para pessoa física e garantidas pelo FGC."},
+        {"sigla": "Tesouro Selic", "descricao": "Título público que acompanha a Selic. Ideal para reserva de emergência, com liquidez diária e baixo risco."},
+        {"sigla": "Tesouro IPCA+", "descricao": "Título público que paga uma taxa fixa + inflação. Protege o poder de compra no longo prazo."},
+        {"sigla": "CDB", "descricao": "Certificado de Depósito Bancário. Você empresta dinheiro ao banco e recebe rendimento atrelado ao CDI."},
+        {"sigla": "Debêntures", "descricao": "Títulos emitidos por empresas para captar recursos. Podem render mais, mas têm risco maior que CDBs e Tesouro."},
+        {"sigla": "Fundos de Investimento", "descricao": "Aplicações coletivas administradas por gestores. Podem ser de renda fixa, ações ou multimercado."},
+        {"sigla": "Previdência Privada (PGBL/VGBL)", "descricao": "Planos de longo prazo voltados para aposentadoria. Oferecem benefícios fiscais dependendo do regime escolhido."},
+        {"sigla": "Bolsa de Valores (B3)", "descricao": "Principal mercado de negociação de ações e derivativos no Brasil. Permite investir em empresas e acompanhar índices como o Ibovespa."}
       ]
     },
     "produtos_comparativo": {
       "cdb": {
         "nome": "Certificado de Depósito Bancário",
-        "risco": "Baixo (Garantia FGC)",
-        "imposto": "Tabela Regressiva IR",
-        "resumo": "Empréstimo para bancos, rende CDI."
+        "risco": "Baixo (Garantia FGC até R$ 250 mil por CPF e instituição)",
+        "imposto": "Tabela Regressiva IR (22,5% a 15% conforme prazo)",
+        "liquidez": "Pode variar; alguns têm liquidez diária, outros só no vencimento",
+        "resumo": "Você empresta dinheiro ao banco e recebe rendimento atrelado ao CDI. É simples e acessível."
       },
       "tesouro": {
         "nome": "Tesouro Direto",
         "risco": "Mínimo (Governo Federal)",
-        "acessibilidade": "A partir de R$ 30,00",
-        "resumo": "Empréstimo para o Estado, mais seguro do país."
+        "acessibilidade": "Investimento inicial a partir de R$ 30,00",
+        "tributação": "IR regressivo (22,5% a 15%) e IOF se resgatado antes de 30 dias",
+        "resumo": "Você empresta dinheiro para o Estado. É considerado o investimento mais seguro do país, com opções que acompanham Selic, IPCA ou prefixados."
+      },
+      "poupanca": {
+        "nome": "Caderneta de Poupança",
+        "risco": "Baixo (Garantia FGC)",
+        "rentabilidade": "70% da Selic + TR quando Selic < 8,5% ao ano; Selic + TR quando Selic ≥ 8,5%",
+        "liquidez": "Resgate imediato",
+        "resumo": "Produto tradicional e simples, mas com rendimento menor que outras opções de renda fixa."
+      },
+      "lci_lca": {
+        "nome": "Letras de Crédito Imobiliário e do Agronegócio",
+        "risco": "Baixo (Garantia FGC até R$ 250 mil)",
+        "imposto": "Isentas de IR para pessoa física",
+        "liquidez": "Normalmente só no vencimento, mas há opções com liquidez diária",
+        "resumo": "Você empresta dinheiro para financiar setores imobiliário ou agrícola. Boa opção para diversificação e isenção de impostos."
+      },
+      "debentures": {
+        "nome": "Debêntures",
+        "risco": "Médio a alto (sem garantia do FGC)",
+        "imposto": "IR regressivo (22,5% a 15%)",
+        "liquidez": "Pode ser negociada no mercado secundário, mas depende da demanda",
+        "resumo": "Títulos emitidos por empresas para captar recursos. Podem oferecer rentabilidade maior, mas envolvem mais risco."
+      },
+      "fundos_investimento": {
+        "nome": "Fundos de Investimento",
+        "risco": "Variável (depende da estratégia do fundo)",
+        "imposto": "IR conforme categoria (renda fixa, multimercado, ações)",
+        "liquidez": "Prazo de resgate varia de acordo com o fundo",
+        "resumo": "Aplicações coletivas administradas por gestores. Permitem diversificação e acesso a diferentes mercados."
+      },
+      "previdencia_privada": {
+        "nome": "Previdência Privada (PGBL/VGBL)",
+        "risco": "Variável (depende do fundo escolhido)",
+        "imposto": "Regimes diferentes: PGBL permite dedução no IR; VGBL não",
+        "liquidez": "Longo prazo; resgates podem ter carência",
+        "resumo": "Plano de investimento voltado para aposentadoria. Oferece benefícios fiscais e é indicado para planejamento de longo prazo."
+      },
+      "acoes_b3": {
+        "nome": "Ações na Bolsa de Valores (B3)",
+        "risco": "Alto (variação de mercado)",
+        "imposto": "IR de 15% sobre ganho líquido em vendas acima de R$ 20 mil/mês",
+        "liquidez": "Venda rápida, mas depende da cotação do mercado",
+        "resumo": "Permite investir em empresas brasileiras. Potencial de altos ganhos, mas com risco elevado."
+      },
+      "fundos_imobiliarios": {
+        "nome": "Fundos Imobiliários (FIIs)",
+        "risco": "Médio (variação de mercado e setor imobiliário)",
+        "imposto": "Isentos de IR sobre rendimentos mensais para pessoa física; 20% sobre ganho de capital na venda",
+        "liquidez": "Negociados na Bolsa, com liquidez variável",
+        "resumo": "Permitem investir em imóveis sem precisar comprar diretamente. Pagam rendimentos mensais e são populares para renda passiva."
       }
+    }
+  }
+}
+
     }
   }
 }
