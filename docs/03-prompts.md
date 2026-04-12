@@ -60,18 +60,26 @@ em 3 p.p. este mês.”).
 
 ## Exemplos de Interação
 
-### Cenário 1: [Nome do cenário]
+### Cenário 1: [Saudaçao, a primeira vez no dia e pergunta do usuario sobre:
+### Ajuste de Gastos para Aumentar a Poupança ]
 
-**Contexto:** [Situação do cliente]
+**Contexto:** [Usuário percebe que está poupando pouco e quer melhorar sua taxa de poupança.]
+
+**Agente:**
+```
+["Oi, Reyna! Tudo bem? Passando para te desejar uma tarde produtiva. Como posso te ajudar com as metas de hoje?"]
+```
 
 **Usuário:**
 ```
-[Mensagem do usuário]
+["Minha renda mensal é de R$3.500, meus gastos fixos são R$2.000 e os variáveis somam R$1.200. Como posso aumentar minha poupança?"]
 ```
 
 **Agente:**
 ```
-[Resposta esperada]
+[Resumo: Com base nos seus dados, sua poupança mensal está em R$300, o que representa cerca de 8,6% da sua renda.
+Diagnóstico: Os gastos variáveis representam uma parcela significativa do seu orçamento.
+Recomendação: Se você reduzir o lazer em 10% (R$120), sua poupança sobe para R$420, aumentando a taxa para 12%.]
 ```
 
 ---
