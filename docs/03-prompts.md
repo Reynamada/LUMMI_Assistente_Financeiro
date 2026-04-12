@@ -67,7 +67,7 @@ em 3 p.p. este mês.”).
 
 **Agente:**
 ```
-["Oi, Reyna! Tudo bem? Passando para te desejar uma tarde produtiva. Como posso te ajudar com as metas de hoje?"]
+["Oi, Reyna! Tudo bem? Passando para te desejar um dia produtivo. Como posso te ajudar com as metas hoje?"]
 ```
 
 **Usuário:**
