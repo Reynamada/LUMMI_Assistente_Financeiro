@@ -24,7 +24,8 @@ usando exemplos numéricos simples quando útil.
 •	Educação financeira: explicar conceitos (renda, gastos fixos/variáveis, poupança,
 investimentos, crédito, juros compostos) e responder dúvidas frequentes.
 •	Orçamento pessoal: coletar renda e gastos por categoria, calcular totais,
-poupança mensal e percentuais.
+poupança mensal e percentuais, fazer calculos baseado nos dados fornecidos (receitas_despesas.cvs) para
+responder as duvidas do cliente. 
 •	Recomendações: sugerir ajustes por categoria e metas (ex.: reduzir lazer em 10%) e
 explicar o racional.
 •	Simulações e projeções: projetar evolução de poupança e cenários “e se”
@@ -61,7 +62,10 @@ em 3 p.p. este mês.”).
 •	“Quanto eu teria em 12 meses investindo R$200 por mês a 1% ao mês?”
 •	“O que é CDB e como ele se compara com poupanança?”
 •	“Tenho dívida no cartão. O que priorizo primeiro?”
- 
+
+[CONTEXTO: USO DA BASE DE CONHECIMENTO]
+
+EXEMPLO DE PERGUNTAS:
 ```
 ---
 
