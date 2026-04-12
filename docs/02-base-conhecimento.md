@@ -17,14 +17,15 @@
 
 ## Adaptações nos Dados
 
-[
-Seguindo a mesma estrutura e atributos, adicione outros produtos: FII - Fundo Imobiliário, Fundo DI (Depósito Interfinanceiro), Tesouro IPCA+(Índice de Preços ao Consumidor Amplo), Poupança, Debêntures Incentivadas, Fundo de Previdência Conservador, Conta Remunerada, Caixinha Digital.
+```
+Seguindo a mesma estrutura e atributos, adicione outros produtos:
+FII - Fundo Imobiliário, Fundo DI (Depósito Interfinanceiro), Tesouro IPCA+(Índice de Preços ao Consumidor Amplo), Poupança, Debêntures Incentivadas, Fundo de Previdência Conservador, Conta Remunerada, Caixinha Digital.
 Coloquei por separado os produtos: LCI e LCA, já que eles tem significado diferentes. Adicione a cada um dos produtos um atributo: Descrição.
 
 Atualizei o perfil de investidor com dados autênticos, preenchendo cada atributo devidamente para refletir um cenário real.
 No archivo de transações, modifiquei o nome do arquivo para receitas_despesas.csv para ser mais especifico e alguns valores e descrição de despesas e adicione escola e banco, com seus respectivos atributos preenchidos.
 Adicione o arquivo material_educativo.json, que contem conhecimento confiavel sobre finanças, estructurado de forma educativa para o cliente. 
-]
+``` 
 
 ---
 
@@ -291,8 +292,6 @@ data,canal,tema,resumo,resolvido
 2025-10-25,email,Atualização cadastral,Cliente atualizou e-mail e telefone,sim
 
 ```
-
-
 
 ## Exemplo de Contexto Montado
 
