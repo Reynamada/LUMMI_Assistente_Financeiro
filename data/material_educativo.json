@@ -29,6 +29,39 @@
         {"sigla": "Bolsa de Valores (B3)", "descricao": "Principal mercado de negociação de ações e derivativos no Brasil. Permite investir em empresas e acompanhar índices como o Ibovespa."}
       ]
     },
+    "alertas_educacionais": {
+      "titulo": "Alertas Educacionais sobre Investimentos",
+      "renda_variavel": {
+        "nome": "Renda Variável",
+        "o_que_e": "Investimentos cujo valor pode subir ou cair com frequência, conforme o mercado (Ex: Ações, ETFs, BDRs). Não oferecem garantia de rentabilidade.",
+        "fatores_oscilacao": [
+          "Situação da economia do Brasil e do mundo",
+          "Resultados e decisões das empresas",
+          "Clima do mercado (notícias, expectativas e crises)"
+        ],
+        "indicado_para": [
+          "Objetivos de médio e longo prazo",
+          "Pessoas que lidam bem com variações sem agir por impulso",
+          "Investidores que entendem a importância da diversificação"
+        ],
+        "nota_importante": "Exige estudo, começar com valores menores e entender que oscilações fazem parte do processo."
+      },
+      "criptomoedas": {
+        "nome": "Criptomoedas",
+        "o_que_sao": "Ativos digitais com alta volatilidade. Os preços podem mudar drasticamente em um único dia.",
+        "caracteristicas": [
+          "Não têm garantia do governo",
+          "Não contam com proteção do FGC",
+          "Preços influenciados por tecnologia, regulações e movimentos globais"
+        ],
+        "indicado_para": [
+          "Pessoas com perfil mais arrojado",
+          "Quem já compreende os riscos envolvidos",
+          "Quem investe apenas uma pequena parte do patrimônio"
+        ],
+        "atencao": "Não devem ser utilizadas como reserva de emergência nem substituir investimentos mais seguros."
+      }
+    },
     "produtos_comparativo": {
       "cdb": {
         "nome": "Certificado de Depósito Bancário",
