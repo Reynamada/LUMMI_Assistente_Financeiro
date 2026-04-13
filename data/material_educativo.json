@@ -27,6 +27,8 @@
         {"sigla": "Fundos de Investimento", "descricao": "Aplicações coletivas administradas por gestores. Podem ser de renda fixa, ações ou multimercado."},
         {"sigla": "Previdência Privada (PGBL/VGBL)", "descricao": "Planos de longo prazo voltados para aposentadoria. Oferecem benefícios fiscais dependendo do regime escolhido."},
         {"sigla": "Bolsa de Valores (B3)", "descricao": "Principal mercado de negociação de ações e derivativos no Brasil. Permite investir em empresas e acompanhar índices como o Ibovespa."}
+        {"sigla": "Fundo de Previdência Conservador", "descricao": "É um tipo de fundo de investimento usado dentro de um plano de previdência privada (PGBL ou VGBL). Ou seja: PGBL/VGBL = a ‘conta’ (modalidade do plano); Fundo Conservador = como o dinheiro é investido dentro dessa conta. Exemplo: ao contratar um VGBL, você pode escolher um fundo conservador, moderado ou de ações; o VGBL continua sendo VGBL, mas o risco e a rentabilidade variam conforme o fundo. Conclusão: são relacionados, mas não são a mesma coisa."},
+      
       ]
     },
     "alertas_educacionais": {
@@ -62,6 +64,25 @@
         "atencao": "Não devem ser utilizadas como reserva de emergência nem substituir investimentos mais seguros."
       }
     },
+     "tabela_resumo_previdencia": {
+        "titulo": "Resumo: PGBL/VGBL x Fundo Conservador",
+        "tabela": [
+          {"conceito": "Conceito", "o_que_e": "O que é", "exemplo": "Exemplo"},
+          {"conceito": "Previdência Privada (PGBL/VGBL)", "o_que_e": "Modalidade do plano (estrutura legal e fiscal) para acumular recursos no longo prazo.", "exemplo": "Você contrata um VGBL para aposentadoria e depois escolhe em quais fundos de previdência o dinheiro será aplicado."},
+          {"conceito": "Fundo de Previdência Conservador", "o_que_e": "Tipo de investimento dentro do PGBL/VGBL, geralmente com maior peso em renda fixa e menor volatilidade.", "exemplo": "Dentro do seu VGBL, você seleciona um fundo conservador (em vez de moderado ou ações) para reduzir o risco."}
+        ]
+      },
+    },
+    "perguntas_frequentes": {
+      "titulo": "Perguntas frequentes (FAQ)",
+      "itens": [
+        {"pergunta": "Quando PGBL vale mais que VGBL?", "resposta": "Em geral, quando você faz a declaração completa do IR e contribui para o INSS (ou regime próprio), pois o PGBL permite deduzir as contribuições até 12% da renda tributável. Já no VGBL não há essa dedução."},
+        {"pergunta": "Quando VGBL costuma ser mais indicado?", "resposta": "Em geral, quando você faz a declaração simplificada do IR, já atingiu o limite de dedução, ou quer investir sem buscar dedução agora. No resgate, o VGBL tende a tributar apenas os rendimentos (e não o total investido), conforme regras do produto."},
+        {"pergunta": "O que define se a previdência é conservadora ou arriscada?", "resposta": "Principalmente o fundo escolhido dentro do PGBL/VGBL (renda fixa, multimercado, ações) e a política de investimento do fundo. O plano é a ‘embalagem’; o fundo é o que determina o risco e a volatilidade."},
+        {"pergunta": "Posso trocar de fundo dentro do meu PGBL/VGBL?", "resposta": "Na maioria dos planos, sim (portabilidade interna), mas pode haver regras de carência, janelas de troca e custos. Vale conferir as condições do seu contrato e da seguradora/banco."}
+      ]
+    },
+
     "produtos_comparativo": {
       "cdb": {
         "nome": "Certificado de Depósito Bancário",
