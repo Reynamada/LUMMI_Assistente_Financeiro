@@ -346,18 +346,12 @@ Pergunta de ouro! ✨ Mas para te ajudar a encontrar o investimento perfeito, pr
 
 ## Observações e Aprendizados
 
-> Ajustes que você fez nos prompts e por quê.
 ```
-AJUSTES NO PROMPT:
-Fiz o prompt mais especifico e detalhado posivel o que ajuda a reduzir ambiguidades e evitar alucinações.
+Testei quatro LLMs — Claude Code, Copilot, Ollama e Gemini — para avaliar sua performance em cenários complexos e edge cases. O resultado foi bastante revelador:
 
-EXEMPLOS DE ITERAÇÃO
-- Coloquei outros exemplos dos fornecidos e deixei um igual, so que com uma resposta mais adaptada
-  a ´personalidade de meu Agente.
-- As respostas foram adaptadas a personalidade de meu agente, mantendo a recusa clara, com uma resposta leve, simpática e motivadora, com humor redirecionei o foco para o que o agente realmente faz bem: educação financeira e gestão de orçamento.
-- Usa emojis e metáforas para transmitir energia positiva.
-- Reforcei o tom de parceria: meu agente está junto com o usuário nessa jornada.
+Claude Code e Gemini se destacaram positivamente. Ambos cumpriram rigorosamente as regras estabelecidas, responderam de forma consistente mesmo em situações de edge cases e mantiveram o contexto adequado diante de tentativas de solicitar dados sensíveis. Além disso, mostraram excelente capacidade de adaptação à personalidade e ao tom definidos para meu agente LUMMI, o que reforça sua maturidade e confiabilidade.
 
-Em resumo: Ampliei a quantidade de cenários para testar diferentes LLMs e identificar quais oferecem as melhores respostas para o agente LUMMI, de acordo com sua personalidade e tom de voz, sempre seguindo as regras estabelecidas. Além disso, refinei o prompt para torná-lo o mais específico e detalhado possível, reduzindo ambiguidades e evitando alucinações.
-Durante esse processo, ao escolher a LLM mais adequada, consegui aprimorar e melhorar continuamente o prompt, garantindo maior consistência nas informações solicitadas. Isso foi possível porque a base de conhecimento necessária estava disponível, permitindo respostas mais precisas e alinhadas ao objetivo.
+Copilot e Ollama, por outro lado, não atenderam às expectativas. Em diversos testes, não seguiram as regras estabelecidas e não conseguiram se adaptar ao estilo de comunicação e à personalidade do agente, o que comprometeu a experiência e a consistência das respostas.
+
+Essa análise reforça que a escolha da LLM impacta diretamente na qualidade e na aderência do agente às diretrizes definidas. Claude Code e Gemini demonstraram maior alinhamento com os objetivos do projeto, enquanto os demais modelos apresentaram limitações relevantes.
 ``` 
