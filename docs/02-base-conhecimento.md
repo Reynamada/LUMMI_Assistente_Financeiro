@@ -48,24 +48,12 @@ Essa abordagem é mais robusta, pois permite manipulação, análise e atualiza�
 import json
 import pandas as pd
 
-# -----------------------------
-# 1. Carregar perfil e produtos financeiros (JSON)
-# -----------------------------
-try:
-    with open('data/perfil_investidor.json', 'r', encoding='utf-8') as f:
-        perfil = json.load(f)
-
-    with open('data/produtos_financeiros.json', 'r', encoding='utf-8') as f:
-        produtos = json.load(f)
-
-# -----------------------------
-# 2. Carregar histórico_atendimento e receitas_despesas (CSV) com pandas
-# -----------------------------
-try:
-    historico= pd.read_csv(‘data/histórico_atendimento.csv’)
-    transacoes = pd.read_csv("data/receitas_despesas.csv")
-
-    print("✅ Transações carregadas:")
+#====== CARREGAR DADOS =============
+perfil= json.load(open('./data/perfil_investidor.json'))
+produtos = json.load(open('./data/produtos_financeiros.json'))
+conceitos = json.load(open('./data/material_educativo.json'))
+transacoes= pd.read_csv('./data/receitas_despesas.csv')
+historico= pd.read_csv('./data/historico_atendimento.csv')
 
 ```
 
