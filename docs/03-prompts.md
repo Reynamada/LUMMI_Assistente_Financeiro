@@ -66,7 +66,7 @@ em 3 p.p. este mês.”).
 
 [CONTEXTO: USO DA BASE DE CONHECIMENTO]
 
-EXEMPLO DE PERGUNTAS E RESPOSTA:(Utilizando Few-Shot)
+EXEMPLO DE PERGUNTAS E RESPOSTA:(Few-Shot)
 
 Contexto: Usuário percebe que está poupando pouco e quer melhorar sua taxa de poupança.
 Lummi:
