@@ -90,6 +90,7 @@ DADOS E PERFIL DO CLIENTE (data/perfil_investidor.json):
     }
   ]
 }
+
 MATERIAL EDUCATIVO PARA O CLIENTE (data/material_educativo.json):
 
   "versao": "1.2",
@@ -369,6 +370,43 @@ PRODUTOS FINANCEIROS (data/produtos_financeiros.json):
     "indicado_para": "Perfil arrojado com foco no longo prazo, Pode ter ganhos expressivos no longo prazo, mas também oscilações negativas no curto prazo, não há garantia de rendimento mínimo, diferente dos produtos de renda fixa.".
                      
   }
+{
+  "nome": "Bolsa de Valores (B3)",
+  "categoria": "renda_variável",
+  "risco": "alto",
+  "rentabilidade": "Variável. Depende da valorização das ações, distribuição de dividendos e desempenho do mercado. No longo prazo pode superar a renda fixa, mas com maior volatilidade.",
+  "aporte_minimo": "Não há valor mínimo fixo. É possível investir a partir do preço de uma ação ou ETF (geralmente entre R$10 e R$100, dependendo do ativo)",
+  "indicado_para": "Investidores com perfil moderado a arrojado, foco no longo prazo e tolerância a oscilações de mercado",
+  "descricao": "A B3 é a bolsa de valores oficial do Brasil, onde são negociadas ações, ETFs, fundos imobiliários, BDRs, derivativos e outros ativos de renda variável. O investidor pode se tornar sócio de empresas, participar do crescimento econômico e obter ganhos por valorização e dividendos, assumindo riscos de mercado."
+}
+{
+  "nome": "ETF (Exchange Traded Fund)",
+  "categoria": "renda_variável",
+  "risco": "médio a alto",
+  "rentabilidade": "Variável. Acompanha o desempenho de um índice (ex: Ibovespa, S&P 500). Pode refletir ganhos ou perdas do mercado.",
+  "aporte_minimo": "Corresponde ao preço de uma cota do ETF, geralmente entre R$10 e R$200",
+  "indicado_para": "Quem busca diversificação, baixo custo e exposição ao mercado sem escolher ações individuais",
+  "descricao": "Fundo negociado em bolsa que replica índices de mercado. Combina diversificação automática, transparência e liquidez diária, sendo muito utilizado em educação financeira e estratégias de longo prazo.",
+}
+{
+  "nome": "BDR (Brazilian Depositary Receipt)",
+  "categoria": "renda_variável",
+  "risco": "alto",
+  "rentabilidade": "Variável. Depende da valorização do ativo no exterior e da variação cambial (dólar/real).",
+  "aporte_minimo": "A partir do valor de uma unidade de BDR, geralmente entre R$20 e R$200",
+  "indicado_para": "Investidores que desejam investir em empresas estrangeiras sem abrir conta no exterior",
+  "descricao": "Certificado negociado na B3 que representa ações de empresas estrangeiras como Apple, Microsoft e Amazon, permitindo diversificação internacional com exposição ao câmbio.",
+}
+{
+  "nome": "Criptomoedas",
+  "categoria": "ativos_digitais",
+  "risco": "alto",
+  "rentabilidade": "Altamente variável. Pode apresentar ganhos elevados ou perdas significativas em curto período.",
+  "aporte_minimo": "Muito baixo. É possível investir a partir de R$1, dependendo da corretora",
+  "indicado_para": "Perfil arrojado, com alta tolerância ao risco e foco em longo prazo",
+  "descricao": "Ativos digitais descentralizados baseados em blockchain, como Bitcoin e Ethereum. Não possuem garantia governamental, apresentam alta volatilidade e são influenciados por fatores tecnológicos, regulatórios e de mercado global.",
+}
+
 ]
 RECEITAS E DESPESAS DO CLIENTE (data/receitas_despesas.csv):
 data,descricao,categoria,valor,tipo
