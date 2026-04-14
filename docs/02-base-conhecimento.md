@@ -91,10 +91,10 @@ DADOS E PERFIL DO CLIENTE (data/perfil_investidor.json):
   ]
 }
 MATERIAL EDUCATIVO PARA O CLIENTE (data/material_educativo.json):
-{
-  "versao": "1.1",
-  "projeto": "Reyna IA - Educação Financeira",
-  "data_atualizacao": "2026-04-08",
+
+  "versao": "1.2",
+  "projeto": "Agente Lummi - Educação Financeira",
+  "data_atualizacao": "2026-04-12",
   "conteudo": {
     "sistema_credito": {
       "titulo": "Sistema de Crédito e Dívidas",
@@ -108,27 +108,141 @@ MATERIAL EDUCATIVO PARA O CLIENTE (data/material_educativo.json):
     "investimentos": {
       "titulo": "Dicionário de Investimentos",
       "termos": [
-        {"sigla": "Selic/CDI", "descricao": "Termômetros da economia; regem a Renda Fixa."},
-        {"sigla": "IPCA", "descricao": "Inflação oficial; essencial para manter o poder de compra."},
-        {"sigla": "Reserva de Emergência", "descricao": "Primeiro passo; foco em Liquidez Diária."}
+        {"sigla": "Selic/CDI", "descricao": "Taxas que servem como referência para a renda fixa. A Selic é definida pelo Banco Central e o CDI acompanha de perto."},
+        {"sigla": "IPCA", "descricao": "Índice oficial de inflação medido pelo IBGE. Usado para corrigir contratos e investimentos."},
+        {"sigla": "Reserva de Emergência", "descricao": "Primeiro passo para quem começa a investir. Deve estar em aplicações seguras e com liquidez diária."},
+        {"sigla": "FGC", "descricao": "Fundo Garantidor de Créditos. Protege depósitos e investimentos em bancos até R$ 250 mil por CPF e instituição."},
+        {"sigla": "LCI/LCA", "descricao": "Letras de Crédito Imobiliário e do Agronegócio. Isentas de IR para pessoa física e garantidas pelo FGC."},
+        {"sigla": "Tesouro Selic", "descricao": "Título público que acompanha a Selic. Ideal para reserva de emergência, com liquidez diária e baixo risco."},
+        {"sigla": "Tesouro IPCA+", "descricao": "Título público que paga uma taxa fixa + inflação. Protege o poder de compra no longo prazo."},
+        {"sigla": "CDB", "descricao": "Certificado de Depósito Bancário. Você empresta dinheiro ao banco e recebe rendimento atrelado ao CDI."},
+        {"sigla": "Debêntures", "descricao": "Títulos emitidos por empresas para captar recursos. Podem render mais, mas têm risco maior que CDBs e Tesouro."},
+        {"sigla": "Fundos de Investimento", "descricao": "Aplicações coletivas administradas por gestores. Podem ser de renda fixa, ações ou multimercado."},
+        {"sigla": "Previdência Privada (PGBL/VGBL)", "descricao": "Planos de longo prazo voltados para aposentadoria. Oferecem benefícios fiscais dependendo do regime escolhido."},
+        {"sigla": "Bolsa de Valores (B3)", "descricao": "Principal mercado de negociação de ações e derivativos no Brasil. Permite investir em empresas e acompanhar índices como o Ibovespa."}
+        {"sigla": "Fundo de Previdência Conservador", "descricao": "É um tipo de fundo de investimento usado dentro de um plano de previdência privada (PGBL ou VGBL). Ou seja: PGBL/VGBL = a ‘conta’ (modalidade do plano); Fundo Conservador = como o dinheiro é investido dentro dessa conta. Exemplo: ao contratar um VGBL, você pode escolher um fundo conservador, moderado ou de ações; o VGBL continua sendo VGBL, mas o risco e a rentabilidade variam conforme o fundo. Conclusão: são relacionados, mas não são a mesma coisa."},
+      
       ]
     },
+    "alertas_educacionais": {
+      "titulo": "Alertas Educacionais sobre Investimentos",
+      "renda_variavel": {
+        "nome": "Renda Variável",
+        "o_que_e": "Investimentos cujo valor pode subir ou cair com frequência, conforme o mercado (Ex: Ações, ETFs, BDRs). Não oferecem garantia de rentabilidade.",
+        "fatores_oscilacao": [
+          "Situação da economia do Brasil e do mundo",
+          "Resultados e decisões das empresas",
+          "Clima do mercado (notícias, expectativas e crises)"
+        ],
+        "indicado_para": [
+          "Objetivos de médio e longo prazo",
+          "Pessoas que lidam bem com variações sem agir por impulso",
+          "Investidores que entendem a importância da diversificação"
+        ],
+        "nota_importante": "Exige estudo, começar com valores menores e entender que oscilações fazem parte do processo."
+      },
+      "criptomoedas": {
+        "nome": "Criptomoedas",
+        "o_que_sao": "Ativos digitais com alta volatilidade. Os preços podem mudar drasticamente em um único dia.",
+        "caracteristicas": [
+          "Não têm garantia do governo",
+          "Não contam com proteção do FGC",
+          "Preços influenciados por tecnologia, regulações e movimentos globais"
+        ],
+        "indicado_para": [
+          "Pessoas com perfil mais arrojado",
+          "Quem já compreende os riscos envolvidos",
+          "Quem investe apenas uma pequena parte do patrimônio"
+        ],
+        "atencao": "Não devem ser utilizadas como reserva de emergência nem substituir investimentos mais seguros."
+      }
+    },
+     "tabela_resumo_previdencia": {
+        "titulo": "Resumo: PGBL/VGBL x Fundo Conservador",
+        "tabela": [
+          {"conceito": "Conceito", "o_que_e": "O que é", "exemplo": "Exemplo"},
+          {"conceito": "Previdência Privada (PGBL/VGBL)", "o_que_e": "Modalidade do plano (estrutura legal e fiscal) para acumular recursos no longo prazo.", "exemplo": "Você contrata um VGBL para aposentadoria e depois escolhe em quais fundos de previdência o dinheiro será aplicado."},
+          {"conceito": "Fundo de Previdência Conservador", "o_que_e": "Tipo de investimento dentro do PGBL/VGBL, geralmente com maior peso em renda fixa e menor volatilidade.", "exemplo": "Dentro do seu VGBL, você seleciona um fundo conservador (em vez de moderado ou ações) para reduzir o risco."}
+        ]
+      },
+    },
+    "perguntas_frequentes": {
+      "titulo": "Perguntas frequentes (FAQ)",
+      "itens": [
+        {"pergunta": "Quando PGBL vale mais que VGBL?", "resposta": "Em geral, quando você faz a declaração completa do IR e contribui para o INSS (ou regime próprio), pois o PGBL permite deduzir as contribuições até 12% da renda tributável. Já no VGBL não há essa dedução."},
+        {"pergunta": "Quando VGBL costuma ser mais indicado?", "resposta": "Em geral, quando você faz a declaração simplificada do IR, já atingiu o limite de dedução, ou quer investir sem buscar dedução agora. No resgate, o VGBL tende a tributar apenas os rendimentos (e não o total investido), conforme regras do produto."},
+        {"pergunta": "O que define se a previdência é conservadora ou arriscada?", "resposta": "Principalmente o fundo escolhido dentro do PGBL/VGBL (renda fixa, multimercado, ações) e a política de investimento do fundo. O plano é a ‘embalagem’; o fundo é o que determina o risco e a volatilidade."},
+        {"pergunta": "Posso trocar de fundo dentro do meu PGBL/VGBL?", "resposta": "Na maioria dos planos, sim (portabilidade interna), mas pode haver regras de carência, janelas de troca e custos. Vale conferir as condições do seu contrato e da seguradora/banco."}
+      ]
+    },
+
     "produtos_comparativo": {
       "cdb": {
         "nome": "Certificado de Depósito Bancário",
-        "risco": "Baixo (Garantia FGC)",
-        "imposto": "Tabela Regressiva IR",
-        "resumo": "Empréstimo para bancos, rende CDI."
+        "risco": "Baixo (Garantia FGC até R$ 250 mil por CPF e instituição)",
+        "imposto": "Tabela Regressiva IR (22,5% a 15% conforme prazo)",
+        "liquidez": "Pode variar; alguns têm liquidez diária, outros só no vencimento",
+        "resumo": "Você empresta dinheiro ao banco e recebe rendimento atrelado ao CDI. É simples e acessível."
       },
       "tesouro": {
         "nome": "Tesouro Direto",
         "risco": "Mínimo (Governo Federal)",
-        "acessibilidade": "A partir de R$ 30,00",
-        "resumo": "Empréstimo para o Estado, mais seguro do país."
+        "acessibilidade": "Investimento inicial a partir de R$ 30,00",
+        "tributação": "IR regressivo (22,5% a 15%) e IOF se resgatado antes de 30 dias",
+        "resumo": "Você empresta dinheiro para o Estado. É considerado o investimento mais seguro do país, com opções que acompanham Selic, IPCA ou prefixados."
+      },
+      "poupanca": {
+        "nome": "Caderneta de Poupança",
+        "risco": "Baixo (Garantia FGC)",
+        "rentabilidade": "70% da Selic + TR quando Selic < 8,5% ao ano; Selic + TR quando Selic ≥ 8,5%",
+        "liquidez": "Resgate imediato",
+        "resumo": "Produto tradicional e simples, mas com rendimento menor que outras opções de renda fixa."
+      },
+      "lci_lca": {
+        "nome": "Letras de Crédito Imobiliário e do Agronegócio",
+        "risco": "Baixo (Garantia FGC até R$ 250 mil)",
+        "imposto": "Isentas de IR para pessoa física",
+        "liquidez": "Normalmente só no vencimento, mas há opções com liquidez diária",
+        "resumo": "Você empresta dinheiro para financiar setores imobiliário ou agrícola. Boa opção para diversificação e isenção de impostos."
+      },
+      "debentures": {
+        "nome": "Debêntures",
+        "risco": "Médio a alto (sem garantia do FGC)",
+        "imposto": "IR regressivo (22,5% a 15%)",
+        "liquidez": "Pode ser negociada no mercado secundário, mas depende da demanda",
+        "resumo": "Títulos emitidos por empresas para captar recursos. Podem oferecer rentabilidade maior, mas envolvem mais risco."
+      },
+      "fundos_investimento": {
+        "nome": "Fundos de Investimento",
+        "risco": "Variável (depende da estratégia do fundo)",
+        "imposto": "IR conforme categoria (renda fixa, multimercado, ações)",
+        "liquidez": "Prazo de resgate varia de acordo com o fundo",
+        "resumo": "Aplicações coletivas administradas por gestores. Permitem diversificação e acesso a diferentes mercados."
+      },
+      "previdencia_privada": {
+        "nome": "Previdência Privada (PGBL/VGBL)",
+        "risco": "Variável (depende do fundo escolhido)",
+        "imposto": "Regimes diferentes: PGBL permite dedução no IR; VGBL não",
+        "liquidez": "Longo prazo; resgates podem ter carência",
+        "resumo": "Plano de investimento voltado para aposentadoria. Oferece benefícios fiscais e é indicado para planejamento de longo prazo."
+      },
+      "acoes_b3": {
+        "nome": "Ações na Bolsa de Valores (B3)",
+        "risco": "Alto (variação de mercado)",
+        "imposto": "IR de 15% sobre ganho líquido em vendas acima de R$ 20 mil/mês",
+        "liquidez": "Venda rápida, mas depende da cotação do mercado",
+        "resumo": "Permite investir em empresas brasileiras. Potencial de altos ganhos, mas com risco elevado."
+      },
+      "fundos_imobiliarios": {
+        "nome": "Fundos Imobiliários (FIIs)",
+        "risco": "Médio (variação de mercado e setor imobiliário)",
+        "imposto": "Isentos de IR sobre rendimentos mensais para pessoa física; 20% sobre ganho de capital na venda",
+        "liquidez": "Negociados na Bolsa, com liquidez variável",
+        "resumo": "Permitem investir em imóveis sem precisar comprar diretamente. Pagam rendimentos mensais e são populares para renda passiva."
       }
     }
   }
-}
+
 PRODUTOS FINANCEIROS (data/produtos_financeiros.json):
 [ {
   "nome": "FII - Fundo Imobiliário",
