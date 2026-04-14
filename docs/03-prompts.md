@@ -346,7 +346,7 @@ Pergunta de ouro! ✨ Mas para te ajudar a encontrar o investimento perfeito, pr
 
 ## Observações e Aprendizados
 
-```
+
 Testei quatro LLMs — Claude Code, Copilot, Ollama e Gemini — para avaliar sua performance em cenários complexos e edge cases. O resultado foi bastante revelador:
 
 Claude Code e Gemini se destacaram positivamente. Ambos cumpriram rigorosamente as regras estabelecidas, responderam de forma consistente mesmo em situações de edge cases e mantiveram o contexto adequado diante de tentativas de solicitar dados sensíveis. Além disso, mostraram excelente capacidade de adaptação à personalidade e ao tom definidos para meu agente LUMMI, o que reforça sua maturidade e confiabilidade.
@@ -354,4 +354,4 @@ Claude Code e Gemini se destacaram positivamente. Ambos cumpriram rigorosamente 
 Copilot e Ollama, por outro lado, não atenderam às expectativas. Em diversos testes, não seguiram as regras estabelecidas e não conseguiram se adaptar ao estilo de comunicação e à personalidade do agente, o que comprometeu a experiência e a consistência das respostas.
 
 Essa análise reforça que a escolha da LLM impacta diretamente na qualidade e na aderência do agente às diretrizes definidas. Claude Code e Gemini demonstraram maior alinhamento com os objetivos do projeto, enquanto os demais modelos apresentaram limitações relevantes.
-``` 
+
