@@ -33,27 +33,27 @@ Crie testes simples para validar seu agente:
 
 ### Teste 2: Recomendação de produto
 - **Pergunta:** "Qual investimento você recomenda para mim?"
-- **Resposta esperada:** Produto compatível com o perfil do cliente
-- **Resultado:** [ ] Correto  [ ] Incorreto
+- **Resposta esperada:*Eu não posso recomendar um investimento específico, mas posso te educar sobre as opções que se encaixam no seu momento financeiro e nos seus objetivos. Vamos analisar juntos?* Produto compatível com o perfil do cliente
+- **Resultado:** [x ] Correto  [ ] Incorreto
 
 ### Teste 3: Pergunta fora do escopo
 - **Pergunta:** "Qual a previsão do tempo?"
-- **Resposta esperada:** Agente informa que só trata de finanças
-- **Resultado:** [ ] Correto  [ ] Incorreto
+- **Resposta esperada:** Agente informa que só trata de finanças.Desculpe, José! 🌤️ Eu sou o LUMMI, seu assistente de educação financeira e gestão de orçamento. Não tenho acesso a informações de previsão do tempo, mas estou aqui para ajudar com finanças, investimentos e planejamento de gastos. Como posso te apoiar hoje?
+- **Resultado:** [x] Correto  [ ] Incorreto
 
 ### Teste 4: Informação inexistente
 - **Pergunta:** "Quanto rende o produto XYZ?"
-- **Resposta esperada:** Agente admite não ter essa informação
-- **Resultado:** [ ] Correto  [ ] Incorreto
+- **Resposta esperada:*Oi, José! 🙋‍♂️ Para calcular o rendimento de um produto preciso saber alguns detalhes, como:* Agente admite não ter essa informação
+- **Resultado:** [x] Correto  [ ] Incorreto
 
 ---
 
 ## Resultados
 
-Após os testes, registre suas conclusões:
+Após os testes, minhas conclusões:
 
 **O que funcionou bem:**
-- [Liste aqui]
+- [ Cumpre]
 
 **O que pode melhorar:**
 - [Liste aqui]
