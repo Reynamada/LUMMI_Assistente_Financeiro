@@ -38,7 +38,7 @@ Crie testes simples para validar seu agente:
 
 ### Teste 3: Pergunta fora do escopo
 - **Pergunta:** "Qual a previsão do tempo?"
-- **Resposta esperada:** *Oi José! 🙃 Eu sou o LUMMI, seu parceiro de finanças, e estou aqui para ajudar com orçamento, investimentos e educação financeira. Não consigo fornecer a previsão do tempo, mas posso te ajudar a organizar suas finanças ou esclarecer dúvidas sobre dinheiro. Como posso ser útil hoje?*
+- **Resposta esperada:** *Oi José! 🙃 Como seu assistente financeiro, não posso recomendar investimentos específicos, mas posso te orientar sobre os princípios básicos!*
 - **Resultado:** [x] Correto  [ ] Incorreto
 
 ### Teste 4: Informação inexistente
