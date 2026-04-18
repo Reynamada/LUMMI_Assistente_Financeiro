@@ -1,13 +1,6 @@
 # Avaliação e Métricas
 
-## Como Avaliar seu Agente
 
-A avaliação pode ser feita de duas formas complementares:
-
-1. **Testes estruturados:** Você define perguntas e respostas esperadas;
-2. **Feedback real:** Pessoas testam o agente e dão notas.
-
----
 
 ## Métricas de Qualidade
 
@@ -17,8 +10,6 @@ A avaliação pode ser feita de duas formas complementares:
 | **Segurança** | O agente evitou inventar informações? | Perguntar algo fora do contexto e ele admitir que não sabe |
 | **Coerência** | A resposta faz sentido para o perfil do cliente? | Sugerir investimento conservador para cliente conservador |
 
-> [!TIP]
-> Peça para 3-5 pessoas (amigos, família, colegas) testarem seu agente e avaliarem cada métrica com notas de 1 a 5. Isso torna suas métricas mais confiáveis! Caso use os arquivos da pasta `data`, lembre-se de contextualizar os participantes sobre o **cliente fictício** representado nesses dados.
 
 ---
 
@@ -46,7 +37,13 @@ Crie testes simples para validar seu agente:
 - **Resposta esperada:*Oi, José Lino!! 😊 Infelizmente, não encontrei informações sobre o "XYZ" no material educativo disponível. Posso te explicar produtos comuns no    Brasil que você já conhece ou perguntar mais detalhes sobre o que ele oferece (tipo, prazo, risco, etc).* Agente admite não ter essa informação
 - **Resultado:** [x] Correto  [ ] Incorreto
 ---
+## Feedback real:
+ Usuário 1 (perfil investidor – nota 5): A experiência foi considerada excelente, sem sugestões adicionais de melhoria no momento, ja que atualmente nao tem interesse ainda em investir por suas dividas, o lummi deu ideas para ele melhorar em suas finanças para depois considerar investir. 
 
+Usuária 2 (amiga – nota 4): Indicou interesse em utilizar o agente com seus próprios dados financeiros, destacando a necessidade de maior personalização e integração com informações pessoais.
+
+Usuária 3 (amiga – nota 4): Além da personalização com dados financeiros, sugeriu que o LUMMI fosse capaz de detectar atualizações relevantes do mercado e perguntar ao usuário se deseja ajustar suas informações ou estratégias de acordo com essas mudanças.
+  
 ## Resultados
 
 Após os testes, minhas conclusões:
@@ -56,17 +53,8 @@ Após os testes, minhas conclusões:
   no arquivo receitas_despesas.csv, ele responde rapido, a pessar de nao ser um modelo pago.
 
 **O que pode melhorar:**
-- Vou adicionar control de acceso para que outros clientes possan usar e se adapte as necesidades e ao perfil de cada, colocar
-  uma input de dados iterativa para que o cliente adicione seus dados financeiros.
-
+- Vou adicionar control de acceso para que outros clientes possan usar e se adapte as necesidades e ao perfil de cada, colocar  uma input de dados iterativa para que o cliente adicione seus dados financeiros.
+- Que o agente LUMMI fosse capaz de fazer um monitoramento proativo do mercado: incorporar mecanismos de atualização automática sobre tendências e eventos financeiros, com notificações inteligentes que convidem o usuário a revisar ou ajustar seus dados.
 ---
 
-## Métricas Avançadas (Opcional)
 
-Para quem quer explorar mais, algumas métricas técnicas de observabilidade também podem fazer parte da sua solução, como:
-
-- Latência e tempo de resposta;
-- Consumo de tokens e custos;
-- Logs e taxa de erros.
-
-Ferramentas especializadas em LLMs, como [LangWatch](https://langwatch.ai/) e [LangFuse](https://langfuse.com/), são exemplos que podem ajudar nesse monitoramento. Entretanto, fique à vontade para usar qualquer outra que você já conheça!
