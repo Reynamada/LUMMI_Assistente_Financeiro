@@ -43,9 +43,8 @@ Crie testes simples para validar seu agente:
 
 ### Teste 4: Informação inexistente
 - **Pergunta:** "Quanto rende o produto XYZ?"
-- **Resposta esperada:*Oi, José! 🙋‍♂️ Com base no material educativo disponível, não há informações sobre um produto chamado "XYZ".* Agente admite não ter essa informação
+- **Resposta esperada:*Oi, José Lino!! 😊 Infelizmente, não encontrei informações sobre o "XYZ" no material educativo disponível. Posso te explicar produtos comuns no    Brasil que você já conhece ou perguntar mais detalhes sobre o que ele oferece (tipo, prazo, risco, etc).* Agente admite não ter essa informação
 - **Resultado:** [x] Correto  [ ] Incorreto
-
 ---
 
 ## Resultados
