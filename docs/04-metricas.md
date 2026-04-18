@@ -1,7 +1,6 @@
 # Avaliação e Métricas
 
 
-
 ## Métricas de Qualidade
 
 | Métrica | O que avalia | Exemplo de teste |
@@ -9,7 +8,6 @@
 | **Assertividade** | O agente respondeu o que foi perguntado? | Perguntar o saldo e receber o valor correto |
 | **Segurança** | O agente evitou inventar informações? | Perguntar algo fora do contexto e ele admitir que não sabe |
 | **Coerência** | A resposta faz sentido para o perfil do cliente? | Sugerir investimento conservador para cliente conservador |
-
 
 ---
 
@@ -35,6 +33,11 @@ Crie testes simples para validar seu agente:
 ### Teste 4: Informação inexistente
 - **Pergunta:** "Quanto rende o produto XYZ?"
 - **Resposta esperada:*Oi, José Lino!! 😊 Infelizmente, não encontrei informações sobre o "XYZ" no material educativo disponível. Posso te explicar produtos comuns no    Brasil que você já conhece ou perguntar mais detalhes sobre o que ele oferece (tipo, prazo, risco, etc).* Agente admite não ter essa informação
+- **Resultado:** [x] Correto  [ ] Incorreto
+
+### Teste 5: Informação existente
+- **Pergunta:** "Qual o significado do PGBL e em que ele se diferencia do VGBL?"
+- **Resposta esperada:*O Agente LUMMI fornece os conceitos de cada, suas principais diferenças e um exemplo    practico.*
 - **Resultado:** [x] Correto  [ ] Incorreto
 ---
 ## Feedback real:
