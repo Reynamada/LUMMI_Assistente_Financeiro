@@ -43,7 +43,7 @@ Crie testes simples para validar seu agente:
 
 ### Teste 4: Informação inexistente
 - **Pergunta:** "Quanto rende o produto XYZ?"
-- **Resposta esperada:*Oi, José! 🙋‍♂️ Para calcular o rendimento de um produto preciso saber alguns detalhes, como:* Agente admite não ter essa informação
+- **Resposta esperada:*Oi, José! 🙋‍♂️ Com base no material educativo disponível, não há informações sobre um produto chamado "XYZ".* Agente admite não ter essa informação
 - **Resultado:** [x] Correto  [ ] Incorreto
 
 ---
