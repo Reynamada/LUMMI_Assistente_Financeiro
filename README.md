@@ -8,6 +8,8 @@ Este projeto foi construído focando em três pilares:
 2. **Visibilidade:** Diferenciar claramente gastos recorrentes (parcelas) de gastos pontuais (à vista).
 3. **Segurança:** Utilizar bases de conhecimento locais (Grounding) para evitar alucinações da IA.
 
+O LUMMI redefine a gestão financeira ao unir privacidade absoluta e consultoria educativa. Diferente de soluções convencionais que apenas monitoram gastos, o LUMMI atua como um parceiro estratégico que oferece insights preditivos e sugestões de cortes inteligentes, conectando o saldo atual às metas de reserva de emergência do usuário.
+
 ---
 
 ## 🚀 Decisões Tecnológicas e Diferenciais
@@ -79,8 +81,17 @@ streamlit run src/app.py
 | Anti-Alucinação           | Respostas baseadas estritamente em ficheiros locais de conhecimento (Grounding). |
 | Persistência de Dados     | Cadastro de novas transações que atualizam o contexto do chat instantaneamente. |
 
-## 🛡️ Segurança e Confiabilidade
+
+## 🛡️ Pilares de Inovação, Segurança e Confiabilidade
 O LUMMI utiliza o conceito de Grounding para garantir que as informações sobre investimentos e juros sejam precisas. O sistema de prompt instrui o agente a consultar os dados locais de transações e perfis antes de responder, garantindo uma consultoria baseada em factos.
+
+Soberania de Dados: O agente opera com processamento 100% local via ambientes virtuais isolados (venv). Os dados financeiros pertencem exclusivamente ao usuário e são utilizados apenas para alimentar a inteligência do agente em tempo real.
+
+Privacidade e Custo Zero: Uma solução de código aberto, sem custos de licença e com zero compartilhamento de dados externos. Nenhuma informação sensível é enviada a terceiros ou utilizada para fins comerciais.
+
+Infraestrutura Robusta: Utiliza a arquitetura do OpenRouter para garantir que a inteligência artificial esteja sempre atualizada, mantendo a agilidade e a portabilidade do sistema.
+
+Impacto Social: Democratiza a consultoria financeira de alta qualidade, transformando o hábito do registro em um aprendizado contínuo. O objetivo é reduzir o endividamento familiar e fomentar investimentos conscientes para o futuro da família brasileira.
 
 ## 👩‍💻 Desenvolvido por
 Reyna Amada Dongoroz– Computer Engineer, Digital Entrepreneur & AI Student.
