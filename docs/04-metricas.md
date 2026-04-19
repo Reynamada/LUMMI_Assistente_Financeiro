@@ -54,10 +54,12 @@ Após os testes, minhas conclusões:
 **O que funcionou bem:**
 - Cumpre com todas as regras obrigatorias estabelecidas e fornece o que se pede: faz os calculos de transaçoes baseados
   no arquivo receitas_despesas.csv, ele responde rapido, a pessar de nao ser um modelo pago.
+- Atualiza receitas e despesas diretamente na interfaz do usuario.
 
 **O que pode melhorar:**
 - Vou adicionar control de acceso para que outros clientes possan usar e se adapte as necesidades e ao perfil de cada, colocar  uma input de dados iterativa para que o cliente adicione seus dados financeiros.
 - Que o agente LUMMI fosse capaz de fazer um monitoramento proativo do mercado: incorporar mecanismos de atualização automática sobre tendências e eventos financeiros, com notificações inteligentes que convidem o usuário a revisar ou ajustar seus dados.
+- Eliminar diretamente da interfaz alguma receita ou despesa colocada por engano.
 ---
 
 
