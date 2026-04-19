@@ -138,7 +138,7 @@ Abaixo está o detalhamento dos componentes do sistema, organizados por responsa
 | **Interface** | **Sidebar Gerencial** | Painel lateral para filtros de data e cadastro de novas transações. | `src/app.py` |
 | **Lógica** | **Cérebro (Agente)** | Processamento de lógica financeira e formatação de dados para a IA. | `src/agente.py` |
 | **Lógica** | **Data Engine** | Manipulação de arquivos CSV e JSON usando a biblioteca Pandas. | `src/agente.py` |
-| **Conexão** | **OpenRouter Gateway** | Gerenciamento de requisições e integração com modelos (GLM-4.5). | `src/config.py` |
+| **Conexão** | **OpenRouter Gateway** | Gerenciamento de requisições e integração com modelos (GLM-4.5.free ouopenai/gpt-oss-120b:free ). | `src/config.py` |
 | **Configuração** | **Path Manager** | Definição dinâmica de caminhos para garantir portabilidade do sistema. | `src/config.py` |
 | **Persistência** | **Grounding Data** | Base de conhecimento local (Transações, Perfil e Material Educativo). | `data/` |
 | **Ambiente** | **Virtual Env** | Isolamento de dependências e bibliotecas para execução segura. | `venv/` |
