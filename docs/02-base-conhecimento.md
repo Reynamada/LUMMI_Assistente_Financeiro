@@ -22,6 +22,7 @@
   FII - Fundo Imobiliário, Fundo DI (Depósito Interfinanceiro), Tesouro IPCA+(Índice de Preços ao Consumidor Amplo), Poupança, Debêntures Incentivadas, Fundo de    Previdência Conservador, Conta Remunerada, Caixinha Digital.
 - Coloquei por separado os produtos: LCI e LCA, já que eles tem significado diferentes. Adicione a cada um dos produtos um atributo: Descrição.
 -Eliminei o arquivo produtos_financeiros, porque o material_educativo contem os produtos alem de conceitos basicos e outras informaçoes relevantes sobre os investimentos.
+- Eliminei o arquivo historico_atendimento, não usei.
 ``` 
 
 ---
