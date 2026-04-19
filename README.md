@@ -57,6 +57,11 @@ Mac/Linux: source venv/bin/activate
 ```
 Bash
 pip install -r requirements.txt
+#No arquivo requerimentos se encontra:
+ # Dependências isoladas via venv para garantir a integridade do projeto
+   streamlit
+   pandas
+   requests
 ```
 
 ### 4.Lançar o Agente:
