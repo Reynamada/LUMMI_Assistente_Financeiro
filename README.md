@@ -78,7 +78,7 @@ streamlit run src/app.py
 O LUMMI utiliza o conceito de Grounding para garantir que as informações sobre investimentos e juros sejam precisas. O sistema de prompt instrui o agente a consultar os dados locais de transações e perfis antes de responder, garantindo uma consultoria baseada em factos.
 
 ## 👩‍💻 Desenvolvido por
-Reyna Amada Dongoroz– Digital Entrepreneur & AI Student.
+Reyna Amada Dongoroz– Computer Engineer, Digital Entrepreneur & AI Student.
 Projeto desenvolvido para o Bootcamp Bradesco - GenAI & Dados / DIO
 
 
