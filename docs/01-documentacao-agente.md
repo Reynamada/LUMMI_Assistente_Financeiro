@@ -128,19 +128,40 @@ flowchart TD
 
 ```
 
-### Componentes
+# 🧩 Arquitetura de Componentes - LUMMI
 
-| Componente | Descrição |
-|------------|-----------|
-| Interface | Streamlit (chatbot web simples), Gradio (UI rápida em Python), ou até Colab Notebook para protótipo. |
-| LLM | HuggingFace Transformers com modelos open-source (ex.: GPT-J, Falcon, Mistral, LLaMA 2 versão gratuita). |
-| Base de Conhecimento | Arquivos JSON/CSV com categorias de gastos, conceitos financeiros básicos, exemplos práticos. |
-| Validação | Checagem para evitar respostas incorretas ou “alucinações”:Regras simples em Python: validar se números fazem sentido, se conceitos estão na base de conhecimento.. |
-| Motor de cálculo | Funções Python para organizar orçamento, calcular poupança e simular cenários. |
-| Armazenamento | Arquivos locais (SQLite, JSON) ou TinyDB (leve e gratuito)para guardar histórico do usuário para personalizar recomendações.. |
-| Personalização | Ajustar recomendações ao perfil do usuário. |
-| Educação financeira | Textos pré-definidos em JSON + respostas do LLM treinado com prompts educativos. |
+Abaixo está o detalhamento dos componentes do sistema, organizados por responsabilidade e camada de execução.
+
+| Camada | Componente | Descrição Técnica | Arquivo/Pasta |
+| :--- | :--- | :--- | :--- |
+| **Interface** | **Dashboard Streamlit** | Interface principal que renderiza métricas e o chat conversacional. | `src/app.py` |
+| **Interface** | **Sidebar Gerencial** | Painel lateral para filtros de data e cadastro de novas transações. | `src/app.py` |
+| **Lógica** | **Cérebro (Agente)** | Processamento de lógica financeira e formatação de dados para a IA. | `src/agente.py` |
+| **Lógica** | **Data Engine** | Manipulação de arquivos CSV e JSON usando a biblioteca Pandas. | `src/agente.py` |
+| **Conexão** | **OpenRouter Gateway** | Gerenciamento de requisições e integração com modelos (GLM-4.5). | `src/config.py` |
+| **Configuração** | **Path Manager** | Definição dinâmica de caminhos para garantir portabilidade do sistema. | `src/config.py` |
+| **Persistência** | **Grounding Data** | Base de conhecimento local (Transações, Perfil e Material Educativo). | `data/` |
+| **Ambiente** | **Virtual Env** | Isolamento de dependências e bibliotecas para execução segura. | `venv/` |
+
 ---
+
+## 🛠️ Especificações Técnicas dos Componentes
+
+### 1. Sistema de Métricas
+O sistema processa os dados em tempo real para separar o impacto financeiro:
+* **À Vista:** Gastos pontuais que afetam o saldo imediato.
+* **Parcelados:** Compromissos recorrentes (saídas mensais) que afetam o planejamento a longo prazo.
+
+### 2. Estratégia de Grounding (Anti-Alucinação)
+Para garantir respostas fiéis à realidade da **Reyna Amada**, o agente utiliza o seguinte fluxo:
+1. Recupera o **Perfil do Investidor** (JSON).
+2. Consulta o **Material Educativo** (JSON) para termos técnicos.
+3. Analisa o **Histórico de Transações** (CSV).
+4. Injeta esses dados no **System Prompt** antes de enviar para a IA.
+
+### 3. Gestão de Dependências
+O arquivo `requirements.txt` centraliza as bibliotecas necessárias para o funcionamento de todos os componentes listados no quadro acima.
+
 
 ## Segurança e Anti-Alucinação
 
