@@ -3,14 +3,25 @@
 ## Caso de Uso
 
 ### Problema
-> Qual problema financeiro seu agente resolve?
+> Qual problema financeiro o agente LUMMI resolve?
 ```
 A falta de controle e planejamento sobre o orçamento pessoal, que leva muitas pessoas a viverem sem conseguir poupar, acumulando dívidas ou sem clareza sobre como usar melhor o dinheiro.
 ```
-### Solução
+### 💡 Solução: Como o LUMMI Resolve o Problema?
 > Como o agente resolve esse problema de forma proativa?
 ```
 Acompanha o usuário, antecipa problemas e constrói soluções personalizadas para uma vida financeira mais saudável.
+
+O LUMMI transcende a função de rastreamento passivo ao integrar gestão ativa e inteligência consultiva em uma única interface. Sua arquitetura foi desenhada para transformar dados brutos em decisões financeiras estratégicas através de três eixos fundamentais:
+
+1. Gestão Dinâmica e Adaptativa
+Diferente de sistemas estáticos, o LUMMI oferece um ecossistema de processamento em tempo real. Ele permite a inserção e categorização personalizada de receitas e despesas, fornecendo uma visão clara do fluxo de caixa e do comprometimento da renda de forma instantânea.
+
+2. Inteligência Artificial Contextualizada
+Utilizando a infraestrutura de ponta do OpenRouter (com modelos de alta performance como GLM-4.5 e GPT-OSS-120B), o agente realiza uma análise profunda que cruza o perfil do investidor com suas metas reais. A IA não apenas responde perguntas, mas interpreta o cenário financeiro do usuário para oferecer recomendações personalizadas e seguras.
+
+3. Educação Financeira Nativa (RAG/Grounding)
+A solução atua como um educador integrado. Através de uma base de conhecimento exclusiva, o LUMMI traduz o "economês" para o usuário, explicando de forma didática e transparente conceitos cruciais como FGC, LCI/LCA e Tesouro Selic, garantindo que cada decisão seja tomada com plena consciência e autonomia.
 ```
 
 ### Público-Alvo
