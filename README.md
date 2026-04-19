@@ -1,7 +1,7 @@
 # 💰 LUMMI - Agente Financeiro Inteligente
 
 ## 🌟 Contexto
-O **LUMMI** é um assistente financeiro consultivo desenvolvido para transformar a gestão de finanças pessoais. Ele supera a limitação das planilhas estáticas ao utilizar IA Generativa para oferecer análises de gastos em tempo real, educação financeira personalizada e sugestões baseadas no perfil de investidor do utilizador.
+O **LUMMI** é um assistente financeiro consultivo desenvolvido para transformar a gestão de finanças pessoais. Ele supera a limitação das planilhas estáticas ao utilizar IA Generativa para oferecer análises de gastos em tempo real, educação financeira personalizada e sugestões baseadas no perfil de investidor do usuario.
 
 Este projeto foi construído focando em três pilares:
 1. **Educação:** Desmistificar termos financeiros e taxas brasileiras (Selic, CDI, IPCA).
