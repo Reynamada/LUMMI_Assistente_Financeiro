@@ -514,8 +514,6 @@ o	Reserva de Emergência → liquidez diária
 •	Produtos comparativos:
 o	CDB → baixo risco, FGC, rende CDI
 o	Tesouro Direto → risco mínimo, acessível a partir de R$30
-
-Produtos Financeiros (principais)
 •	Tesouro Selic → baixo risco, liquidez diária, ideal para reserva de emergência
 •	Tesouro IPCA+ → protege contra inflação, longo prazo
 •	CDB Liquidez Diária → baixo risco, 102% CDI, resgate rápido
@@ -537,8 +535,6 @@ o	Transporte: R$ 200,00
 o	Compras parceladas: R$ 3.000,00
 •	Saldo líquido aproximado: negativo (-R$ 2.587,00)
 
-Histórico de Atendimento
-•	Perguntas sobre CDB, Tesouro Selic e metas financeiras já foram respondidas.
-•	Cliente atualizou cadastro em 2025.
+
 
 ```
