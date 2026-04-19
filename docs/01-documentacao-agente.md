@@ -156,7 +156,7 @@ O sistema processa os dados em tempo real para separar o impacto financeiro:
 Para garantir respostas fiéis à realidade da **Reyna Amada**, o agente utiliza o seguinte fluxo:
 1. Recupera o **Perfil do Investidor** (JSON).
 2. Consulta o **Material Educativo** (JSON) para termos técnicos.
-3. Analisa o **Histórico de Transações** (CSV).
+3. Analisa o **Histórico de Transações** receitas_despesas (CSV).
 4. Injeta esses dados no **System Prompt** antes de enviar para a IA.
 
 ### 3. Gestão de Dependências
