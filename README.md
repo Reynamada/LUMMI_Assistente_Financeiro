@@ -84,7 +84,7 @@ streamlit run src/app.py
 
 ## 🛡️ Segurança e Confiabilidade
 
-O LUMMI utiliza o conceito de Grounding para garantir que as informações sobre investimentos e juros sejam precisas. O sistema de prompt instrui o agente a consultar os dados locais de transações e perfis antes de responder, garantindo uma consultoria baseada em factos.
+O LUMMI utiliza o conceito de Grounding para garantir que as informações sobre investimentos e juros sejam precisas. O sistema de prompt instrui o agente a consultar os dados locais de transações e perfis antes de responder, garantindo uma consultoria baseada em fatos.o LUMMI traduz o "economês" para o usuário, explicando de forma didática e transparente conceitos cruciais como FGC, LCI/LCA e Tesouro Selic, garantindo que cada decisão seja tomada com plena consciência e autonomia.
 
 ## 👩‍💻 Desenvolvido por
 
