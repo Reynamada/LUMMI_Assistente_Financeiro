@@ -201,7 +201,24 @@
           "indicado_para": "Reserva de emergência e iniciantes",
           "descricao": "Título público federal atrelado à Selic, com liquidez diária e segurança garantida pelo Tesouro Nacional."
         },
-       
+        {
+          "nome": "Tesouro Selic",
+          "categoria": "renda_fixa",
+          "risco": "baixo",
+          "rentabilidade": "100% da taxa Selic.Taxa Selic vigente: (14,75% a.a. em 2026)",
+          "aporte_minimo": 30.00,
+          "indicado_para": "Reserva de emergência e iniciantes",
+          "descricao": "Título público federal atrelado à Selic, com liquidez diária e segurança garantida pelo Tesouro Nacional."
+        },
+        {
+          "nome": "Tesouro Selic",
+          "categoria": "renda_fixa",
+          "risco": "baixo",
+          "rentabilidade": "100% da taxa Selic.Taxa Selic vigente: (14,75% a.a. em 2026)",
+          "aporte_minimo": 30.00,
+          "indicado_para": "Reserva de emergência e iniciantes",
+          "descricao": "Título público federal atrelado à Selic, com liquidez diária e segurança garantida pelo Tesouro Nacional."
+        },
         {
           "nome": "CDB Liquidez Diária",
           "categoria": "renda_fixa",
@@ -237,6 +254,96 @@
           "aporte_minimo": 500.00,
           "indicado_para": "Ideal para quem quer deixar o dinheiro aplicado com segurança e disponibilidade.",
           "descricao": "Fundo de investimento que aplica em títulos públicos e privados de baixo risco, acompanhando o CDI."
+        },
+        {
+          "nome": "Tesouro IPCA+(Índice de Preços ao Consumidor Amplo)",
+          "categoria": "renda_fixa",
+          "risco": "baixo",
+          "rentabilidade": "IPCA + taxa fixa (~5% a 6% a.a. em 2026).",
+          "aporte_minimo": 30.00,
+          "indicado_para": "Quem quer proteger o dinheiro da inflação",
+          "descricao": "Título público que garante rendimento acima da inflação, preservando o poder de compra no longo prazo,+ (mais) → indica que o título paga a variação do IPCA + uma taxa fixa de juros definida no momento da compra.."
+        },
+        {
+          "nome": "LCI (Letra de Crédito Imobiliário)",
+          "categoria": "renda_fixa",
+          "risco": "baixo",
+          "rentabilidade": "90% a 100% do CDI",
+          "aporte_minimo": 1000.00,
+          "indicado_para": "Quem busca isenção de IR e segurança",
+          "descricao": "Título emitido por bancos para financiar o setor imobiliário, com isenção de imposto de renda para pessoa física e exige prazo mínimo de 90 dias."
+        },
+        {
+          "nome": "LCA (Letra de Crédito do Agronegócio)",
+          "categoria": "renda_fixa",
+          "risco": "baixo",
+          "rentabilidade": "entre 90% e 100% do CDI, variando conforme prazo e emissor.",
+          "aporte_minimo": 1000.00,
+          "indicado_para": "Quem deseja diversificação e isenção de IR",
+          "descricao": "Título emitido para financiar o agronegócio, também isento de imposto de renda para pessoa física e exige prazo mínimo de 90 dias."
+        },
+        {
+          "nome": "LCA (Letra de Crédito do Agronegócio)",
+          "categoria": "renda_fixa",
+          "risco": "baixo",
+          "rentabilidade": "entre 90% e 100% do CDI, variando conforme prazo e emissor.",
+          "aporte_minimo": 1000.00,
+          "indicado_para": "Quem deseja diversificação e isenção de IR",
+          "descricao": "Título emitido para financiar o agronegócio, também isento de imposto de renda para pessoa física e exige prazo mínimo de 90 dias."
+        },
+        {
+          "nome": "LCA (Letra de Crédito do Agronegócio)",
+          "categoria": "renda_fixa",
+          "risco": "baixo",
+          "rentabilidade": "entre 90% e 100% do CDI, variando conforme prazo e emissor.",
+          "aporte_minimo": 1000.00,
+          "indicado_para": "Quem deseja diversificação e isenção de IR",
+          "descricao": "Título emitido para financiar o agronegócio, também isento de imposto de renda para pessoa física e exige prazo mínimo de 90 dias."
+        },
+        {
+          "nome": "LCA (Letra de Crédito do Agronegócio)",
+          "categoria": "renda_fixa",
+          "risco": "baixo",
+          "rentabilidade": "entre 90% e 100% do CDI, variando conforme prazo e emissor.",
+          "aporte_minimo": 1000.00,
+          "indicado_para": "Quem deseja diversificação e isenção de IR",
+          "descricao": "Título emitido para financiar o agronegócio, também isento de imposto de renda para pessoa física e exige prazo mínimo de 90 dias."
+        },
+        {
+          "nome": "LCA (Letra de Crédito do Agronegócio)",
+          "categoria": "renda_fixa",
+          "risco": "baixo",
+          "rentabilidade": "entre 90% e 100% do CDI, variando conforme prazo e emissor.",
+          "aporte_minimo": 1000.00,
+          "indicado_para": "Quem deseja diversificação e isenção de IR",
+          "descricao": "Título emitido para financiar o agronegócio, também isento de imposto de renda para pessoa física e exige prazo mínimo de 90 dias."
+        },
+        {
+          "nome": "Fundo DI (Depósito Interfinanceiro).",
+          "categoria": "fundos",
+          "risco": "baixo",
+          "rentabilidade": "95% a 105% do CDI (~13,9% a 15,4% ao ano em 2026)",
+          "aporte_minimo": 500.00,
+          "indicado_para": "Ideal para quem quer deixar o dinheiro aplicado com segurança e disponibilidade.",
+          "descricao": "Fundo de investimento que aplica em títulos públicos e privados de baixo risco, acompanhando o CDI."
+        },
+        {
+          "nome": "Tesouro IPCA+(Índice de Preços ao Consumidor Amplo)",
+          "categoria": "renda_fixa",
+          "risco": "baixo",
+          "rentabilidade": "IPCA + taxa fixa (~5% a 6% a.a. em 2026).",
+          "aporte_minimo": 30.00,
+          "indicado_para": "Quem quer proteger o dinheiro da inflação",
+          "descricao": "Título público que garante rendimento acima da inflação, preservando o poder de compra no longo prazo,+ (mais) → indica que o título paga a variação do IPCA + uma taxa fixa de juros definida no momento da compra.."
+        },
+        {
+          "nome": "Tesouro IPCA+(Índice de Preços ao Consumidor Amplo)",
+          "categoria": "renda_fixa",
+          "risco": "baixo",
+          "rentabilidade": "IPCA + taxa fixa (~5% a 6% a.a. em 2026).",
+          "aporte_minimo": 30.00,
+          "indicado_para": "Quem quer proteger o dinheiro da inflação",
+          "descricao": "Título público que garante rendimento acima da inflação, preservando o poder de compra no longo prazo,+ (mais) → indica que o título paga a variação do IPCA + uma taxa fixa de juros definida no momento da compra.."
         },
         {
           "nome": "Tesouro IPCA+(Índice de Preços ao Consumidor Amplo)",
