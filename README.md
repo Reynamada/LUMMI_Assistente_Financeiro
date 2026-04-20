@@ -10,6 +10,8 @@ Este projeto foi construído focando em três pilares:
 2. **Visibilidade:** Diferenciar claramente gastos recorrentes (parcelas) de gastos pontuais (à vista).
 3. **Segurança:** Utilizar bases de conhecimento locais (Grounding) para evitar alucinações da IA.
 
+[Documentaçao](docs/01-documentacao-agente.md)
+
 ---
 
 ## 🚀 Decisões Tecnológicas e Diferenciais
