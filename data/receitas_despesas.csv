@@ -1,13 +1,30 @@
 data,descricao,categoria,valor,tipo
-2026-04-07,Salário,receita,8000.00,entrada
-2026-04-07,Aluguel,moradia,1500.00,saida
-2026-04-07,Supermercado,alimentacao,2000.00,saida
-2026-04-07,HBOmax,lazer,40.90,saida
-2026-04-07,PrimeVideo,lazer,40.90,saida
-2026-04-07,Farmácia,saude,500.00,saida
-2026-04-07,Restaurante,alimentacao,250.00,saida
-2026-04-07,Uber,transporte,200.00,saida
-2026-04-07,Conta de Luz,moradia,660.00,saida
-2026-04-07,Academia,saude,295.00,saida
-2026-04-07,Escola,Educaçao filhos,1100.00,saida
-2026-04-07,Banco,Compras Parceladas,3000.00,saida mensal
+2026-04-07 00:00:00,Salário,receita,8000.0,entrada
+2026-04-07 00:00:00,Aluguel,moradia,1500.0,saida
+2026-04-07 00:00:00,Supermercado,alimentacao,2000.0,saida
+2026-04-07 00:00:00,HBOmax,lazer,40.9,saida
+2026-04-07 00:00:00,PrimeVideo,lazer,40.9,saida
+2026-04-07 00:00:00,Farmácia,saude,500.0,saida
+2026-04-07 00:00:00,Restaurante,alimentacao,250.0,saida
+2026-04-07 00:00:00,Uber,transporte,200.0,saida
+2026-04-07 00:00:00,Conta de Luz,moradia,660.0,saida
+2026-04-07 00:00:00,Academia,saude,295.0,saida
+2026-04-07 00:00:00,Escola,Educaçao filhos,1100.0,saida
+2026-04-07 00:00:00,Banco,Compras Parceladas,3000.0,saida mensal
+2026-04-17 00:00:00,venta de productos digitales,renda extra,150.0,entrada
+,DIO,Cursos,30.0,saida
+,ingreso,renda extra,150.0,entrada
+2026-04-18 00:00:00,ingreso,renda extra,150.0,entrada
+2026-04-18 00:00:00,ingresos,renda extra,150.0,entrada
+2026-04-18 00:00:00,ingresos venta,renda extra,500.0,entrada
+2026-04-18 00:00:00,compra robux,lazer,70.0,saida
+2026-04-18 00:00:00,venta,renda extra,200.0,entrada
+2026-04-18 00:00:00,compra de robux,lazer,100.0,saida
+2026-04-19 00:00:00,emergencia de saude,saude,150.0,saida
+2026-04-19 00:00:00,compra de roupa,variados,100.0,saida
+2026-04-19 00:00:00,comida,alimentacao,300.0,saida
+2026-04-19 00:00:00,compra de garrafa termica,variados,45.0,saida
+2026-04-19 00:00:00,compra de cargador de telefone,variados,50.0,saida
+2026-04-19 00:00:00,venta de carteira,renda extra,150.0,entrada
+2026-04-19 00:00:00,venta de pc,renda extra,2500.0,entrada
+2026-04-19,compra de ventilador,variados,300.0,saida
