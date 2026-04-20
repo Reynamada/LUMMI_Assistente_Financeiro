@@ -3,32 +3,32 @@
  
 ## Roteiro Sugerido
 
-### 1. O Problema (30 seg)
+### 1. O Problema 
 > Qual dor do cliente você resolve?
 
-[Qual dor do cliente você resolve? A falta de controle e planejamento sobre o orçamento pessoal, que leva muitas pessoas a viverem sem conseguir poupar, acumulando dívidas ou sem clareza sobre como usar melhor o dinheiro. 
-Muitos brasileiros e estrangeiros enfrentam o desafio de gerir suas finanças sem entender termos técnicos como Selic, CDI ou IPCA. A falta de organização e o desconhecimento sobre como o sistema de crédito funciona geram o efeito 'bola de neve' nos juros do cartão e cheque especial. Além disso, a maioria das ferramentas de gestão são planilhas estáticas que não oferecem orientação personalizada, deixando o usuário sem saber qual o próximo passo prático para sair das dívidas ou começar a investir com segurança."
-]
+Qual dor do cliente o LUMMI resolve? A falta de controle e planejamento sobre o orçamento pessoal, que leva muitas pessoas a viverem sem conseguir poupar, acumulando dívidas ou sem clareza sobre como usar melhor o dinheiro. 
 
-### 2. A Solução (1 min)
+
+### 2. A Solução 
 > Como seu agente resolve esse problema?
 
-[LUMMI, um agente financeiro inteligente desenvolvido em Python e Streamlit. Ele não é apenas um rastreador de despesas, mas um educador financeiro integrado.
-•	Gestão Dinâmica: O LUMMI processa transações em tempo real, permitindo adicionar receitas e despesas com categorias personalizadas pelo usuário.
-•	IA com Contexto: Utilizando o modelo GLM-4.5.free alternando com openai/gpt-oss-120b:free da OpenRouter, o LUMMI analisa o perfil do investidor, sua renda e suas metas específicas.
-•	Educação Integrada: Ele utiliza um banco de dados exclusivo de material educativo para explicar conceitos como o FGC, LCI/LCA, Tesouro Selic, entre outros, de forma didática e transparente."
-]
+Acompanha o usuário, antecipa problemas e constrói soluções personalizadas para uma vida financeira mais saudável.
+O LUMMI transcende a função de rastreamento passivo ao integrar gestão ativa e inteligência consultiva em uma única interface. 
+(Grounding: Nao inventa dados, ele garante que o conteúdo gerado esteja apoiado em dados reais)
+A solução atua como um educador integrado. Através de uma base de conhecimento exclusiva, o LUMMI traduz termos técnicos para uma linguagem simples e prática, acessível ao público em geral
 
-### 3. Demonstração (1 min)
+
+### 3. Demonstração 
 > Mostre o agente funcionando (pode ser gravação de tela)
 
 [•	Tela Inicial: Mostre o Dashboard com os cálculos de Saldo Mensal, Total de Receitas e Despesas filtrados por mês.
 •	Interatividade: Demonstre a inserção de uma nova transação através do formulário lateral com o recurso de 'Salvar e Atualizar'.
-•	O Chat Inteligente: Mostre o usuário perguntando: 'O que é CDB e como ele ajuda na minha meta?'. O LUMMI responde usando o glossário educativo e comparando o rendimento (ex: 102% do CDI) com a situação atual do usuário.
+•	O Chat Inteligente: Mostre o usuário perguntando: 'O que é CDB e como ele ajuda na minha meta?'. O LUMMI responde usando o glossário educativo e comparando o rendimento.
+  Pergunta sobre investimentps: gostaria de investir en açoes, que me recomendas? responde alguma forma que nao pode fazer recomendaçoes sobre investimentos especificos e educa.
 •	Alertas: Mostre o LUMMI emitindo um alerta educacional caso o usuário mencione ativos de alta volatilidade como Criptomoedas.
 ]
 
-### 4. Diferencial e Impacto (30 seg)
+### 4. Diferencial e Impacto 
 > Por que essa solução é inovadora e qual é o impacto dela na sociedade?
 
 [Por que essa solução é inovadora e qual é o impacto dela na sociedade? 
@@ -40,10 +40,10 @@ Muitos brasileiros e estrangeiros enfrentam o desafio de gerir suas finanças se
 
 ## Checklist do Pitch
 
-- [ ] Duração máxima de 3 minutos
-- [ ] Problema claramente definido
-- [ ] Solução demonstrada na prática
-- [ ] Diferencial explicado
+- [X] Duração máxima de 3 minutos
+- [X] Problema claramente definido
+- [X] Solução demonstrada na prática
+- [X] Diferencial explicado
 - [ ] Áudio e vídeo com boa qualidade
 
 ---
@@ -52,4 +52,4 @@ Muitos brasileiros e estrangeiros enfrentam o desafio de gerir suas finanças se
 
 > Cole aqui o link do seu pitch (YouTube, Loom, Google Drive, etc.)
 
-[Link do vídeo]
+[[Link do vídeo](https://drive.google.com/file/d/17lSzXblZfaWlaq3YrX2D5hpfgNRQ3pTp/view?usp=sharing)]
