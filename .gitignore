@@ -1,0 +1,15 @@
+# Ambiente Virtual (O mais importante!)
+venv/
+env/
+.venv/
+
+# Temporários do Python
+__pycache__/
+*.py[cod]
+
+# Arquivos do Sistema
+.DS_Store
+Thumbs.db
+
+# Configurações sensíveis (Caso você decida separar as chaves em um .env no futuro)
+.env
