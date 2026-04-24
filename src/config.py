@@ -2,7 +2,7 @@ import os
 
 # ========= CONFIGURAÇÕES OPENROUTER ==============
 MODELO = "openai/gpt-oss-120b:free"
-API_KEY = "***REMOVED***"
+API_KEY = ""
 
 # ========= CAMINHOS DE DADOS ==============
 # Ajustado para encontrar a pasta data fora da pasta src
