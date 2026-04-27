@@ -75,6 +75,12 @@ with st.sidebar:
                     df_transacoes = salvar_nova_transacao(nova_data, nova_desc, nova_cat, novo_valor, novo_tipo)
                     st.success("✅ Atualização realizada com sucesso!")
                     st.rerun()
+    
+    st.divider()
+    st.subheader("📚 Glossário")
+    for termo in edu['conteudo']['investimentos']['termos']:
+        with st.expander(f"{termo['sigla']}"):
+            st.write(termo['descricao'])
 
 # ====== CONSTRUÇÃO DO SYSTEM PROMPT (CÉREBRO) ======
 resumo_financeiro = df_mes.groupby(['tipo', 'categoria'])['valor'].sum().to_dict()
