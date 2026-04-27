@@ -1,9 +1,9 @@
 # Dependências isoladas via venv para garantir a integridade do projeto - 2026-04-26
-streamlit==1.32.0
-requests==2.31.0
-pandas==2.2.1
-numpy==1.26.4
-openai==1.14.3
-python-dotenv
+streamlit
+requests
+pandas
+numpy
+openai
+
 
 

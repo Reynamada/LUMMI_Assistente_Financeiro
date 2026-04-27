@@ -1,46 +1,19 @@
 import sys
 import os
-<<<<<<< HEAD
-from config import OPENROUTER_API_KEY
-
-# Apenas para verificar se a chave foi carregada
-if OPENROUTER_API_KEY:
-    print("OPENROUTER_API_KEY encontrada! Prefixo:", OPENROUTER_API_KEY[:5] + "*****")
-else:
-    print("OPENROUTER_API_KEY não encontrada.")
-=======
->>>>>>> 645c73d4ef02ac9271c983103a244c0691fa68ef
-
-# 1. Garante que o Python olhe para a pasta src
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
-try:
-<<<<<<< HEAD
-    from config import MODELO, OPENROUTER_API_KEY 
-except ImportError:
-    # 2. Caso o Python considere 'src' como um pacote (Fallback)
-    from src.config import MODELO, OPENROUTER_API_KEY 
-=======
-    from config import MODELO, API_KEY
-except ImportError:
-    # 2. Caso o Python considere 'src' como um pacote (Fallback)
-    from src.config import MODELO, API_KEY
->>>>>>> 645c73d4ef02ac9271c983103a244c0691fa68ef
-
 import streamlit as st
 import pandas as pd
 import requests
 import json
+import numpy as np
 from datetime import datetime
-<<<<<<< HEAD
-from config import MODELO, OPENROUTER_API_KEY 
+from src.config import MODELO, OPENROUTER_API_KEY
+
+# 1. Garante que o Python olhe para a pasta src
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+#from config import MODELO, OPENROUTER_API_KEY 
 from agente import carregar_dados_base, carregar_transacoes, salvar_nova_transacao
-from config import MODELO, OPENROUTER_API_KEY 
-=======
-from config import MODELO, API_KEY
-from agente import carregar_dados_base, carregar_transacoes, salvar_nova_transacao
-from config import MODELO, API_KEY
->>>>>>> 645c73d4ef02ac9271c983103a244c0691fa68ef
+
 #============= CONFIGURAÇÃO PÁGINA ============
 st.set_page_config(page_title="LUMMI - Seu Agente Financeiro", page_icon="💰", layout="wide")
 
@@ -68,10 +41,7 @@ with st.sidebar:
     saldo_mensal = total_in - (total_a_vista + total_parcelas)
 
     st.metric("Saldo do Mês", f"R$ {saldo_mensal:.2f}", delta=f"{saldo_mensal:.2f}")
-    col_v, col_p = st.columns(2)
-    
 
-    # Botão de Resumo Iterativo
     if 'ver_detalles' not in st.session_state: st.session_state.ver_detalles = False
     if st.button("⬅️ Ocultar Resumo" if st.session_state.ver_detalles else "📊 Ver Resumo"):
         st.session_state.ver_detalles = not st.session_state.ver_detalles
@@ -84,9 +54,6 @@ with st.sidebar:
             for _, r in resumo_cats[resumo_cats['tipo'] == t].iterrows():
                 st.write(f"- {r['categoria']}: R$ {r['valor']:.2f}")
 
-  
-
-     # Formulário
     with st.expander("➕ Adicionar Nova Transação"):
         categorias_existentes = sorted(df_transacoes['categoria'].unique().tolist())
         with st.form("nova_transacao", clear_on_submit=True):
@@ -109,11 +76,6 @@ with st.sidebar:
                     st.success("✅ Atualização realizada com sucesso!")
                     st.rerun()
 
-    st.divider()
-    st.subheader("📚 Glossário")
-    for termo in edu['conteudo']['investimentos']['termos']:
-        with st.expander(f"{termo['sigla']}"):
-            st.write(termo['descricao'])
 # ====== CONSTRUÇÃO DO SYSTEM PROMPT (CÉREBRO) ======
 resumo_financeiro = df_mes.groupby(['tipo', 'categoria'])['valor'].sum().to_dict()
 
@@ -139,8 +101,6 @@ Você é o LUMMI, o assistente financeiro de {perfil['nome']}.
 - Perfil: {perfil.get('perfil_investidor', 'Não definido')}
 - Reserva de Emergência Atual: R$ {perfil.get('reserva_emergencia_atual', 0.0):.2f}
 - Metas: {perfil.get('metas', [])}
-
-
 
 REGRAS OBRIGATÓRIAS:
 - Saluda ao cliente de forma animada e empática, usando o nome dele.
@@ -328,9 +288,7 @@ if prompt := st.chat_input("Pergunte ao LUMMI sobre suas finanças"):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
-    
-       # ====== DENTRO DO SEU APP.PY, ANTES DA CHAMADA DA API ======
-
+  
     # 1. Preparar os dados para o JSON (evitando erro de Timestamp)
     df_para_json = df_mes.tail(10).copy()
     if not df_para_json.empty:
@@ -347,27 +305,33 @@ if prompt := st.chat_input("Pergunte ao LUMMI sobre suas finanças"):
     - Transações Recentes: {json.dumps(transacoes_dict, ensure_ascii=False)}
 """
 
-    with st.chat_message("assistant"):
-        with st.spinner("LUMMI analisando..."):
-            try:
-                response = requests.post(
+with st.chat_message("assistant"):
+    with st.spinner("LUMMI analisando..."):
+        try:
+            response = requests.post(
                     url="https://openrouter.ai/api/v1/chat/completions",
-<<<<<<< HEAD
-                    headers={"Authorization": f"Bearer {OPENROUTER_API_KEY }"},
-=======
-                    headers={"Authorization": f"Bearer {API_KEY}"},
->>>>>>> 645c73d4ef02ac9271c983103a244c0691fa68ef
-                    json={
-                        "model": MODELO,
-                        "messages": [{"role": "system", "content": SYSTEM_PROMPT}] + st.session_state.messages
+                    headers={
+                    "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+                    "HTTP-Referer": "http://localhost:8501", # Recomendado pelo OpenRouter
                     },
-                    timeout=45
-                )
-                if response.status_code == 200:
-                    full_response = response.json()['choices'][0]['message']['content']
-                    st.markdown(full_response)
-                    st.session_state.messages.append({"role": "assistant", "content": full_response})
-                else:
-                    st.error(f"Erro na API ({response.status_code})")
-            except Exception as e:
-                st.error(f"Erro de conexão: {e}")
+                json={
+                    "model": MODELO,
+                    "messages": [{"role": "system", "content": SYSTEM_PROMPT}] + st.session_state.messages
+                },
+                timeout=45
+            )
+            
+            dados_resposta = response.json()
+
+            # Verificação de segurança para evitar o erro 'choices'
+            if response.status_code == 200 and 'choices' in dados_resposta:
+                full_response = dados_resposta['choices'][0]['message']['content']
+                st.markdown(full_response)
+                st.session_state.messages.append({"role": "assistant", "content": full_response})
+            else:
+                # Se der erro, mostra o que a API respondeu de verdade
+                erro_msg = dados_resposta.get('error', {}).get('message', 'Erro desconhecido')
+                st.error(f"Erro na API ({response.status_code}): {erro_msg}")
+                
+        except Exception as e:
+               st.error(f"Erro de conexão: {str(e)}")
