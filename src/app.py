@@ -6,7 +6,7 @@ import requests
 import json
 import numpy as np
 from datetime import datetime
-from src.config import MODELO, OPENROUTER_API_KEY
+from config import MODELO, OPENROUTER_API_KEY
 
 # 1. Garante que o Python olhe para a pasta src
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
