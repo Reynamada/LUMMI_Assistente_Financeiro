@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 # Dependências isoladas via venv para garantir a integridade do projeto - 2026-04-26
 streamlit==1.32.0
 requests==2.31.0
@@ -8,4 +6,4 @@ numpy==1.26.4
 openai==1.14.3
 python-dotenv
 
->>>>>>> 645c73d4ef02ac9271c983103a244c0691fa68ef
+
