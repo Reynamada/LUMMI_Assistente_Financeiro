@@ -1,4 +1,4 @@
-# Dependências isoladas via venv para garantir a integridade do projeto
+# Dependências isoladas via venv para garantir a integridade do projeto - 2026-04-26
 streamlit
 pandas
 requests
