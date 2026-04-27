@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 # Dependências isoladas via venv para garantir a integridade do projeto
 streamlit
 pandas
 requests
+=======
+# Dependências isoladas via venv para garantir a integridade do projeto - 2026-04-26
+streamlit
+pandas
+requests
+>>>>>>> 645c73d4ef02ac9271c983103a244c0691fa68ef

@@ -10,6 +10,11 @@ Este projeto foi construído focando em três pilares:
 2. **Visibilidade:** Diferenciar claramente gastos recorrentes (parcelas) de gastos pontuais (à vista).
 3. **Segurança:** Utilizar bases de conhecimento locais (Grounding) para evitar alucinações da IA.
 
+<<<<<<< HEAD
+=======
+[Documentaçao](docs/01-documentacao-agente.md)
+
+>>>>>>> 645c73d4ef02ac9271c983103a244c0691fa68ef
 ---
 
 ## 🚀 Decisões Tecnológicas e Diferenciais
@@ -84,7 +89,11 @@ streamlit run src/app.py
 
 ## 🛡️ Segurança e Confiabilidade
 
+<<<<<<< HEAD
 O LUMMI utiliza o conceito de Grounding para garantir que as informações sobre investimentos e juros sejam precisas. O sistema de prompt instrui o agente a consultar os dados locais de transações e perfis antes de responder, garantindo uma consultoria baseada em factos.
+=======
+O LUMMI utiliza o conceito de Grounding para garantir que as informações sobre investimentos e juros sejam precisas. O sistema de prompt instrui o agente a consultar os dados locais de transações e perfis antes de responder, garantindo uma consultoria baseada em fatos.o LUMMI traduz o "economês" para o usuário, explicando de forma didática e transparente conceitos cruciais como FGC, LCI/LCA e Tesouro Selic, garantindo que cada decisão seja tomada com plena consciência e autonomia.
+>>>>>>> 645c73d4ef02ac9271c983103a244c0691fa68ef
 
 ## 👩‍💻 Desenvolvido por
 

@@ -1,5 +1,6 @@
 import sys
 import os
+<<<<<<< HEAD
 from config import OPENROUTER_API_KEY
 
 # Apenas para verificar se a chave foi carregada
@@ -7,24 +8,39 @@ if OPENROUTER_API_KEY:
     print("OPENROUTER_API_KEY encontrada! Prefixo:", OPENROUTER_API_KEY[:5] + "*****")
 else:
     print("OPENROUTER_API_KEY não encontrada.")
+=======
+>>>>>>> 645c73d4ef02ac9271c983103a244c0691fa68ef
 
 # 1. Garante que o Python olhe para a pasta src
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 try:
+<<<<<<< HEAD
     from config import MODELO, OPENROUTER_API_KEY 
 except ImportError:
     # 2. Caso o Python considere 'src' como um pacote (Fallback)
     from src.config import MODELO, OPENROUTER_API_KEY 
+=======
+    from config import MODELO, API_KEY
+except ImportError:
+    # 2. Caso o Python considere 'src' como um pacote (Fallback)
+    from src.config import MODELO, API_KEY
+>>>>>>> 645c73d4ef02ac9271c983103a244c0691fa68ef
 
 import streamlit as st
 import pandas as pd
 import requests
 import json
 from datetime import datetime
+<<<<<<< HEAD
 from config import MODELO, OPENROUTER_API_KEY 
 from agente import carregar_dados_base, carregar_transacoes, salvar_nova_transacao
 from config import MODELO, OPENROUTER_API_KEY 
+=======
+from config import MODELO, API_KEY
+from agente import carregar_dados_base, carregar_transacoes, salvar_nova_transacao
+from config import MODELO, API_KEY
+>>>>>>> 645c73d4ef02ac9271c983103a244c0691fa68ef
 #============= CONFIGURAÇÃO PÁGINA ============
 st.set_page_config(page_title="LUMMI - Seu Agente Financeiro", page_icon="💰", layout="wide")
 
@@ -336,7 +352,11 @@ if prompt := st.chat_input("Pergunte ao LUMMI sobre suas finanças"):
             try:
                 response = requests.post(
                     url="https://openrouter.ai/api/v1/chat/completions",
+<<<<<<< HEAD
                     headers={"Authorization": f"Bearer {OPENROUTER_API_KEY }"},
+=======
+                    headers={"Authorization": f"Bearer {API_KEY}"},
+>>>>>>> 645c73d4ef02ac9271c983103a244c0691fa68ef
                     json={
                         "model": MODELO,
                         "messages": [{"role": "system", "content": SYSTEM_PROMPT}] + st.session_state.messages
