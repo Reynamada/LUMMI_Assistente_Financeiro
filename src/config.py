@@ -1,8 +1,12 @@
 import os
 
 # ========= CONFIGURAÇÕES OPENROUTER ==============
-MODELO = "openai/gpt-oss-120b:free"
-API_KEY = "OPENROUTER_API_KEY_PLACEHOLDER"
+MODELO = "nvidia/nemotron-3-super-120b-a12b:free"
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+
+if not OPENROUTER_API_KEY:
+    raise ValueError("A chave OPENROUTER_API_KEY não foi encontrada nas variáveis de ambiente.")
+
 
 # ========= CAMINHOS DE DADOS ==============
 # Ajustado para encontrar a pasta data fora da pasta src

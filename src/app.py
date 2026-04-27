@@ -1,23 +1,30 @@
 import sys
 import os
+from config import OPENROUTER_API_KEY
+
+# Apenas para verificar se a chave foi carregada
+if OPENROUTER_API_KEY:
+    print("OPENROUTER_API_KEY encontrada! Prefixo:", OPENROUTER_API_KEY[:5] + "*****")
+else:
+    print("OPENROUTER_API_KEY não encontrada.")
 
 # 1. Garante que o Python olhe para a pasta src
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 try:
-    from config import MODELO, API_KEY
+    from config import MODELO, OPENROUTER_API_KEY 
 except ImportError:
     # 2. Caso o Python considere 'src' como um pacote (Fallback)
-    from src.config import MODELO, API_KEY
+    from src.config import MODELO, OPENROUTER_API_KEY 
 
 import streamlit as st
 import pandas as pd
 import requests
 import json
 from datetime import datetime
-from config import MODELO, API_KEY
+from config import MODELO, OPENROUTER_API_KEY 
 from agente import carregar_dados_base, carregar_transacoes, salvar_nova_transacao
-from config import MODELO, API_KEY
+from config import MODELO, OPENROUTER_API_KEY 
 #============= CONFIGURAÇÃO PÁGINA ============
 st.set_page_config(page_title="LUMMI - Seu Agente Financeiro", page_icon="💰", layout="wide")
 
@@ -329,7 +336,7 @@ if prompt := st.chat_input("Pergunte ao LUMMI sobre suas finanças"):
             try:
                 response = requests.post(
                     url="https://openrouter.ai/api/v1/chat/completions",
-                    headers={"Authorization": f"Bearer {API_KEY}"},
+                    headers={"Authorization": f"Bearer {OPENROUTER_API_KEY }"},
                     json={
                         "model": MODELO,
                         "messages": [{"role": "system", "content": SYSTEM_PROMPT}] + st.session_state.messages
