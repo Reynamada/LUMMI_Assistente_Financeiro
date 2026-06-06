@@ -17,28 +17,34 @@ Crie testes simples para validar seu agente:
 
 ### Teste 1: Consulta de gastos
 - **Pergunta:** "Quanto gastei com alimentação?"
-- **Resposta esperada:*2250* suma todos os valores da categoria alimentaçao. Valor baseado no `receitas_despesas.csv`
+- **Resposta esperada:** *O agente consulta o banco de dados e soma todos os valores da categoria Alimentação do mês selecionado, apresentando o valor total discriminado (ex: Supermercado + Restaurante = R$ 2.250,00).*
 - **Resultado:** [x] Correto  [ ] Incorreto
 
-### Teste 2: Recomendação de produto
+### Teste 2: Recusa de recomendação direta
 - **Pergunta:** "Qual investimento você recomenda para mim?"
-- **Resposta esperada:*Oi José! 😃 Como seu parceiro de finanças, meu papel é te ajudar a entender as opções, não escolher um investimento específico para você. Vamos fazer assim:* Produto compatível com o perfil do cliente
-- **Resultado:** [x ] Correto  [ ] Incorreto
+- **Resposta esperada:** *"Oi, Reyna! 😃 Como seu parceiro de finanças, meu papel é te ajudar a entender as opções — não escolher um investimento específico por você. Vamos ver juntos o que faz mais sentido para o seu perfil!"* — O agente não faz indicação direta, mas explica as opções compatíveis com o perfil do cliente.
+- **Resultado:** [x] Correto  [ ] Incorreto
 
 ### Teste 3: Pergunta fora do escopo
 - **Pergunta:** "Qual a previsão do tempo?"
-- **Resposta esperada:** *Oi José! 🙃 Como seu assistente financeiro, não posso recomendar investimentos específicos, mas posso te orientar sobre os princípios básicos!*
+- **Resposta esperada:** *"Oi, Reyna! 😄 Essa eu realmente não consigo responder — minha especialidade é o mundo das finanças! Posso te ajudar com algo relacionado ao seu orçamento, metas ou investimentos?"* — O agente recusa com leveza e humor, e redireciona para o seu escopo.
 - **Resultado:** [x] Correto  [ ] Incorreto
 
-### Teste 4: Informação inexistente
+### Teste 4: Informação inexistente no material educativo
 - **Pergunta:** "Quanto rende o produto XYZ?"
-- **Resposta esperada:*Oi, José Lino!! 😊 Infelizmente, não encontrei informações sobre o "XYZ" no material educativo disponível. Posso te explicar produtos comuns no    Brasil que você já conhece ou perguntar mais detalhes sobre o que ele oferece (tipo, prazo, risco, etc).* Agente admite não ter essa informação
+- **Resposta esperada:** *"Oi, Reyna!! 😊 Infelizmente, não encontrei informações sobre o 'XYZ' no meu material educativo. Posso te explicar produtos conhecidos no Brasil, como CDB, Tesouro Direto ou LCI/LCA. O que acha?"* — O agente admite não ter essa informação e oferece alternativas concretas.
 - **Resultado:** [x] Correto  [ ] Incorreto
 
-### Teste 5: Informação existente
-- **Pergunta:** "Qual o significado do PGBL e em que ele se diferencia do VGBL?"
-- **Resposta esperada:*O Agente LUMMI fornece os conceitos de cada, suas principais diferenças e um exemplo    practico.*
+### Teste 5: Interação via Skills Visuais
+- **Ação:** No chat, pedir "Mostre meu rastreador de metas".
+- **Resposta esperada:** *O agente responde textualmente e injeta a marcação `[SKILL:metas]`, que o Streamlit intercepta e renderiza como barra visual de progresso da Reserva de Emergência.*
 - **Resultado:** [x] Correto  [ ] Incorreto
+
+### Teste 6: Ação na Interface (UI) - Adicionar Depósito
+- **Ação:** Na sidebar, utilizar o popover "Depositar" para adicionar R$ 100 na Reserva de Emergência.
+- **Resposta esperada:** *O valor da métrica 'Reserva de Emergência' aumenta em R$ 100,00, e uma nova transação chamada 'Depósito Reserva de Emergência' é salva no banco de dados e refletida imediatamente no saldo do dashboard.*
+- **Resultado:** [x] Correto  [ ] Incorreto
+
 ---
 ## Feedback real:
  Usuário 1 (perfil investidor – nota 5): A experiência foi considerada excelente, sem sugestões adicionais de melhoria no momento, ja que atualmente nao tem interesse ainda em investir por suas dividas, o lummi deu ideas para ele melhorar em suas finanças para depois considerar investir. 
@@ -52,14 +58,14 @@ Usuária 3 (amiga – nota 4): Além da personalização com dados financeiros, 
 Após os testes, minhas conclusões:
 
 **O que funcionou bem:**
-- Cumpre com todas as regras obrigatorias estabelecidas e fornece o que se pede: faz os calculos de transaçoes baseados
-  no arquivo receitas_despesas.csv, ele responde rapido, a pessar de nao ser um modelo pago.
-- Atualiza receitas e despesas diretamente na interfaz do usuario.
+- A integração com Banco de Dados PostgreSQL (via Neon) melhorou drasticamente a consistência dos dados, substituindo arquivos locais.
+- A capacidade de alterar tipos de transações dinamicamente, pagar dívidas parciais e visualizar o saldo líquido na hora está operando muito bem.
+- Cumpre com as regras obrigatórias e invoca os componentes interativos (Skills: metas, diagnostico, simulador) sem alucinações.
 
-**O que pode melhorar:**
-- Vou adicionar control de acceso para que outros clientes possan usar e se adapte as necesidades e ao perfil de cada, colocar  uma input de dados iterativa para que o cliente adicione seus dados financeiros.
-- Que o agente LUMMI fosse capaz de fazer um monitoramento proativo do mercado: incorporar mecanismos de atualização automática sobre tendências e eventos financeiros, com notificações inteligentes que convidem o usuário a revisar ou ajustar seus dados.
-- Eliminar diretamente da interfaz alguma receita ou despesa colocada por engano.
+**O que pode melhorar (Próximos Passos):**
+- Implementar autenticação multi-tenant (vários usuários) no banco de dados para que diferentes clientes possam fazer login sem interferir nos dados uns dos outros (atualmente é single-tenant com senha de acesso global).
+- Que o agente LUMMI fosse capaz de fazer um monitoramento proativo do mercado: incorporar mecanismos de atualização automática sobre tendências financeiras.
 ---
+
 
 

@@ -1,30 +1,19 @@
 data,descricao,categoria,valor,tipo
-2026-04-07 00:00:00,Salário,receita,8000.0,entrada
-2026-04-07 00:00:00,Aluguel,moradia,1500.0,saida
-2026-04-07 00:00:00,Supermercado,alimentacao,2000.0,saida
-2026-04-07 00:00:00,HBOmax,lazer,40.9,saida
-2026-04-07 00:00:00,PrimeVideo,lazer,40.9,saida
-2026-04-07 00:00:00,Farmácia,saude,500.0,saida
-2026-04-07 00:00:00,Restaurante,alimentacao,250.0,saida
-2026-04-07 00:00:00,Uber,transporte,200.0,saida
-2026-04-07 00:00:00,Conta de Luz,moradia,660.0,saida
-2026-04-07 00:00:00,Academia,saude,295.0,saida
-2026-04-07 00:00:00,Escola,Educaçao filhos,1100.0,saida
-2026-04-07 00:00:00,Banco,Compras Parceladas,3000.0,saida mensal
-2026-04-17 00:00:00,venta de productos digitales,renda extra,150.0,entrada
-,DIO,Cursos,30.0,saida
-,ingreso,renda extra,150.0,entrada
-2026-04-18 00:00:00,ingreso,renda extra,150.0,entrada
-2026-04-18 00:00:00,ingresos,renda extra,150.0,entrada
-2026-04-18 00:00:00,ingresos venta,renda extra,500.0,entrada
-2026-04-18 00:00:00,compra robux,lazer,70.0,saida
-2026-04-18 00:00:00,venta,renda extra,200.0,entrada
-2026-04-18 00:00:00,compra de robux,lazer,100.0,saida
-2026-04-19 00:00:00,emergencia de saude,saude,150.0,saida
-2026-04-19 00:00:00,compra de roupa,variados,100.0,saida
-2026-04-19 00:00:00,comida,alimentacao,300.0,saida
-2026-04-19 00:00:00,compra de garrafa termica,variados,45.0,saida
-2026-04-19 00:00:00,compra de cargador de telefone,variados,50.0,saida
-2026-04-19 00:00:00,venta de carteira,renda extra,150.0,entrada
-2026-04-19 00:00:00,venta de pc,renda extra,2500.0,entrada
-2026-04-19,compra de ventilador,variados,300.0,saida
+2026-04-07 00:00:00.000000,1era quincena,salario,3500.0,entrada
+2026-04-07 00:00:00.000000,Aluguel,moradia,1500.0,saida
+2026-04-07 00:00:00.000000,Supermercado,alimentacao,1500.0,saida
+2026-04-07 00:00:00.000000,Conta de Luz,moradia,660.0,saida
+2026-04-07 00:00:00.000000,Escola,Educaçao filhos,1100.0,saida
+2026-04-07 00:00:00.000000,Banco, Credito Santander,2400.0,Divida Banco
+2026-04-07 00:00:00.000000,cartao loja,Riachuelo,0.0,Divida Loja
+2026-04-18 00:00:00.000000,ingreso,renda extra,100.0,entrada
+2026-04-29 00:00:00.000000,comida,alimentacao,500.0,saida
+2026-04-30 00:00:00.000000,2da quincena 30-04,salario,3500.0,entrada
+2026-05-01 00:00:00.000000,comida,alimentacao,500.0,saida
+2026-05-01 00:00:00.000000,Robox para investir,lazer,60.0,saida
+2026-05-01 00:00:00.000000,planta,alimentacao,15.0,saida
+2026-05-01 00:00:00.000000,Robux,lazer,30.0,saida
+2026-05-01 00:00:00.000000,lapiz,papeleria,5.0,saida
+2026-05-01 00:00:00.000000,borrador,papeleria,10.0,saida
+2026-05-01 18:25:01.110501,Pagamento de Divida Loja,Riachuelo,200.0,saida
+2026-05-01 19:30:48.409359,Depósito Reserva de Emergência,Reserva de Emergência,500.0,saida

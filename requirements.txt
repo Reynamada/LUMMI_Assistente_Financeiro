@@ -4,6 +4,6 @@ requests
 pandas
 numpy
 openai
-
-
-
+SQLAlchemy
+psycopg2-binary
+reportlab

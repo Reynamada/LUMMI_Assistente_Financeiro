@@ -128,15 +128,13 @@ Este é o pilar da motivação. Usamos entusiasmo real e personalizado.
 
 ```mermaid
 flowchart TD
-    A[Cliente] -->|Mensagem| B[Interface]
-    B --> C[LLM / Motor Conversacional]
-    C --> D[Base de Conhecimento Financeira]
-    D --> C
-    C --> E[Motor de Cálculo de Orçamento]
-    E --> C
-    C --> F[Validação e Anti-Alucinação]
-    F --> G[Resposta Segura e Personalizada]
-
+    A[Cliente] -->|Interface / Interação| B[Dashboard Streamlit]
+    B -->|Consultas e Atualizações| C[PostgreSQL / Neon Database]
+    B -->|Contexto| D[Lógica do Agente]
+    C -->|Grounding / Histórico| D
+    D -->|Construção de Prompt| E[OpenRouter Gateway]
+    E -->|IA Generativa| D
+    D -->|Resposta e Skills| B
 ```
 
 # 🧩 Arquitetura de Componentes - LUMMI
@@ -146,13 +144,13 @@ Abaixo está o detalhamento dos componentes do sistema, organizados por responsa
 | Camada | Componente | Descrição Técnica | Arquivo/Pasta |
 | :--- | :--- | :--- | :--- |
 | **Interface** | **Dashboard Streamlit** | Interface principal que renderiza métricas e o chat conversacional. | `src/app.py` |
-| **Interface** | **Sidebar Gerencial** | Painel lateral para filtros de data e cadastro de novas transações. | `src/app.py` |
+| **Interface** | **Sidebar Gerencial** | Painel lateral para filtros de data e cadastro de novas transações, depósitos e dívidas. | `src/app.py` |
 | **Lógica** | **Cérebro (Agente)** | Processamento de lógica financeira e formatação de dados para a IA. | `src/agente.py` |
-| **Lógica** | **Data Engine** | Manipulação de arquivos CSV e JSON usando a biblioteca Pandas. | `src/agente.py` |
-| **Conexão** | **OpenRouter Gateway** | Gerenciamento de requisições e integração com modelos (GLM-4.5.free ouopenai/gpt-oss-120b:free ). | `src/config.py` |
-| **Configuração** | **Path Manager** | Definição dinâmica de caminhos para garantir portabilidade do sistema. | `src/config.py` |
-| **Persistência** | **Grounding Data** | Base de conhecimento local (Transações, Perfil e Material Educativo). | `data/` |
-| **Ambiente** | **Virtual Env** | Isolamento de dependências e bibliotecas para execução segura. | `venv/` |
+| **Lógica** | **Skills / Habilidades** | Execução de relatórios e simuladores chamados pelo chat. | `src/skills.py` |
+| **Conexão** | **OpenRouter Gateway** | Gerenciamento de requisições e integração com modelos de IA. | `src/config.py` |
+| **Persistência** | **Banco de Dados Relacional** | Gerenciamento de entidades via SQLAlchemy conectando ao PostgreSQL (Neon). | `src/database.py` |
+| **Persistência** | **Material Educativo Local** | Base de conhecimento fixa sobre conceitos financeiros. | `data/` |
+| **Segurança** | **Gestão de Segredos** | Credenciais, chaves de API e strings de conexão de BD isoladas da base de código. | `.streamlit/secrets.toml` |
 
 ---
 
@@ -161,14 +159,14 @@ Abaixo está o detalhamento dos componentes do sistema, organizados por responsa
 ### 1. Sistema de Métricas
 O sistema processa os dados em tempo real para separar o impacto financeiro:
 * **À Vista:** Gastos pontuais que afetam o saldo imediato.
-* **Parcelados:** Compromissos recorrentes (saídas mensais) que afetam o planejamento a longo prazo.
+* **Parcelados / Recorrentes:** Compromissos mensais rastreados via sistema de pagamentos pendentes/efetuados.
 
 ### 2. Estratégia de Grounding (Anti-Alucinação)
 Para garantir respostas fiéis à realidade da **Reyna Amada**, o agente utiliza o seguinte fluxo:
-1. Recupera o **Perfil do Investidor** (JSON).
+1. Recupera o **Perfil do Investidor** diretamente do Banco de Dados PostgreSQL (tabela `Perfil`).
 2. Consulta o **Material Educativo** (JSON) para termos técnicos.
-3. Analisa o **Histórico de Transações** receitas_despesas (CSV).
-4. Injeta esses dados no **System Prompt** antes de enviar para a IA.
+3. Analisa o **Histórico de Transações** filtradas no banco de dados (tabela `Transacao`).
+4. Injeta esses dados de forma consolidada no **System Prompt** antes de enviar para a IA.
 
 ### 3. Gestão de Dependências
 O arquivo `requirements.txt` centraliza as bibliotecas necessárias para o funcionamento de todos os componentes listados no quadro acima.

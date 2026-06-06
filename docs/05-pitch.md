@@ -21,10 +21,10 @@ A solução atua como um educador integrado. Através de uma base de conheciment
 ### 3. Demonstração 
 > Mostre o agente funcionando (pode ser gravação de tela)
 
-[•	Tela Inicial: Mostre o Dashboard com os cálculos de Saldo Mensal, Total de Receitas e Despesas filtrados por mês.
-•	Interatividade: Demonstre a inserção de uma nova transação através do formulário lateral com o recurso de 'Salvar e Atualizar'.
-•	O Chat Inteligente: Mostre o usuário perguntando: 'O que é CDB e como ele ajuda na minha meta?'. O LUMMI responde usando o glossário educativo e comparando o rendimento.
-  Pergunta sobre investimentps: gostaria de investir en açoes, que me recomendas? responde alguma forma que nao pode fazer recomendaçoes sobre investimentos especificos e educa.
+[•	Tela Inicial: Mostre o Dashboard com os cálculos de Saldo Mensal Acumulado, Total de Dívidas Pendentes e a nova barra de Reserva de Emergência.
+•	Interatividade e Banco de Dados: Demonstre a inserção de uma nova transação ou o uso do botão 'Depositar' na Reserva. Destaque que os dados agora são salvos em um Banco de Dados Relacional em Nuvem (PostgreSQL) garantindo persistência e segurança.
+•	Gestão de Dívidas e Edição: Mostre a edição de um registro existente e o pagamento parcial de uma dívida através da seção '💸 Pagamentos', onde o saldo é atualizado na hora.
+•	O Chat Inteligente (Skills): Mostre o usuário pedindo: 'Mostre meu diagnóstico financeiro' e o LUMMI renderizando um gráfico visual (`[SKILL:diagnostico]`). Em seguida, pergunte 'O que é CDB e como ele ajuda na minha meta?'. O LUMMI responde usando o glossário educativo.
 •	Alertas: Mostre o LUMMI emitindo um alerta educacional caso o usuário mencione ativos de alta volatilidade como Criptomoedas.
 ]
 
@@ -32,8 +32,8 @@ A solução atua como um educador integrado. Através de uma base de conheciment
 > Por que essa solução é inovadora e qual é o impacto dela na sociedade?
 
 [Por que essa solução é inovadora e qual é o impacto dela na sociedade? 
-"O diferencial do LUMMI é a hiper-personalização educativa. Enquanto outros apps apenas mostram gráficos, o LUMMI atua como um parceiro que sugere cortes específicos se o saldo estiver negativo e calcula quanto falta para sua Reserva de Emergência ideal. O impacto social é a democratização do acesso à educação financeira de qualidade, transformando a relação das pessoas com o dinheiro, reduzindo o endividamento e incentivando investimentos conscientes para o futuro da família brasileira."
-"Além da interface amigável, o LUMMI foi construído com foco em segurança e portabilidade, utilizando ambientes virtuais isolados e a infraestrutura robusta do OpenRouter para garantir que a inteligência do agente esteja sempre disponível e atualizada."
+"O diferencial do LUMMI é a hiper-personalização aliada à robustez técnica. Ao integrar um Banco de Dados PostgreSQL em Nuvem (Neon), o LUMMI evoluiu de um simples chatbot para um sistema de gestão completo. Ele atua como um parceiro que não apenas rastreia dívidas e pagamentos recorrentes, mas aciona 'Skills Visuais' interativas durante o chat. O impacto social é a democratização do acesso à gestão e educação financeira de qualidade, transformando a relação das pessoas com o dinheiro, reduzindo o endividamento e incentivando investimentos conscientes para o futuro da família brasileira."
+"Além da interface amigável, o LUMMI foi construído com foco em escalabilidade, segurança e portabilidade, utilizando SQLAlchemy, segredos criptografados e a infraestrutura robusta do OpenRouter para garantir que a inteligência do agente esteja sempre disponível e atualizada."
 ]
 
 ---

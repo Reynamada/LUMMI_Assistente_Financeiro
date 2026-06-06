@@ -3,26 +3,23 @@
 ## Dados Utilizados
 
 
-| Arquivo | Formato | Para que serve no Lummi |
+| Fonte | Formato | Para que serve no Lummi |
 |---------|---------|---------------------|
-| `perfil_investidor.json` | JSON | Personalizar as explicaçoes sobre as duvidas e necessidades de aprendizado do client. |
-| `receitas_despesas.csv` | CSV | Analisar padrão de gastos e receitas do cliente e usar essas informaçoes de forma didatica |
-| `material_educativo.json` | JSON | Material para uso educativo, para ensinar ao cliente conceitos basicos sobre finanças, produtos. |
+| Banco de Dados (Tabela `Perfil`) | PostgreSQL / JSON | Personalizar as explicações sobre as dúvidas e necessidades de aprendizado do cliente. Armazena metas, renda e dados pessoais. |
+| Banco de Dados (Tabela `Transacao`) | PostgreSQL | Analisar padrão de gastos e receitas do cliente, calcular saldo, rastrear pagamentos mensais e usar essas informações de forma didática. (O arquivo CSV local serve apenas para migração inicial). |
+| `material_educativo.json` | JSON | Material para uso educativo, para ensinar ao cliente conceitos básicos sobre finanças, produtos. |
 
 > [!TIP]
+> O arquivo `material_educativo.json` é a única fonte de conhecimento **local e estática**. Todo o restante (perfil do usuário, transações e histórico do chat) vive no banco de dados PostgreSQL (Neon) e é consultado dinamicamente a cada interação.
 
 ---
 
 ## Adaptações nos Dados
 
 ```
-- Atualizei o perfil de investidor com dados autênticos, preenchendo cada atributo devidamente para refletir um cenário real.
-- No archivo de transações, modifiquei o nome do arquivo para receitas_despesas.csv para ser mais especifico e alguns valores e descrição de despesas e adicione escola e banco, com seus respectivos atributos preenchidos.
-- Adicione o arquivo material_educativo.json, que contem conhecimento confiavel sobre finanças, estructurado de forma educativa para o usuario. Seguindo a mesma estrutura    e atributos, adicione outros produtos:
-  FII - Fundo Imobiliário, Fundo DI (Depósito Interfinanceiro), Tesouro IPCA+(Índice de Preços ao Consumidor Amplo), Poupança, Debêntures Incentivadas, Fundo de    Previdência Conservador, Conta Remunerada, Caixinha Digital.
-- Coloquei por separado os produtos: LCI e LCA, já que eles tem significado diferentes. Adicione a cada um dos produtos um atributo: Descrição.
--Eliminei o arquivo produtos_financeiros, porque o material_educativo contem os produtos alem de conceitos basicos e outras informaçoes relevantes sobre os investimentos.
-- Eliminei o arquivo historico_atendimento, não usei.
+- O perfil do investidor e o histórico de transações foram migrados para um **Banco de Dados Relacional (PostgreSQL no Neon)** via SQLAlchemy, garantindo maior integridade, segurança e controle dinâmico (edição, deleção e inserção em tempo real).
+- A base de conhecimento em JSON (`material_educativo.json`) foi mantida por ser altamente estruturada e eficiente para injetar conceitos e alertas como grounding no modelo de IA (incluindo FII, Tesouro IPCA+, LCI/LCA, Debêntures e criptomoedas).
+- Adicionado sistema de persistência para o Histórico do Chat (`ChatHistory`) no banco de dados, o que permite aos usuários rever atendimentos de dias anteriores sem sobrecarregar a memória de contexto do agente no dia atual.
 ``` 
 
 ---
@@ -44,32 +41,83 @@ Essa abordagem é mais robusta, pois permite manipulação, análise e atualiza�
 ```python
 import json
 import pandas as pd
-import os
-from config import CAMINHO_PERFIL, CAMINHO_EDU, CAMINHO_CSV, DATA_DIR
+from config import CAMINHO_EDU
+from database import get_session, Perfil, Transacao
 
 #====== CARREGAR DADOS =============
 def carregar_dados_base():
+    perfil = {
+        "nome": "Usuário", "profissao": "Não informada", "renda_mensal": 0.0, 
+        "perfil_investidor": "Conservador", "reserva_emergencia_atual": 0.0, "metas": []
+    }
     try:
-        if not os.path.exists(DATA_DIR):
-            os.makedirs(DATA_DIR)
-            
-        with open(CAMINHO_PERFIL, 'r', encoding='utf-8') as f:
-            perfil = json.load(f)
+        db = get_session()
+        perfil_db = db.query(Perfil).first()
+        if perfil_db and perfil_db.dados_json:
+            perfil = json.loads(perfil_db.dados_json)
+        db.close()
+    except Exception as e:
+        pass
+
+    try:
         with open(CAMINHO_EDU, 'r', encoding='utf-8') as f:
             edu = json.load(f)
-        return perfil, edu
     except Exception as e:
-        return {
-            "nome": "Usuário", "profissao": "Não informada", "renda_mensal": 0.0, 
-            "perfil_investidor": "Conservador", "reserva_emergencia_atual": 0.0, "metas": []
-        }, {"conteudo": {"investimentos": {"termos": []}, "alertas_educacionais": []}}
+        edu = {"conteudo": {"investimentos": {"termos": []}, "alertas_educacionais": []}}
+        
+    return perfil, edu
 
 def carregar_transacoes():
-    if os.path.exists(CAMINHO_CSV):
-        df = pd.read_csv(CAMINHO_CSV, encoding='utf-8')
-        df['data'] = pd.to_datetime(df['data'], format='mixed', dayfirst=False)
-        return df
-    return pd.DataFrame(columns=['data', 'descricao', 'categoria', 'valor', 'tipo'])
+    try:
+        db = get_session()
+        transacoes = db.query(Transacao).all()
+        db.close()
+        
+        dados = [{
+            'id': t.id, 'data': t.data, 'descricao': t.descricao,
+            'categoria': t.categoria, 'valor': t.valor, 'tipo': t.tipo,
+            'data_vencimento': t.data_vencimento, 'dia_vencimento': t.dia_vencimento
+        } for t in transacoes]
+        
+        df = pd.DataFrame(dados)
+        if not df.empty:
+            df['data'] = pd.to_datetime(df['data'])
+            return df
+    except Exception as e:
+        pass
+    return pd.DataFrame(columns=['id', 'data', 'descricao', 'categoria', 'valor', 'tipo', 'data_vencimento', 'dia_vencimento'])
+
+
+### 3. Exibição das Metas (Bloco de Metas)
+O assistente exibe o progresso das metas financeiras (incluindo a Reserva de Emergência) de forma interativa através do componente definido na skill `exibir_rastreador_metas` em `src/skills.py`:
+
+```python
+def exibir_rastreador_metas(perfil):
+    with st.expander("🎯 Rastreador de Metas", expanded=True):
+        metas = perfil.get('metas', [])
+        reserva_atual = perfil.get('reserva_emergencia_atual', 0.0)
+        
+        if metas:
+            for m in metas:
+                nome_meta = m.get('meta', 'Meta')
+                valor_nec = m.get('valor_necessario', 1.0)
+                
+                if "reserva" in nome_meta.lower():
+                    progresso = min(reserva_atual / valor_nec, 1.0)
+                    st.write(f"🛡️ **{nome_meta}**")
+                    st.write(f"R$ {reserva_atual:.2f} / R$ {valor_nec:.2f}")
+                else:
+                    patrimonio = perfil.get('patrimonio_total', 0.0)
+                    progresso = min(patrimonio / valor_nec, 1.0)
+                    st.write(f"🎯 **{nome_meta}**")
+                    st.write(f"R$ {patrimonio:.2f} / R$ {valor_nec:.2f}")
+                    
+                st.progress(progresso)
+                st.caption(f"Prazo: {m.get('prazo', 'N/A')}")
+                st.markdown("---")
+        else:
+            st.info("Nenhuma meta definida no seu perfil.")
+```
 
 ```
 
@@ -84,24 +132,24 @@ Uma forma de como os dados serian usados no prompt:
 ```
 DADOS E PERFIL DO CLIENTE (data/perfil_investidor.json):
 {
-  "nome": "José Lino",
+  "nome": "Reyna Amada",
   "idade": 48,
   "profissao": "Engenheiro de informática",
-  "renda_mensal": 8000.00,
+  "renda_mensal": 8000.0,
   "perfil_investidor": "moderado",
   "objetivo_principal": "Construir reserva de emergência",
-  "patrimonio_total": 15000.00,
-  "reserva_emergencia_atual": 2400.00,
+  "patrimonio_total": 15000.0,
+  "reserva_emergencia_atual": 2900.0,
   "aceita_risco": false,
   "metas": [
     {
       "meta": "Completar reserva de emergência",
-      "valor_necessario": 15000.00,
+      "valor_necessario": 15000.0,
       "prazo": "2026-12"
     },
     {
       "meta": "Entrada do apartamento",
-      "valor_necessario": 70000.00,
+      "valor_necessario": 70000.0,
       "prazo": "2027-12"
     }
   ]
@@ -462,20 +510,28 @@ MATERIAL EDUCATIVO PARA O CLIENTE (data/material_educativo.json):
   }
 }
 
-RECEITAS E DESPESAS DO CLIENTE (data/receitas_despesas.csv):
+RECEITAS E DESPESAS DO CLIENTE (exemplo de formato de dados - agora armazenados no banco de dados):
 data,descricao,categoria,valor,tipo
-2026-04-07,Salário,receita,8000.00,entrada
-2026-04-07,Aluguel,moradia,1500.00,saida
-2026-04-07,Supermercado,alimentacao,2000.00,saida
-2026-04-07,HBOmax,lazer,40.90,saida
-2026-04-07,PrimeVideo,lazer,40.90,saida
-2026-04-07,Farmácia,saude,500.00,saida
-2026-04-07,Restaurante,alimentacao,250.00,saida
-2026-04-07,Uber,transporte,200.00,saida
-2026-04-07,Conta de Luz,moradia,660.00,saida
-2026-04-07,Academia,saude,295.00,saida
-2026-04-07,Escola,Educaçao filhos,1100.00,saida
-2026-04-07,Banco,Compras Parceladas,3000.00,saida mensal
+2026-04-07 00:00:00.000000,1era quincena,salario,3500.0,entrada
+2026-04-07 00:00:00.000000,Aluguel,moradia,1500.0,saida
+2026-04-07 00:00:00.000000,Supermercado,alimentacao,1500.0,saida
+2026-04-07 00:00:00.000000,Conta de Luz,moradia,660.0,saida
+2026-04-07 00:00:00.000000,Escola,Educaçao filhos,1100.0,saida
+2026-04-07 00:00:00.000000,Banco, Credito Santander,2400.0,Divida Banco
+2026-04-07 00:00:00.000000,cartao loja,Riachuelo,0.0,Divida Loja
+2026-04-18 00:00:00.000000,ingreso,renda extra,100.0,entrada
+2026-04-29 00:00:00.000000,comida,alimentacao,500.0,saida
+2026-04-30 00:00:00.000000,2da quincena 30-04,salario,3500.0,entrada
+2026-05-01 00:00:00.000000,comida,alimentacao,500.0,saida
+2026-05-01 00:00:00.000000,Robox para investir,lazer,60.0,saida
+2026-05-01 00:00:00.000000,planta,alimentacao,15.0,saida
+2026-05-01 00:00:00.000000,Robux,lazer,30.0,saida
+2026-05-01 00:00:00.000000,lapiz,papeleria,5.0,saida
+2026-05-01 00:00:00.000000,borrador,papeleria,10.0,saida
+2026-05-01 18:25:01.110501,Pagamento de Divida Loja,Riachuelo,200.0,saida
+2026-05-01 19:30:48.409359,Depósito Reserva de Emergência,Reserva de Emergência,500.0,saida
+
+> **Obs:** Este arquivo CSV foi utilizado apenas para a migração inicial dos dados. A fonte da verdade atual é a tabela `Transacao` no PostgreSQL.
 
 HISTORICO DE ATENDIMENTO DO CLIENTE (data/historico_atendimento.csv):
 data,canal,tema,resumo,resolvido
@@ -495,15 +551,15 @@ informações mais relevantes, reduzindo tokens sem perder conteúdo essencial:
 
 ```
 Perfil do Cliente
-•	Nome: José Lino, 48 anos, Engenheiro de informática
+•	Nome: Reyna Amada, 48 anos, Engenheiro de informática
 •	Renda mensal: R$ 8.000,00
 •	Perfil investidor: Moderado, não aceita risco
 •	Objetivo principal: Construir reserva de emergência
 •	Patrimônio total: R$ 15.000,00
-•	Reserva atual: R$ 2.400,00
+•	Reserva atual: R$ 2.900,00
 •	Metas:
-o	Reserva de emergência: R$ 15.000,00 até 12/2026
-o	Entrada apartamento: R$ 70.000,00 até 12/2027
+o	Completar reserva de emergência: R$ 15.000,00 até 12/2026
+o	Entrada do apartamento: R$ 70.000,00 até 12/2027
 
 Material Educativo
 •	Crédito e Dívidas: Juros compostos (efeito bola de neve), score de crédito, cadastro positivo.
@@ -524,16 +580,15 @@ o	Tesouro Direto → risco mínimo, acessível a partir de R$30
 •	Fundos multimercado/ações → risco médio/alto, maior potencial de retorno
 
 Receitas e Despesas (último registro)
-•	Receita: Salário R$ 8.000,00
+•	Receita: Salários e Renda Extra R$ 7.100,00
 •	Despesas:
 o	Moradia: R$ 2.160,00 (aluguel + luz)
-o	Alimentação: R$ 2.250,00 (supermercado + restaurante)
-o	Saúde: R$ 795,00 (farmácia + academia)
+o	Alimentação: R$ 2.515,00 (supermercado + refeições + planta)
 o	Educação filhos: R$ 1.100,00
-o	Lazer: R$ 81,80 (streaming)
-o	Transporte: R$ 200,00
-o	Compras parceladas: R$ 3.000,00
-•	Saldo líquido aproximado: negativo (-R$ 2.587,00)
+o	Dívidas (Banco): R$ 2.400,00 (Crédito Santander)
+o	Lazer / Outros: R$ 120,00 (Robux + Papelaria)
+o	Depósitos/Pagamentos: R$ 700,00 (Pagamento de Dívida + Depósito Reserva)
+•	Saldo líquido aproximado: negativo (-R$ 1.880,00)
 
 
 
