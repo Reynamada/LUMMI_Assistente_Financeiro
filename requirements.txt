@@ -7,3 +7,4 @@ openai
 SQLAlchemy
 psycopg2-binary
 reportlab
+openpyxl
