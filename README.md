@@ -215,7 +215,7 @@ pip install -r requirements.txt
 Crie o arquivo `.streamlit/secrets.toml`:
 
 ```toml
-DATABASE_URL = "postgresql://user:password@host/dbname"
+DATABASE_URL = "postgresql://......."
 OPENROUTER_API_KEY = "sk-or-v1-..."
 APP_USER = "admin"
 APP_PWD = "sua_senha_segura"
