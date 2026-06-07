@@ -198,8 +198,8 @@ dio-lab-bia-do-futuro/
 
 ```bash
 # 1. Clone o repositório
-git clone https://github.com/Reynamada/dio-lab-bia-do-futuro.git
-cd dio-lab-bia-do-futuro
+git clone https://github.com/Reynamada/LUMMI_Assistente_Financeiro.git
+cd LUMMI_Assistente_Financeiro
 
 # 2. Crie e ative o ambiente virtual
 python -m venv venv
