@@ -85,28 +85,46 @@ with st.sidebar:
     # ── LÓGICA DO SALDO (recalculada com todos os movimentos) ──
     df_mes = df_transacoes[df_transacoes['mes_ano'] == mes_selecionado].copy()
 
+    # Identificar IDs de templates de gastos recorrentes para excluí-los do saldo
+    df_recorrentes = df_transacoes[df_transacoes['tipo'] == 'saida mensal']
+    if not df_recorrentes.empty:
+        template_ids = set(df_recorrentes.groupby(['descricao', 'categoria'])['id'].min().tolist())
+    else:
+        template_ids = set()
+
+    # Filtrar df_mes para remover os templates de 'saida mensal'
+    if not df_mes.empty:
+        df_mes_sem_templates = df_mes[~df_mes['id'].isin(template_ids)]
+    else:
+        df_mes_sem_templates = df_mes
+
     # Entradas = entrada (salário + renda extra)
-    entradas_mes = df_mes[df_mes['tipo'] == 'entrada']['valor'].sum()
-    # Saídas = saida + saida mensal (exclui depósitos na reserva para não duplicar)
-    saidas_mes = df_mes[
-        df_mes['tipo'].isin(['saida', 'saida mensal']) &
-        ~df_mes['descricao'].str.contains('Depósito Reserva de Emergência', na=False)
+    entradas_mes = df_mes_sem_templates[df_mes_sem_templates['tipo'] == 'entrada']['valor'].sum()
+    # Saídas = saida + saida mensal (exclui depósitos na reserva para não duplicar, e exclui templates)
+    saidas_mes = df_mes_sem_templates[
+        df_mes_sem_templates['tipo'].isin(['saida', 'saida mensal']) &
+        ~df_mes_sem_templates['descricao'].str.contains('Depósito Reserva de Emergência', na=False)
     ]['valor'].sum()
     # Depósitos na reserva descontam do saldo mas não entram em 'saidas_mes' (têm categoria própria)
-    depositos_reserva_mes = df_mes[df_mes['descricao'].str.contains('Depósito Reserva de Emergência', na=False)]['valor'].sum()
+    depositos_reserva_mes = df_mes_sem_templates[df_mes_sem_templates['descricao'].str.contains('Depósito Reserva de Emergência', na=False)]['valor'].sum()
     saldo_do_mes = entradas_mes - saidas_mes - depositos_reserva_mes
 
-    # Resumo financeiro agrupado por tipo e categoria
-    resumo_financeiro = df_mes.groupby(['tipo', 'categoria'])['valor'].sum().reset_index().to_dict(orient='records')
+    # Resumo financeiro agrupado por tipo e categoria (excluindo os templates do resumo)
+    resumo_financeiro = df_mes_sem_templates.groupby(['tipo', 'categoria'])['valor'].sum().reset_index().to_dict(orient='records')
 
     # Saldo Acumulado (histórico)
     df_anterior = df_transacoes[df_transacoes['mes_ano'] < mes_selecionado]
-    saidas_ant = df_anterior[
-        df_anterior['tipo'].isin(['saida', 'saida mensal']) &
-        ~df_anterior['descricao'].str.contains('Depósito Reserva de Emergência', na=False)
+    if not df_anterior.empty:
+        df_anterior_sem_templates = df_anterior[~df_anterior['id'].isin(template_ids)]
+    else:
+        df_anterior_sem_templates = df_anterior
+
+    saidas_ant = df_anterior_sem_templates[
+        df_anterior_sem_templates['tipo'].isin(['saida', 'saida mensal']) &
+        ~df_anterior_sem_templates['descricao'].str.contains('Depósito Reserva de Emergência', na=False)
     ]['valor'].sum()
-    dep_res_ant = df_anterior[df_anterior['descricao'].str.contains('Depósito Reserva de Emergência', na=False)]['valor'].sum()
-    saldo_anterior = df_anterior[df_anterior['tipo'] == 'entrada']['valor'].sum() - saidas_ant - dep_res_ant
+    dep_res_ant = df_anterior_sem_templates[df_anterior_sem_templates['descricao'].str.contains('Depósito Reserva de Emergência', na=False)]['valor'].sum()
+    saldo_anterior = df_anterior_sem_templates[df_anterior_sem_templates['tipo'] == 'entrada']['valor'].sum() - saidas_ant - dep_res_ant
     saldo_total = saldo_anterior + saldo_do_mes
 
     # Dívidas totais pendentes
@@ -512,12 +530,22 @@ with st.sidebar:
             # Contar pendentes vs efetuados no mês
             df_rec_all = df_transacoes[df_transacoes['tipo'] == 'saida mensal'].copy()
             if not df_rec_all.empty:
-                nomes_recorrentes = df_rec_all.drop_duplicates(subset=['descricao', 'categoria'])[['descricao', 'categoria']]
-                n_total = len(nomes_recorrentes)
-                n_pagos = sum(
-                    1 for _, r in nomes_recorrentes.iterrows()
-                    if not df_grupo[(df_grupo['descricao'] == r['descricao']) & (df_grupo['categoria'] == r['categoria'])].empty
+                # ID do registro mais antigo por item (= registro de cadastro, NÃO é pagamento)
+                ids_template = (
+                    df_rec_all.groupby(['descricao', 'categoria'])['id'].min()
+                    .reset_index().rename(columns={'id': 'id_template'})
                 )
+                nomes_recorrentes = ids_template[['descricao', 'categoria', 'id_template']]
+                n_total = len(nomes_recorrentes)
+                n_pagos = 0
+                for _, r in nomes_recorrentes.iterrows():
+                    pagos_badge = df_grupo[
+                        (df_grupo['descricao'] == r['descricao']) &
+                        (df_grupo['categoria'] == r['categoria']) &
+                        (df_grupo['id'] != r['id_template'])  # exclui o registro de cadastro
+                    ]
+                    if not pagos_badge.empty:
+                        n_pagos += 1
                 n_pendentes = n_total - n_pagos
                 badge_rec = f"🔴 {n_pendentes} Pendente(s) · 🔵 {n_pagos} Efetuado(s)" if n_total > 0 else "Sem registros"
             else:
@@ -545,7 +573,36 @@ with st.sidebar:
                 st.markdown(f"**Mês: {mes_selecionado}**")
                 df_recorrentes = df_transacoes[df_transacoes['tipo'] == 'saida mensal'].copy()
                 if not df_recorrentes.empty:
-                    gastos_rec_df = df_recorrentes.sort_values('data').drop_duplicates(subset=['descricao', 'categoria'], keep='last')
+                    # ID mínimo por item = registro de cadastro (template), não é pagamento
+                    ids_template_rec = (
+                        df_recorrentes.groupby(['descricao', 'categoria'])['id'].min()
+                        .reset_index().rename(columns={'id': 'id_template'})
+                    )
+                    # Template base: último registro por item (dia_vencimento e demais campos)
+                    gastos_rec_df = (
+                        df_recorrentes.sort_values('data', ascending=False)
+                        .drop_duplicates(subset=['descricao', 'categoria'], keep='first')
+                        .copy()
+                    )
+                    # Melhor valor: último registro com valor > 0 por item
+                    # (evita exibir R$ 0.00 quando o cadastro foi feito sem valor)
+                    df_rec_nz = df_recorrentes[df_recorrentes['valor'] > 0]
+                    if not df_rec_nz.empty:
+                        melhores_val = (
+                            df_rec_nz.sort_values('data', ascending=False)
+                            .drop_duplicates(subset=['descricao', 'categoria'], keep='first')
+                            [['descricao', 'categoria', 'valor']]
+                            .rename(columns={'valor': 'melhor_valor'})
+                        )
+                        gastos_rec_df = gastos_rec_df.merge(melhores_val, on=['descricao', 'categoria'], how='left')
+                        # Substitui 0 pelo melhor valor disponível
+                        mask_zero = gastos_rec_df['valor'] == 0
+                        gastos_rec_df.loc[mask_zero, 'valor'] = (
+                            gastos_rec_df.loc[mask_zero, 'melhor_valor'].fillna(0)
+                        )
+                        gastos_rec_df = gastos_rec_df.drop(columns=['melhor_valor'])
+                    # Adiciona id_template para identificar o registro de cadastro
+                    gastos_rec_df = gastos_rec_df.merge(ids_template_rec, on=['descricao', 'categoria'])
                     gastos_rec = gastos_rec_df.to_dict('records')
                 else:
                     gastos_rec = []
@@ -555,24 +612,31 @@ with st.sidebar:
                 else:
                     hoje_dia = datetime.now().day
                     for i, g in enumerate(gastos_rec):
+                        # Pagamento = registro do mês selecionado que NÃO é o cadastro original
                         pagos_mes = df_grupo[
                             (df_grupo['descricao'] == g['descricao']) &
-                            (df_grupo['categoria'] == g['categoria'])
+                            (df_grupo['categoria'] == g['categoria']) &
+                            (df_grupo['id'] != g['id_template'])  # exclui o registro de cadastro
                         ]
                         dia_v = int(g.get('dia_vencimento', 1)) if pd.notna(g.get('dia_vencimento')) else 1
 
                         col_info, col_btn = st.columns([3, 1])
                         with col_info:
                             if not pagos_mes.empty:
+                                # Usa o valor real pago (do registro de pagamento)
+                                valor_pago = float(pagos_mes.iloc[0]['valor'])
                                 data_pag = pagos_mes.iloc[0]['data'].strftime('%d/%m/%Y')
+                                valor_display = valor_pago if valor_pago > 0 else float(g['valor'])
                                 st.markdown(
                                     f"🔵 **{g['descricao']}** &nbsp;|&nbsp; "
-                                    f"R$ {g['valor']:.2f} &nbsp;|&nbsp; "
+                                    f"R$ {valor_display:.2f} &nbsp;|&nbsp; "
                                     f"📅 Dia {dia_v} &nbsp;|&nbsp; "
                                     f"<span style='color:#2196F3;font-weight:bold'>Pagamento Efetuado ✔ em {data_pag}</span>",
                                     unsafe_allow_html=True
                                 )
                             else:
+                                valor_rec = float(g['valor'])
+                                valor_str = f"R$ {valor_rec:.2f}" if valor_rec > 0 else "⚠️ Valor não definido"
                                 # Verifica urgência baseada no dia de vencimento
                                 if hoje_dia > dia_v:
                                     aviso = f"⚠️ Vencido há {hoje_dia - dia_v} dia(s)!"
@@ -591,15 +655,20 @@ with st.sidebar:
                                 
                                 st.markdown(
                                     f"🔴 **{g['descricao']}** &nbsp;|&nbsp; "
-                                    f"R$ {g['valor']:.2f} &nbsp;|&nbsp; "
+                                    f"{valor_str} &nbsp;|&nbsp; "
                                     f"📅 Dia {dia_v} &nbsp;|&nbsp; "
                                     f"<span style='color:{cor};font-weight:bold'>Pagamento Pendente ⏳ — {aviso}</span>",
                                     unsafe_allow_html=True
                                 )
+                                # Aviso se valor não foi definido
+                                if valor_rec == 0:
+                                    st.caption("💡 Edite este registro para definir o valor mensal.")
 
                         with col_btn:
                             if pagos_mes.empty:
-                                if st.button("💳 Pagar", key=f"pay_resumo_{i}_{mes_selecionado}", use_container_width=True):
+                                valor_pagar = float(g['valor'])
+                                btn_label = "💳 Pagar" if valor_pagar > 0 else "💳 Pagar (R$0)"
+                                if st.button(btn_label, key=f"pay_resumo_{i}_{mes_selecionado}", use_container_width=True):
                                     import calendar
                                     ano_sel, mes_sel = map(int, mes_selecionado.split("-"))
                                     hoje = datetime.now()
@@ -612,11 +681,14 @@ with st.sidebar:
                                         data=data_pagamento,
                                         desc=g['descricao'],
                                         cat=g['categoria'],
-                                        valor=g['valor'],
+                                        valor=valor_pagar,
                                         tipo='saida mensal',
                                         dia_vencimento=dia_v
                                     )
-                                    st.session_state.msg_sucesso = f"✅ {g['descricao']} pago em {data_pagamento.strftime('%d/%m/%Y')}!"
+                                    st.session_state.msg_sucesso = (
+                                        f"✅ {g['descricao']} pago — R$ {valor_pagar:.2f} "
+                                        f"em {data_pagamento.strftime('%d/%m/%Y')}!"
+                                    )
                                     st.rerun()
                             else:
                                 st.markdown("<span style='color:#2196F3'>✔ Efetuado</span>", unsafe_allow_html=True)
@@ -786,7 +858,7 @@ with st.sidebar:
                 cat_nova = st.text_input("Ou Digite Nova")
             nova_cat = cat_nova if cat_nova else cat_sel
             novo_valor = st.number_input("Valor", min_value=0.0, step=0.01)
-            novo_tipo = st.selectbox("Tipo", tipos_disponiveis, key=_tipos_key)
+            novo_tipo = st.selectbox("Tipo", tipos_disponiveis, format_func=lambda k: st.session_state.tipos_labels.get(k, k), key=_tipos_key)
             st.caption(f"📂 {len(tipos_disponiveis)} tipos disponíveis")
             tem_vencimento = st.checkbox("📅 Tem dia de vencimento fixo no mês?")
             novo_dia_venc = st.number_input("Dia do Vencimento", min_value=1, max_value=31, value=15, step=1, key="venc_add")
@@ -801,24 +873,42 @@ with st.sidebar:
                     st.rerun()
 
     with st.expander("📝 Editar Registro"):
-        if not df_mes.empty:
+        df_recorrentes = df_transacoes[df_transacoes['tipo'] == 'saida mensal']
+        if not df_recorrentes.empty:
+            ids_template_rec = set(df_recorrentes.groupby(['descricao', 'categoria'])['id'].min().tolist())
+        else:
+            ids_template_rec = set()
+
+        df_editavel = df_transacoes[
+            (df_transacoes['mes_ano'] == mes_selecionado) | 
+            (df_transacoes['id'].isin(ids_template_rec))
+        ].copy()
+
+        if not df_editavel.empty:
             idx_mod = st.selectbox(
-                "Item:", df_mes.index,
-                format_func=lambda x: f"{df_mes.loc[x, 'descricao']}  —  R$ {df_mes.loc[x, 'valor']:.2f}" + (
-                    f" | Dia {int(df_mes.loc[x, 'dia_vencimento'])}" 
-                    if 'dia_vencimento' in df_mes.columns and pd.notna(df_mes.loc[x, 'dia_vencimento']) else ""
+                "Item:", df_editavel.index,
+                format_func=lambda x: (
+                    f"🔁 {df_editavel.loc[x, 'descricao']} (Recorrente)  —  R$ {df_editavel.loc[x, 'valor']:.2f}" + (
+                        f" | Dia {int(df_editavel.loc[x, 'dia_vencimento'])}" 
+                        if 'dia_vencimento' in df_editavel.columns and pd.notna(df_editavel.loc[x, 'dia_vencimento']) else ""
+                    )
+                ) if df_editavel.loc[x, 'id'] in ids_template_rec else (
+                    f"{df_editavel.loc[x, 'descricao']}  —  R$ {df_editavel.loc[x, 'valor']:.2f}" + (
+                        f" | Dia {int(df_editavel.loc[x, 'dia_vencimento'])}" 
+                        if 'dia_vencimento' in df_editavel.columns and pd.notna(df_editavel.loc[x, 'dia_vencimento']) else ""
+                    )
                 ),
                 key=f"m_{st.session_state.form_version}"
             )
             with st.form("form_edit", clear_on_submit=True):
-                n_desc = st.text_input("Nova Descrição", value=df_mes.loc[idx_mod, 'descricao'])
-                n_val = st.number_input("Novo Valor", value=float(df_mes.loc[idx_mod, 'valor']))
+                n_desc = st.text_input("Nova Descrição", value=df_editavel.loc[idx_mod, 'descricao'])
+                n_val = st.number_input("Novo Valor", value=float(df_editavel.loc[idx_mod, 'valor']))
                 
-                tipo_atual = df_mes.loc[idx_mod, 'tipo']
+                tipo_atual = df_editavel.loc[idx_mod, 'tipo']
                 idx_tipo_atual = tipos_disponiveis.index(tipo_atual) if tipo_atual in tipos_disponiveis else 0
-                n_tipo = st.selectbox("Novo Tipo", tipos_disponiveis, index=idx_tipo_atual, key=f"tipo_edit_{st.session_state.form_version}")
+                n_tipo = st.selectbox("Novo Tipo", tipos_disponiveis, index=idx_tipo_atual, format_func=lambda k: st.session_state.tipos_labels.get(k, k), key=f"tipo_edit_{st.session_state.form_version}")
                 
-                venc_atual = df_mes.loc[idx_mod, 'dia_vencimento'] if 'dia_vencimento' in df_mes.columns else None
+                venc_atual = df_editavel.loc[idx_mod, 'dia_vencimento'] if 'dia_vencimento' in df_editavel.columns else None
                 tem_venc_atual = pd.notna(venc_atual)
                 st.markdown("---")
                 n_tem_venc = st.checkbox("📅 Tem dia de vencimento fixo no mês?", value=tem_venc_atual)
@@ -827,29 +917,57 @@ with st.sidebar:
 
                 if st.form_submit_button("Atualizar"):
                     import agente
-                    db_id = int(df_mes.loc[idx_mod, 'id'])
+                    db_id = int(df_editavel.loc[idx_mod, 'id'])
                     dia_venc_edit = n_dia_venc if n_tem_venc else None
                     agente.atualizar_transacao(db_id, n_desc, n_val, nova_data_vencimento=None, novo_tipo=n_tipo, novo_dia_vencimento=dia_venc_edit)
                     st.session_state.msg_sucesso = "📝 Alteração realizada!"
                     st.session_state.form_version += 1
                     st.rerun()
         else:
-            st.info("Nenhum registro neste mês.")
+            st.info("Nenhum registro disponível.")
             
         st.divider()
         st.info("💡 Para depositar na Reserva de Emergência, use o botão no menu lateral.")
 
     with st.expander("🗑️ Remover Registro"):
-        if not df_mes.empty:
+        df_recorrentes = df_transacoes[df_transacoes['tipo'] == 'saida mensal']
+        if not df_recorrentes.empty:
+            ids_template_rec = set(df_recorrentes.groupby(['descricao', 'categoria'])['id'].min().tolist())
+        else:
+            ids_template_rec = set()
+
+        df_removivel = df_transacoes[
+            (df_transacoes['mes_ano'] == mes_selecionado) | 
+            (df_transacoes['id'].isin(ids_template_rec))
+        ].copy()
+
+        if not df_removivel.empty:
             idx_del = st.selectbox(
-                "Item:", df_mes.index,
-                format_func=lambda x: f"{df_mes.loc[x, 'descricao']}  —  R$ {df_mes.loc[x, 'valor']:.2f}" + (
-                    f" | Dia {int(df_mes.loc[x, 'dia_vencimento'])}" 
-                    if 'dia_vencimento' in df_mes.columns and pd.notna(df_mes.loc[x, 'dia_vencimento']) else ""
+                "Item:", df_removivel.index,
+                format_func=lambda x: (
+                    f"🔁 {df_removivel.loc[x, 'descricao']} (Recorrente)  —  R$ {df_removivel.loc[x, 'valor']:.2f}" + (
+                        f" | Dia {int(df_removivel.loc[x, 'dia_vencimento'])}" 
+                        if 'dia_vencimento' in df_removivel.columns and pd.notna(df_removivel.loc[x, 'dia_vencimento']) else ""
+                    )
+                ) if df_removivel.loc[x, 'id'] in ids_template_rec else (
+                    f"{df_removivel.loc[x, 'descricao']}  —  R$ {df_removivel.loc[x, 'valor']:.2f}" + (
+                        f" | Dia {int(df_removivel.loc[x, 'dia_vencimento'])}" 
+                        if 'dia_vencimento' in df_removivel.columns and pd.notna(df_removivel.loc[x, 'dia_vencimento']) else ""
+                    )
                 ),
                 key=f"d_{st.session_state.form_version}"
             )
-               # ── PAGAMENTOS ──────────────────────────────────────────────────
+            if st.button("🗑️ Confirmar Remoção", key="btn_confirmar_remocao"):
+                import agente
+                db_id = int(df_removivel.loc[idx_del, 'id'])
+                agente.remover_transacao(db_id)
+                st.session_state.msg_sucesso = "🗑️ Registro removido com sucesso!"
+                st.session_state.form_version += 1
+                st.rerun()
+        else:
+            st.info("Nenhum registro disponível.")
+
+    # ── PAGAMENTOS ──────────────────────────────────────────────────
     with st.expander("💸 Pagamentos"):
         st.markdown("**Selecione o tipo de transação:**")
 

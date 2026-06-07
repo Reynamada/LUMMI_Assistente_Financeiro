@@ -125,7 +125,35 @@ def exibir_alertas_vencimento(df_transacoes):
         df_recorrentes = df_transacoes[df_transacoes['tipo'] == 'saida mensal'].copy() if not df_transacoes.empty and 'tipo' in df_transacoes.columns else pd.DataFrame()
         
         if not df_recorrentes.empty:
-            gastos_rec_df = df_recorrentes.sort_values('data').drop_duplicates(subset=['descricao', 'categoria'], keep='last')
+            # ID mínimo por item = registro de cadastro (template), não é pagamento
+            ids_template_rec = (
+                df_recorrentes.groupby(['descricao', 'categoria'])['id'].min()
+                .reset_index().rename(columns={'id': 'id_template'})
+            )
+            # Template base: último registro por item (dia_vencimento e demais campos)
+            gastos_rec_df = (
+                df_recorrentes.sort_values('data', ascending=False)
+                .drop_duplicates(subset=['descricao', 'categoria'], keep='first')
+                .copy()
+            )
+            # Melhor valor: último registro com valor > 0 por item (evita R$ 0.00)
+            df_rec_nz = df_recorrentes[df_recorrentes['valor'] > 0]
+            if not df_rec_nz.empty:
+                melhores_val = (
+                    df_rec_nz.sort_values('data', ascending=False)
+                    .drop_duplicates(subset=['descricao', 'categoria'], keep='first')
+                    [['descricao', 'categoria', 'valor']]
+                    .rename(columns={'valor': 'melhor_valor'})
+                )
+                gastos_rec_df = gastos_rec_df.merge(melhores_val, on=['descricao', 'categoria'], how='left')
+                # Substitui 0 pelo melhor valor disponível
+                mask_zero = gastos_rec_df['valor'] == 0
+                gastos_rec_df.loc[mask_zero, 'valor'] = (
+                    gastos_rec_df.loc[mask_zero, 'melhor_valor'].fillna(0)
+                )
+                gastos_rec_df = gastos_rec_df.drop(columns=['melhor_valor'])
+            # Adiciona id_template para identificar o registro de cadastro
+            gastos_rec_df = gastos_rec_df.merge(ids_template_rec, on=['descricao', 'categoria'])
             gastos_rec = gastos_rec_df.to_dict('records')
         else:
             gastos_rec = []
@@ -142,12 +170,13 @@ def exibir_alertas_vencimento(df_transacoes):
             df_mes_atual = pd.DataFrame()
 
         for g in gastos_rec:
-            # Verifica se foi pago
+            # Verifica se foi pago (excluindo o template do cadastro)
             if not df_mes_atual.empty:
                 pagos = df_mes_atual[
                     (df_mes_atual['descricao'] == g['descricao']) & 
                     (df_mes_atual['categoria'] == g['categoria']) & 
-                    (df_mes_atual['tipo'] == 'saida mensal')
+                    (df_mes_atual['tipo'] == 'saida mensal') &
+                    (df_mes_atual['id'] != g['id_template'])
                 ]
             else:
                 pagos = pd.DataFrame()
