@@ -202,92 +202,206 @@ def exibir_alertas_vencimento(df_transacoes):
             st.success("Nenhuma conta estourando. Você está no controle da situação! \U0001f44f")
 
 
-# ────────────────────────────────────────────────────────────────────────
+# ────────────────────────────────────────────────────────
 # INDICADORES DE MERCADO (Banco Central + Câmbio em Tempo Real)
-# ────────────────────────────────────────────────────────────────────────
+# ────────────────────────────────────────────────────────
+
+# Códigos das séries SGS do Banco Central
+_SGS = {
+    "selic_meta": 432,        # Taxa SELIC meta (a.a.)
+    "poupanca":   196,        # Rendimento da poupança (a.m.)
+    "tr":         226,        # Taxa Referencial (TR)
+    "ipca":       433,        # Inflação IPCA (a.m.)
+    "igpm":       189,        # IGP-M (a.m.)
+    "usd_ptax":   10813,      # Dólar comercial PTAX (BCB)
+    "eur_ptax":   21619,      # Euro PTAX (BCB)
+}
+
+_BCB_HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/120.0.0.0 Safari/537.36"
+    )
+}
+
+
+@st.cache_data(ttl=3600)
+def _buscar_historico_bcb(codigo: int, ultimos: int = 12) -> pd.DataFrame:
+    """
+    Busca os últimos N registros de uma série SGS do BCB.
+    USA /ultimos/{N} — eficiente, NÃO baixa o histórico completo.
+    Retorna DataFrame com colunas [data, valor] ou DataFrame vazio em caso de erro.
+    """
+    url = (
+        f"https://api.bcb.gov.br/dados/serie/"
+        f"bcdata.sgs.{codigo}/dados/ultimos/{ultimos}?formato=json"
+    )
+    try:
+        resp = requests.get(url, headers=_BCB_HEADERS, timeout=10)
+        resp.raise_for_status()
+        dados = resp.json()
+        # Valida que a resposta é uma lista antes de converter
+        if not isinstance(dados, list) or len(dados) == 0:
+            return pd.DataFrame()
+        df = pd.DataFrame(dados)
+        if "data" not in df.columns or "valor" not in df.columns:
+            return pd.DataFrame()
+        df["data"] = pd.to_datetime(df["data"], dayfirst=True)
+        df["valor"] = df["valor"].astype(float)
+        return df[["data", "valor"]]
+    except (requests.exceptions.RequestException, ValueError, TypeError, KeyError):
+        return pd.DataFrame()
+
+
+def _calcular_rendimento_poupanca(selic_aa: float, tr_am: float = 0.0) -> float:
+    """
+    Calcula o rendimento mensal da poupança conforme a regra do BCB:
+      - Se SELIC > 8.5% a.a.: rendimento = 0.5% a.m. + TR
+      - Se SELIC <= 8.5% a.a.: rendimento = 70% da SELIC/12 + TR
+    """
+    if selic_aa > 8.5:
+        return round(0.5 + tr_am, 4)
+    return round((selic_aa * 0.7 / 12) + tr_am, 4)
+
+
+@st.cache_data(ttl=3600)
+def _buscar_taxas_brasilapi() -> dict:
+    """
+    Fonte primária: BrasilAPI /taxas/v1
+    CDN global, 1 única requisição, sem chave de API.
+    Retorna SELIC, CDI e IPCA anual.
+    """
+    url = "https://brasilapi.com.br/api/taxas/v1"
+    resultado = {}
+    try:
+        resp = requests.get(url, timeout=5)
+        resp.raise_for_status()
+        dados = resp.json()
+        # Valida que a resposta é uma lista antes de iterar
+        if not isinstance(dados, list):
+            return {}
+        for item in dados:
+            if not isinstance(item, dict):
+                continue
+            nome = item.get("nome", "").upper()
+            valor = item.get("valor")
+            if valor is None:
+                continue
+            if nome == "SELIC":
+                resultado["selic_ano"] = f"{valor}% a.a."
+                resultado["selic_raw"] = float(valor)
+            elif nome == "CDI":
+                resultado["cdi_ano"] = f"{valor}% a.a."
+            elif nome == "IPCA":
+                resultado["ipca_acumulado"] = f"{valor}%"
+        resultado["fonte_taxas"] = "BrasilAPI"
+        return resultado
+    except (requests.exceptions.RequestException, ValueError, TypeError):
+        return {}
+
+
+@st.cache_data(ttl=3600)
+def _buscar_taxas_bcb() -> dict:
+    """
+    Fonte de fallback: API SGS do Banco Central do Brasil.
+    Inclui cálculo correto do rendimento da poupança.
+    """
+    resultado = {}
+    df_selic = _buscar_historico_bcb(_SGS["selic_meta"], ultimos=1)
+    selic_val = float(df_selic.iloc[-1]["valor"]) if not df_selic.empty else None
+
+    if selic_val is not None:
+        resultado["selic_ano"] = f"{selic_val}% a.a."
+        resultado["selic_raw"] = selic_val
+
+    df_tr = _buscar_historico_bcb(_SGS["tr"], ultimos=1)
+    tr_val = float(df_tr.iloc[-1]["valor"]) if not df_tr.empty else 0.0
+
+    df_poupanca = _buscar_historico_bcb(_SGS["poupanca"], ultimos=1)
+    if not df_poupanca.empty:
+        resultado["poupanca_mes"] = f"{df_poupanca.iloc[-1]['valor']}% a.m."
+    elif selic_val is not None:
+        calc = _calcular_rendimento_poupanca(selic_val, tr_val)
+        resultado["poupanca_mes"] = f"{calc}% a.m. (calculado)"
+
+    df_ipca = _buscar_historico_bcb(_SGS["ipca"], ultimos=1)
+    if not df_ipca.empty:
+        resultado["ipca_mes"] = f"{df_ipca.iloc[-1]['valor']}%"
+
+    df_igpm = _buscar_historico_bcb(_SGS["igpm"], ultimos=1)
+    if not df_igpm.empty:
+        resultado["igpm_mes"] = f"{df_igpm.iloc[-1]['valor']}%"
+
+    resultado["fonte_taxas"] = "Banco Central do Brasil (SGS)"
+    return resultado
+
+
+@st.cache_data(ttl=1800)
+def _buscar_cambio_awesomeapi() -> dict:
+    """Cotação de câmbio em tempo real via AwesomeAPI.
+    Fallback automático para BCB PTAX se a AwesomeAPI falhar.
+    """
+    url = "https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL"
+    try:
+        resp = requests.get(url, timeout=8)
+        resp.raise_for_status()
+        dados = resp.json()
+        # Valida que a resposta é um dict e contém as chaves esperadas
+        if not isinstance(dados, dict) or "USDBRL" not in dados or "EURBRL" not in dados:
+            raise ValueError("Resposta inesperada da AwesomeAPI")
+        return {
+            "dolar": f"R$ {float(dados['USDBRL']['bid']):.2f}",
+            "euro":  f"R$ {float(dados['EURBRL']['bid']):.2f}",
+            "atualizacao_dolar": dados["USDBRL"].get("create_date", "N/D"),
+            "fonte_cambio": "AwesomeAPI",
+        }
+    except (requests.exceptions.RequestException, ValueError, TypeError, KeyError):
+        pass
+    # Fallback: câmbio PTAX direto do BCB/SGS
+    try:
+        df_usd = _buscar_historico_bcb(_SGS["usd_ptax"], ultimos=1)
+        df_eur = _buscar_historico_bcb(_SGS["eur_ptax"], ultimos=1)
+        if df_usd.empty and df_eur.empty:
+            raise ValueError("BCB PTAX indisponível")
+        return {
+            "dolar": f"R$ {df_usd.iloc[-1]['valor']:.2f}" if not df_usd.empty else "Indisponível",
+            "euro":  f"R$ {df_eur.iloc[-1]['valor']:.2f}" if not df_eur.empty else "Indisponível",
+            "atualizacao_dolar": "PTAX / BCB",
+            "fonte_cambio": "BCB/SGS (PTAX)",
+        }
+    except (ValueError, IndexError, KeyError):
+        return {"dolar": "Indisponível", "euro": "Indisponível", "fonte_cambio": "Indisponível"}
+
 
 def consultar_indicadores_economicos_br() -> dict:
     """
-    Acessa a API do Banco Central do Brasil (SGS) usando os endpoints corrigidos 
-    e atualizados para capturar a SELIC, Poupança e Inflação.
+    Retorna taxas brasileiras (SELIC, CDI, IPCA, IGP-M, Poupança) e câmbio (USD, EUR)
+    consolidados em um único dict. Cache de 1h via @st.cache_data nas funções internas.
     """
-    indicadores = {
-        "selic_ano": "Indisponível",
-        "poupanca_mes": "Indisponível",
-        "ipca_mes": "Indisponível",
-        "igpm_mes": "Indisponível",
-        "status": "Erro ao conectar com o Banco Central"
-    }
-    
-    # URLs atualizadas da API do Banco Central do Brasil (SGS)
-    urls = {
-        "selic": "https://api.bcb.gov.br/dados/series/bcdata.sgs.432/dados/ultimos/1?formato=json",
-        "poupanca": "https://api.bcb.gov.br/dados/series/bcdata.sgs.196/dados/ultimos/1?formato=json",
-        "ipca": "https://api.bcb.gov.br/dados/series/bcdata.sgs.433/dados/ultimos/1?formato=json",
-        "igpm": "https://api.bcb.gov.br/dados/series/bcdata.sgs.189/dados/ultimos/1?formato=json"
-    }
-    
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-    }
-    
-    try:
-        # 1. Consulta SELIC Meta
-        res_selic = requests.get(urls["selic"], headers=headers, timeout=5)
-        if res_selic.status_code == 200 and len(res_selic.json()) > 0:
-            indicadores["selic_ano"] = f"{res_selic.json()[0]['valor']}%"
-            
-        # 2. Consulta Poupança
-        res_poupanca = requests.get(urls["poupanca"], headers=headers, timeout=5)
-        if res_poupanca.status_code == 200 and len(res_poupanca.json()) > 0:
-            indicadores["poupanca_mes"] = f"{res_poupanca.json()[0]['valor']}%"
-            
-        # 3. Consulta IPCA
-        res_ipca = requests.get(urls["ipca"], headers=headers, timeout=5)
-        if res_ipca.status_code == 200 and len(res_ipca.json()) > 0:
-            indicadores["ipca_mes"] = f"{res_ipca.json()[0]['valor']}%"
-            
-        # 4. Consulta IGP-M
-        res_igpm = requests.get(urls["igpm"], headers=headers, timeout=5)
-        if res_igpm.status_code == 200 and len(res_igpm.json()) > 0:
-            indicadores["igpm_mes"] = f"{res_igpm.json()[0]['valor']}%"
-            
-        indicadores["status"] = "Sucesso"
-        
-    except Exception as e:
-        indicadores["status"] = f"Erro na requisição: {str(e)}"
-        
+    taxas = _buscar_taxas_brasilapi()
+    if not taxas.get("selic_ano"):
+        taxas = _buscar_taxas_bcb()
+
+    cambio = _buscar_cambio_awesomeapi()
+    indicadores = {**taxas, **cambio}
+
+    indicadores.setdefault("selic_ano",    "Indisponível")
+    indicadores.setdefault("poupanca_mes", "Indisponível")
+    indicadores.setdefault("ipca_mes",     "Indisponível")
+    indicadores.setdefault("igpm_mes",     "Indisponível")
+    indicadores["status"] = "Sucesso" if taxas.get("selic_ano") else "Parcial (apenas câmbio disponível)"
     return indicadores
 
 
 def consultar_cambio_atual() -> dict:
-    """
-    Consulta a cotação comercial de USD e EUR via AwesomeAPI.
-    Retorna valores de compra (bid) formatados em R$ com data/hora da útima cotação.
-    """
-    url = "https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL"
-    cambio = {"dolar": None, "euro": None, "status": "erro"}
-
-    try:
-        resp = requests.get(url, timeout=_TIMEOUT)
-        resp.raise_for_status()
-        dados = resp.json()
-
-        cambio["dolar"] = {
-            "valor": f"R$ {float(dados['USDBRL']['bid']):.2f}",
-            "variacao_pct": f"{float(dados['USDBRL']['pctChange']):+.2f}%",
-            "atualizacao": dados['USDBRL'].get('create_date', 'N/D')
-        }
-        cambio["euro"] = {
-            "valor": f"R$ {float(dados['EURBRL']['bid']):.2f}",
-            "variacao_pct": f"{float(dados['EURBRL']['pctChange']):+.2f}%",
-            "atualizacao": dados['EURBRL'].get('create_date', 'N/D')
-        }
-        cambio["status"] = "sucesso"
-    except Exception as e:
-        cambio["status"] = str(e)
-
-    return cambio
+    """Mantido por compatibilidade. Delega para _buscar_cambio_awesomeapi."""
+    raw = _buscar_cambio_awesomeapi()
+    return {
+        "dolar": {"valor": raw.get("dolar", "N/D"), "atualizacao": raw.get("atualizacao_dolar", "N/D")},
+        "euro": {"valor": raw.get("euro", "N/D"), "atualizacao": "N/D"},
+        "status": "sucesso" if raw.get("fonte_cambio") == "AwesomeAPI" else "erro",
+    }
 
 
 def exibir_indicadores_mercado():
@@ -295,41 +409,37 @@ def exibir_indicadores_mercado():
     with st.expander("📊 Indicadores de Mercado (tempo real)", expanded=True):
         with st.spinner("🔄 Consultando Banco Central e cotações..."):
             indicadores = consultar_indicadores_economicos_br()
-            cambio = consultar_cambio_atual()
 
-        st.markdown("### 🏦 Indicadores Econômicos (BCB)")
-
+        st.markdown("### 🏦 Indicadores Econômicos")
         col1, col2 = st.columns(2)
         with col1:
             st.metric("🎯 SELIC (taxa básica)", indicadores.get("selic_ano", "N/D"))
-            st.metric("💰 IPCA (inflação oficial)", indicadores.get("ipca_mes", "N/D"))
+            st.metric("💰 IPCA (inflação)", indicadores.get("ipca_mes", indicadores.get("ipca_acumulado", "N/D")))
         with col2:
             st.metric("💳 Poupança (a.m.)", indicadores.get("poupanca_mes", "N/D"))
             st.metric("🏠 IGP-M (aluguel/atacado)", indicadores.get("igpm_mes", "N/D"))
+        if indicadores.get("cdi_ano"):
+            st.metric("🏦 CDI", indicadores["cdi_ano"])
 
-        if indicadores.get("status") != "Sucesso":
-            st.caption(f"⚠️ {indicadores.get('status', 'Erro desconhecido')}")
+        if indicadores.get("status") not in ("Sucesso", None):
+            st.caption(f"⚠️ {indicadores.get('status', '')}")
 
         st.divider()
         st.markdown("### 💱 Câmbio Atual")
-
-        if cambio["status"] == "sucesso":
-            col3, col4 = st.columns(2)
-            with col3:
-                usd = cambio["dolar"]
-                st.metric("🇺🇸 Dólar (USD)", usd["valor"], delta=usd["variacao_pct"])
-                st.caption(f"Atualizado: {usd['atualizacao']}")
-            with col4:
-                eur = cambio["euro"]
-                st.metric("🇪🇺 Euro (EUR)", eur["valor"], delta=eur["variacao_pct"])
-                st.caption(f"Atualizado: {eur['atualizacao']}")
-        else:
-            st.warning("📡 Não foi possível obter as cotações agora. Tente em instantes.")
+        col3, col4 = st.columns(2)
+        with col3:
+            st.metric("🇺🇸 Dólar (USD)", indicadores.get("dolar", "N/D"))
+        with col4:
+            st.metric("🇪🇺 Euro (EUR)", indicadores.get("euro", "N/D"))
 
         st.caption(
-            "🔗 Fontes: "
-            "[Banco Central do Brasil – SGS](https://sgsweb.bcb.gov.br/sgspub/) | "
-            "[AwesomeAPI Câmbio](https://docs.awesomeapi.com.br/api-de-moedas)")
+            f"🔗 Taxas: **{indicadores.get('fonte_taxas', '')}** | "
+            f"Câmbio: **{indicadores.get('fonte_cambio', '')}** | "
+            "[BCB/SGS](https://sgsweb.bcb.gov.br/sgspub/) | "
+            "[AwesomeAPI](https://docs.awesomeapi.com.br/api-de-moedas)"
+        )
+
+
 
 
 # ────────────────────────────────────────────────────────────────────────

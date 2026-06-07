@@ -1062,7 +1062,13 @@ if prompt := st.chat_input("Pergunte algo ao LUMMI..."):
                 
                 # Fetch indicadores if needed
                 dados_mercado_str = ""
-                if skill_detectada == "indicadores" or any(w in p_lower for w in ["selic", "poupança", "poupanca", "ipca"]):
+                palavras_mercado = [
+                    "selic", "poupança", "poupanca", "ipca", "igpm", "igp-m",
+                    "dólar", "dolar", "euro", "câmbio", "cambio", "cotação", "cotacao",
+                    "taxa", "juros", "taxa de juros", "rendimento", "mercado",
+                    "inflação", "inflacao", "rende", "quanto rende"
+                ]
+                if skill_detectada == "indicadores" or any(w in p_lower for w in palavras_mercado):
                     from skills import consultar_indicadores_economicos_br
                     indicadores = consultar_indicadores_economicos_br()
                     dados_mercado_str = f"\n\n4. DADOS REAIS DE MERCADO (HOJE):\nO usuário perguntou sobre o mercado. Use EXATAMENTE os dados oficiais do Banco Central abaixo para responder.\n{json.dumps(indicadores, ensure_ascii=False)}\nNunca invente as taxas. Use os números exatos fornecidos."
@@ -1100,6 +1106,7 @@ if prompt := st.chat_input("Pergunte algo ao LUMMI..."):
                 - FOCO: Priorize 1) Quitar dívidas, 2) Construir reserva (6x a renda mensal), 3) Investir. Sempre termine com próximos passos práticos!
                 - LIMITES: Nunca recomende ativos de alto risco (ex: Criptomoedas, Ações Específicas). Se pedirem dicas diretas de onde investir, diga: "Oi, Reyna! 😃 Como seu parceiro de finanças, meu papel é te ajudar a entender as opções — não escolher um investimento específico por você. Vamos ver juntos o que faz mais sentido para o seu perfil!"* — O agente não faz indicação direta, mas explica as opções compatíveis com o perfil do cliente.
                 - USE o material educativo para embasar suas falas e nunca invente dados. Use exemplos em reais (R$).
+                - GROUNDING OBRIGATÓRIO (REGRA DE OURO): Quando o usuário perguntar sobre taxas financeiras, rendimentos ou cotações de moedas (ex: "quanto rende a poupança", "qual é a SELIC hoje", "cotação do dólar", "taxa de juros", "IPCA", "IGP-M", "euro"), você OBRIGATORIAMENTE deve usar SOMENTE os dados reais injetados na seção "DADOS REAIS DE MERCADO (HOJE)" deste prompt, buscados em tempo real da API oficial do Banco Central do Brasil e da AwesomeAPI. É TERMINANTEMENTE PROIBIDO inventar, estimar ou usar valores de memória para taxas e cotações. Se os dados de mercado não estiverem disponíveis no contexto, informe o usuário que não foi possível obter os dados em tempo real neste momento e oriente-o a consultar o site do Banco Central (bcb.gov.br).
                 """
 
                 mensagens_api = [{"role": "system", "content": SYSTEM_PROMPT}] + st.session_state.messages

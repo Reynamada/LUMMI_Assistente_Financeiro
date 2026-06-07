@@ -146,7 +146,8 @@ Abaixo está o detalhamento dos componentes do sistema, organizados por responsa
 | **Interface** | **Dashboard Streamlit** | Interface principal que renderiza métricas e o chat conversacional. | `src/app.py` |
 | **Interface** | **Sidebar Gerencial** | Painel lateral para filtros de data e cadastro de novas transações, depósitos e dívidas. | `src/app.py` |
 | **Lógica** | **Cérebro (Agente)** | Processamento de lógica financeira e formatação de dados para a IA. | `src/agente.py` |
-| **Lógica** | **Skills / Habilidades** | Execução de relatórios e simuladores chamados pelo chat. | `src/skills.py` |
+| **Lógica** | **Skills / Habilidades** | 7 skills ativas: diagnóstico, metas, simulador, alertas, mercado, histórico e PDF. | `src/skills.py` |
+| **Mercado** | **APIs de Mercado (3 camadas)** | BrasilAPI (primária) → BCB/SGS (fallback) → PTAX/AwesomeAPI (câmbio). Cache de 1h. | `src/skills.py` |
 | **Conexão** | **OpenRouter Gateway** | Gerenciamento de requisições e integração com modelos de IA. | `src/config.py` |
 | **Persistência** | **Banco de Dados Relacional** | Gerenciamento de entidades via SQLAlchemy conectando ao PostgreSQL (Neon). | `src/database.py` |
 | **Persistência** | **Material Educativo Local** | Base de conhecimento fixa sobre conceitos financeiros. | `data/` |
@@ -166,10 +167,94 @@ Para garantir respostas fiéis à realidade da **Reyna Amada**, o agente utiliza
 1. Recupera o **Perfil do Investidor** diretamente do Banco de Dados PostgreSQL (tabela `Perfil`).
 2. Consulta o **Material Educativo** (JSON) para termos técnicos.
 3. Analisa o **Histórico de Transações** filtradas no banco de dados (tabela `Transacao`).
-4. Injeta esses dados de forma consolidada no **System Prompt** antes de enviar para a IA.
+4. Se a pergunta envolver taxas ou câmbio, consulta **APIs financeiras externas** em tempo real (ver seção abaixo) e injeta os valores oficiais no contexto.
+5. Injeta todos esses dados de forma consolidada no **System Prompt** antes de enviar para a IA, com instrução explícita de que é **terminantemente proibido inventar ou usar valores de memória** para taxas e cotações.
 
 ### 3. Gestão de Dependências
 O arquivo `requirements.txt` centraliza as bibliotecas necessárias para o funcionamento de todos os componentes listados no quadro acima.
+
+---
+
+### 4. Integração com APIs de Mercado em Tempo Real
+
+O LUMMI consulta dados econômicos reais (SELIC, CDI, IPCA, IGP-M, câmbio USD/EUR) para fundamentar suas respostas. A estratégia foi projetada com **resiliência em 3 camadas** e **cache de 1 hora**, garantindo disponibilidade máxima e sem sobrecarga nas APIs.
+
+#### Arquitetura de Fallback
+
+```
+Pergunta do usuário (taxas, câmbio, juros, inflação...)
+          ↓
+┌─────────────────────────────────────────────────────┐
+│  CAMADA 1 (Primária): BrasilAPI /taxas/v1           │
+│  → brasilapi.com.br/api/taxas/v1                    │
+│  → CDN global, 1 requisição, sem chave             │
+│  → Retorna: SELIC, CDI, IPCA | Cache: 1h            │
+└────────────────────┬────────────────────────────────┘
+                     │ (se falhar)
+                     ↓
+┌─────────────────────────────────────────────────────┐
+│  CAMADA 2 (Fallback): BCB / SGS                     │
+│  → api.bcb.gov.br/dados/serie/bcdata.sgs.{cod}/... │
+│  → Fonte oficial do Banco Central do Brasil         │
+│  → Retorna: SELIC, Poupança a.m., IPCA, IGP-M       │
+│  → Usa /ultimos/{N} (eficiente, não baixa tudo)     │
+│  → Fórmula da poupança calculada pelo código        │
+└─────────────────────────────────────────────────────┘
+          ↓ (sempre, em paralelo com taxas)
+┌─────────────────────────────────────────────────────┐
+│  CÂMBIO: AwesomeAPI (primário)                      │
+│  → economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL  │
+│  → Gratuita, sem chave de API | Cache: 30min        │
+└────────────────────┬────────────────────────────────┘
+                     │ (se falhar)
+                     ↓
+┌─────────────────────────────────────────────────────┐
+│  CÂMBIO FALLBACK: BCB / PTAX (Séries 10813 / 21619) │
+│  → Dólar e Euro PTAX direto do SGS do BCB           │
+│  → Sem dependência de terceiros                     │
+└─────────────────────────────────────────────────────┘
+```
+
+#### Fontes e Características
+
+| Fonte | Endpoint | Dados | Chave de API | Cache | Notas |
+|---|---|---|---|---|---|
+| **BrasilAPI** (primária) | `brasilapi.com.br/api/taxas/v1` | SELIC, CDI, IPCA | Não | 1h | CDN global, 1 requisição |
+| **BCB / SGS** (fallback) | `api.bcb.gov.br` | SELIC, Poupança, IPCA, IGP-M | Não | 1h | Oficial; usa `/ultimos/{N}` |
+| **AwesomeAPI** (câmbio) | `economia.awesomeapi.com.br` | USD/BRL, EUR/BRL | Não | 30min | Gratuita e sem registro |
+| **BCB PTAX** (fallback câmbio) | `api.bcb.gov.br` séries 10813/21619 | USD/BRL, EUR/BRL | Não | 1h | Ativado se AwesomeAPI falhar |
+
+#### Fórmula Oficial da Poupança
+
+O LUMMI calcula o rendimento da poupança via código Python, usando a regra oficial do Banco Central, sem delegar esse cálculo à IA:
+
+```python
+# SELIC > 8.5% a.a. → 0.5% a.m. + TR
+# SELIC ≤ 8.5% a.a. → 70% × (SELIC/12) + TR
+def _calcular_rendimento_poupanca(selic_aa: float, tr_am: float = 0.0) -> float:
+    if selic_aa > 8.5:
+        return round(0.5 + tr_am, 4)
+    return round((selic_aa * 0.7 / 12) + tr_am, 4)
+```
+
+#### Nova Skill: `exibir_historico_indicador`
+
+Skill interativa que exibe um gráfico histórico de qualquer indicador do BCB:
+- Seleção de indicador: SELIC, IPCA, IGP-M, Poupança, Dólar PTAX, Euro PTAX
+- Seleção de período: 6, 12 ou 24 meses
+- Busca eficiente via `/ultimos/{N}` — **não baixa o histórico completo** (ao contrário do padrão `/dados` sem filtro)
+- Cache de 1h integrado via `@st.cache_data`
+
+#### Por que não usamos Web Scraping no site bcb.gov.br?
+
+O site oficial `www.bcb.gov.br` utiliza renderização dinâmica com **JavaScript (Angular)**, o que significa que uma requisição HTTP simples retorna apenas o HTML vazio — os dados reais são carregados pelo browser após a execução do JS. Para realizar o scraping correto seria necessário um browser headless (Playwright/Selenium), o que traz os seguintes problemas:
+
+- ❌ **Incompatível com Streamlit Cloud** — ambientes cloud geralmente não permitem browsers headless
+- ❌ **Lento** — iniciar um browser demora 5–15s contra ~1s de uma chamada de API
+- ❌ **Frágil** — qualquer mudança de layout do site quebra o scraper
+- ❌ **Possível violação de Termos de Uso** do site
+
+A API SGS do BCB (`api.bcb.gov.br`) **é a forma oficial que o próprio Banco Central disponibiliza para acesso programático aos dados** — é a porta de serviço que o BCB criou para desenvolvedores. A BrasilAPI consome essa mesma fonte com uma camada de cache e CDN.
 
 
 ## Segurança e Anti-Alucinação
@@ -183,6 +268,8 @@ O arquivo `requirements.txt` centraliza as bibliotecas necessárias para o funci
 -  Sem recomendações de investimento: apenas explica conceitos e simula cenários de orçamento.
 -  Validação de consistência: checa se números e percentuais fazem sentido antes de responder.
 -  Personalização segura: sugestões adaptadas ao perfil do cliente, sem extrapolar além dos dados fornecidos.
+-  GROUNDING OBRIGATÓRIO: Regra explícita no System Prompt proibindo a IA de inventar taxas ou cotações. Usa exclusivamente os dados injetados pelas APIs em tempo real. Se os dados não estiverem disponíveis, o agente informa o usuário e redireciona para o bcb.gov.br.
+-  Fórmula da poupança calculada por código Python (regra oficial do BCB), nunca estimada pela IA.
 ```
 
 ### Limitações Declaradas

@@ -66,10 +66,17 @@ O projeto foi desenvolvido como parte do laboratório **BIA do Futuro** (DIO —
 - Integra dívidas cadastradas e gastos recorrentes em uma única visão
 
 ### 📈 Indicadores de Mercado em Tempo Real
-- Consulta à **API oficial do Banco Central do Brasil (SGS/BCB)** com `User-Agent` correto
-- Taxas: SELIC, Poupança (a.m.), IPCA e IGP-M sempre atualizadas
-- Cotações de câmbio USD e EUR via AwesomeAPI
-- Integradas ao contexto do assistente: ao perguntar sobre "poupança" ou "SELIC", o LUMMI busca os dados reais e os usa na resposta
+- **Arquitetura de resiliência em 3 camadas** para garantir disponibilidade máxima:
+  1. **BrasilAPI** (primária) — CDN global, 1 única requisição, sem chave de API
+  2. **BCB/SGS** (fallback) — API oficial do Banco Central, usada se a BrasilAPI falhar
+  3. **BCB PTAX** (fallback de câmbio) — séries 10813/21619 do SGS se a AwesomeAPI falhar
+- Taxas consultadas: SELIC, CDI, Poupança (a.m.), IPCA e IGP-M
+- **Cálculo oficial da poupança** via fórmula do BCB: SELIC > 8,5% → 0,5% a.m. + TR; caso contrário 70% × SELIC/12 + TR
+- Cotações de câmbio USD e EUR em tempo real via AwesomeAPI (sem chave de API)
+- **Cache de 1 hora** via `@st.cache_data(ttl=3600)` — evita requisições redundantes
+- **Nova skill `exibir_historico_indicador`**: gráfico histórico interativo com seleção de indicador e período (6/12/24 meses), usando `/ultimos/{N}` — eficiente, não baixa o histórico completo
+- Palavras-chave expandidas: `selic`, `poupança`, `ipca`, `dólar`, `euro`, `câmbio`, `cotação`, `taxa`, `juros`, `inflação`, `rendimento`, `mercado`
+- Integradas ao contexto do assistente: a IA recebe os dados reais no prompt e é proibida de inventar taxas
 
 ### 🔧 Tipos de Transação Dinâmicos
 - CRUD completo de tipos diretamente no banco de dados
@@ -155,11 +162,12 @@ O projeto foi desenvolvido como parte do laboratório **BIA do Futuro** (DIO —
 
 ## 🔌 APIs e Integrações
 
-| API | Endpoint | Dados | Autenticação |
-|---|---|---|---|
-| Banco Central Brasil (SGS) | `api.bcb.gov.br` | SELIC, IPCA, Poupança, IGP-M | Pública |
-| AwesomeAPI Câmbio | `economia.awesomeapi.com.br` | USD/BRL, EUR/BRL | Pública |
-| OpenRouter | `openrouter.ai/api/v1` | LLM Chat Completions | Bearer Token |
+| API | Endpoint | Dados | Autenticação | Papel |
+|---|---|---|---|---|
+| **BrasilAPI** | `brasilapi.com.br/api/taxas/v1` | SELIC, CDI, IPCA | Pública | Fonte primária de taxas |
+| Banco Central Brasil (SGS) | `api.bcb.gov.br` | SELIC, Poupança, IPCA, IGP-M, PTAX | Pública | Fallback oficial |
+| AwesomeAPI Câmbio | `economia.awesomeapi.com.br` | USD/BRL, EUR/BRL | Pública | Câmbio em tempo real |
+| OpenRouter | `openrouter.ai/api/v1` | LLM Chat Completions | Bearer Token | Gateway de IA |
 
 ---
 
@@ -237,7 +245,8 @@ streamlit run src/app.py
 | `orçamento`, `diagnóstico`, `gasto` | `exibir_diagnostico_financeiro` | Análise de saúde financeira do mês |
 | `motiva`, `inspiração`, `ajuda` | `exibir_motivacao` | Mensagem motivacional personalizada |
 | `vencimento`, `fatura`, `pagar` | `exibir_alertas_vencimento` | Alertas de contas próximas do vencimento |
-| `selic`, `poupança`, `ipca`, `taxa` | `consultar_indicadores_economicos_br` | Dados reais do Banco Central em tempo real |
+| `selic`, `poupança`, `ipca`, `dólar`, `euro`, `câmbio`, `taxa`, `juros`, `inflação`, `mercado` | `consultar_indicadores_economicos_br` | Dados reais do Banco Central e câmbio em tempo real |
+| `histórico`, `gráfico`, `evolução` | `exibir_historico_indicador` | Gráfico histórico interativo de indicadores do BCB (6/12/24 meses) |
 
 ---
 
@@ -249,6 +258,10 @@ streamlit run src/app.py
 - **Tipos dinâmicos no banco:** Lista de categorias de transação gerenciada pelo próprio banco, não por arquivo estático
 - **Saldo historicamente correto:** Depósitos na Reserva de Emergência são excluídos dos cálculos de "saídas" para não duplicar o desconto no saldo
 - **Prompt contextual:** Cada requisição à IA carrega saldo, histórico do mês, metas e dados de mercado — sem alucinações sobre os dados do usuário
+- **Grounding obrigatório:** Regra explícita no System Prompt proibindo a IA de inventar taxas — usa exclusivamente os dados injetados pelas APIs em tempo real
+- **Cache de APIs:** `@st.cache_data(ttl=3600)` em todas as funções de mercado — evita requisições redundantes ao BCB e melhora a performance
+- **Resiliência de APIs:** Fallback em cascata BrasilAPI → BCB/SGS → PTAX — sem ponto único de falha para dados de mercado
+- **Fórmula da poupança:** Calculada pela regra oficial do BCB (não estimada pela IA)
 
 ---
 
@@ -256,12 +269,13 @@ streamlit run src/app.py
 
 | Métrica | Valor |
 |---|---|
-| Linhas de código (src/) | ~1.800 |
+| Linhas de código (src/) | ~2.000 |
 | Arquivos Python | 5 |
 | Tabelas no banco | 4 |
-| Skills de IA implementadas | 6 |
-| APIs externas integradas | 3 |
+| Skills de IA implementadas | 7 |
+| APIs externas integradas | 4 |
 | Modelos LLM com fallback | 2 |
+| Camadas de fallback de mercado | 3 (BrasilAPI → BCB/SGS → PTAX) |
 | Cobertura de tipos de transação | Ilimitada (CRUD dinâmico) |
 
 ---

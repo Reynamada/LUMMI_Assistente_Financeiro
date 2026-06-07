@@ -45,6 +45,16 @@ Crie testes simples para validar seu agente:
 - **Resposta esperada:** *O valor da métrica 'Reserva de Emergência' aumenta em R$ 100,00, e uma nova transação chamada 'Depósito Reserva de Emergência' é salva no banco de dados e refletida imediatamente no saldo do dashboard.*
 - **Resultado:** [x] Correto  [ ] Incorreto
 
+### Teste 7: Consulta de Taxas de Mercado em Tempo Real (Grounding)
+- **Pergunta:** "Quanto rende a poupança hoje?" / "Qual é a SELIC agora?" / "Qual o dólar?"
+- **Resposta esperada:** *O LUMMI detecta a palavra-chave, aciona a função `consultar_indicadores_economicos_br`, busca dados em tempo real (BrasilAPI ou BCB como fallback) e injeta os valores oficiais no prompt. A IA responde com os números exatos da API — não inventa nem usa valores de memória. O rendimento da poupança é calculado pela fórmula oficial do BCB (SELIC > 8,5% → 0,5% a.m. + TR).*
+- **Resultado:** [x] Correto  [ ] Incorreto
+
+### Teste 8: Histórico de Indicadores (Nova Skill)
+- **Ação:** No chat, pedir "Mostre o gráfico histórico da SELIC" ou acionar a skill de histórico.
+- **Resposta esperada:** *O Streamlit renderiza o expander `exibir_historico_indicador` com seletor de indicador (SELIC, IPCA, IGP-M, Poupança, Dólar PTAX, Euro PTAX) e período (6/12/24 meses). O gráfico de linha é exibido com o último valor destacado. Apenas N registros são baixados (eficiente).*
+- **Resultado:** [x] Correto  [ ] Incorreto
+
 ---
 ## Feedback real:
  Usuário 1 (perfil investidor – nota 5): A experiência foi considerada excelente, sem sugestões adicionais de melhoria no momento, ja que atualmente nao tem interesse ainda em investir por suas dividas, o lummi deu ideas para ele melhorar em suas finanças para depois considerar investir. 
@@ -61,10 +71,14 @@ Após os testes, minhas conclusões:
 - A integração com Banco de Dados PostgreSQL (via Neon) melhorou drasticamente a consistência dos dados, substituindo arquivos locais.
 - A capacidade de alterar tipos de transações dinamicamente, pagar dívidas parciais e visualizar o saldo líquido na hora está operando muito bem.
 - Cumpre com as regras obrigatórias e invoca os componentes interativos (Skills: metas, diagnostico, simulador) sem alucinações.
+- **APIs de Mercado com resiliência em 3 camadas:** BrasilAPI (primária) → BCB/SGS (fallback) → PTAX (câmbio fallback). Cache de 1h integrado via `@st.cache_data` — evita requisições redundantes e melhora a performance significativamente.
+- **Fórmula oficial da poupança** calculada por código Python, não estimada pela IA.
+- **Grounding obrigatório** com regra explícita no System Prompt: a IA é proibida de inventar taxas ou cotações.
+- **Nova skill `exibir_historico_indicador`:** gráfico histórico interativo de indicadores do BCB (6/12/24 meses) usando `/ultimos/{N}` — eficiente, sem baixar o histórico completo.
 
 **O que pode melhorar (Próximos Passos):**
 - Implementar autenticação multi-tenant (vários usuários) no banco de dados para que diferentes clientes possam fazer login sem interferir nos dados uns dos outros (atualmente é single-tenant com senha de acesso global).
-- Que o agente LUMMI fosse capaz de fazer um monitoramento proativo do mercado: incorporar mecanismos de atualização automática sobre tendências financeiras.
+- Incorporar mecanismos de atualização automática sobre tendências financeiras — monitoramento proativo do mercado pelo LUMMI.
 ---
 
 
