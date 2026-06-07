@@ -295,9 +295,9 @@ Este projeto demonstra capacidade em:
 
 ---
 
-## 📄 Licença
+## 📄 APP EM STREAMLIT
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Pode entrar diretamente ao Agente LUMMI: [https://lummiassistentefinanceiro.streamlit.app/]
 
 ---
 
