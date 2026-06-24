@@ -52,4 +52,4 @@ A solução atua como um educador integrado. Através de uma base de conheciment
 
 > Cole aqui o link do seu pitch (YouTube, Loom, Google Drive, etc.)
 
-[[Link do vídeo](https://drive.google.com/file/d/17lSzXblZfaWlaq3YrX2D5hpfgNRQ3pTp/view?usp=sharing)]
+[[Link do vídeo](https://drive.google.com/file/d/1my3gYZ9jajKjWCXw6RSOTp6orULxWu5a/view?usp=sharing)]
