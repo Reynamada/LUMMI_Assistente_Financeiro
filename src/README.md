@@ -53,5 +53,5 @@ python -m streamlit run src/app.py
 ```
 ### Streamlit Cloud (Deploy app)
 ```
-https://lummiassistentefinanceiro.streamlit.app/
+[https://lummiassistentefinanceiro.streamlit.app/]
 ```
