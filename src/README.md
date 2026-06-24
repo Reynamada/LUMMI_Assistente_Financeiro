@@ -51,7 +51,7 @@ pip install -r requirements.txt
 Bash
 python -m streamlit run src/app.py
 ```
-
+### Streamlit Cloud (Deploy app)
 ```
-
+https://lummiassistentefinanceiro.streamlit.app/
 ```
