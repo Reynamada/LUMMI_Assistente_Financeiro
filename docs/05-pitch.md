@@ -50,6 +50,6 @@ A solução atua como um educador integrado. Através de uma base de conheciment
 
 ## Link do Vídeo
 
-> Cole aqui o link do seu pitch (YouTube, Loom, Google Drive, etc.)
+> Presentação do LUMMI
 
 [[Link do vídeo](https://drive.google.com/file/d/1my3gYZ9jajKjWCXw6RSOTp6orULxWu5a/view?usp=sharing)]
