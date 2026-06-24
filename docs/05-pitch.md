@@ -31,10 +31,8 @@ A solução atua como um educador integrado. Através de uma base de conheciment
 ### 4. Diferencial e Impacto 
 > Por que essa solução é inovadora e qual é o impacto dela na sociedade?
 
-[Por que essa solução é inovadora e qual é o impacto dela na sociedade? 
-"O diferencial do LUMMI é a hiper-personalização aliada à robustez técnica. Ao integrar um Banco de Dados PostgreSQL em Nuvem (Neon), o LUMMI evoluiu de um simples chatbot para um sistema de gestão completo. Ele atua como um parceiro que não apenas rastreia dívidas e pagamentos recorrentes, mas aciona 'Skills Visuais' interativas durante o chat. O impacto social é a democratização do acesso à gestão e educação financeira de qualidade, transformando a relação das pessoas com o dinheiro, reduzindo o endividamento e incentivando investimentos conscientes para o futuro da família brasileira."
-"Além da interface amigável, o LUMMI foi construído com foco em escalabilidade, segurança e portabilidade, utilizando SQLAlchemy, segredos criptografados e a infraestrutura robusta do OpenRouter para garantir que a inteligência do agente esteja sempre disponível e atualizada."
-]
+[“O diferencial do LUMMI está na união entre personalização e robustez técnica. Ele não é um chatbot genérico: usa banco de dados PostgreSQL em nuvem, integra APIs oficiais do Banco Central e conta com fallback automático entre modelos de IA de última geração.
+O impacto? Uma sociedade mais informada, transparente e empoderada financeiramente. O LUMMI ajuda cada pessoa a gerir suas finanças com dados confiáveis e educação acessível, promovendo autonomia e segurança no dia a dia.”]
 
 ---
 
